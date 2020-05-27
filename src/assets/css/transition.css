@@ -1,0 +1,43 @@
+.fade-height-init{
+    height:0;
+    overflow: hidden;
+    opacity: 0;
+    transition:500ms ease-out;
+}
+
+.fade-height-entered{
+    opacity: 1;
+    height:auto;
+}
+
+.fade-height-exited{
+    opacity: 0;
+    height:0;
+}
+
+.fade-rotate90-init{
+    transform: rotate(0deg);
+    transition:500ms ease-out;
+}
+
+.fade-rotate90-entered{
+    transform: rotate(90deg);
+}
+
+.fade-rotate90-exited{
+    transform: rotate(0deg);
+}
+
+.fade-opacity-init{
+    opacity:0;
+    transition: opacity 300ms ease-out;
+}
+
+.fade-opacity-entered{
+    opacity:1;
+}
+
+.fade-opacity-exited{
+    opacity:0;
+}
+
