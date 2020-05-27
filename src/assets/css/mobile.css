@@ -1,0 +1,355 @@
+.isMobile .radius-xs {
+  border-radius: 0.08533333rem;
+}
+.isMobile .radius-sm {
+  border-radius: 0.17066667rem;
+}
+.isMobile .radius-df {
+  border-radius: 0.256rem;
+}
+.isMobile .radius-lg {
+  border-radius: 0.34133333rem;
+}
+.isMobile .radius-xl {
+  border-radius: 0.64rem;
+}
+.isMobile .radius-round-xs {
+  border-radius: 0.21333333rem 0.21333333rem 0.21333333rem 0.21333333rem / 50% 50% 50% 50%;
+}
+.isMobile .radius-round-sm {
+  border-radius: 0.42666667rem 0.42666667rem 0.42666667rem 0.42666667rem / 50% 50% 50% 50%;
+}
+.isMobile .radius-round-df {
+  border-radius: 0.64rem 0.64rem 0.64rem 0.64rem / 50% 50% 50% 50%;
+}
+.isMobile .radius-round-lg {
+  border-radius: 0.85333333rem 0.85333333rem 0.85333333rem 0.85333333rem / 50% 50% 50% 50%;
+}
+.isMobile .radius-round-xl {
+  border-radius: 1.06666667rem 1.06666667rem 1.06666667rem 1.06666667rem / 50% 50% 50% 50%;
+}
+.isMobile .radius-round-max {
+  border-radius: 1.28rem 1.28rem 1.28rem 1.28rem / 50% 50% 50% 50%;
+}
+.isMobile .round {
+  border-radius: 50%;
+}
+.isMobile .text-xs {
+  font-size: 0.256rem !important;
+}
+.isMobile .text-sm {
+  font-size: 0.34133333rem !important;
+}
+.isMobile .text-df {
+  font-size: 0.512rem !important;
+}
+.isMobile .text-lg {
+  font-size: 0.64rem !important;
+}
+.isMobile .text-xl {
+  font-size: 0.768rem !important;
+}
+.isMobile .text-xsl {
+  font-size: 0.896rem !important;
+}
+.isMobile .text-xml {
+  font-size: 1.024rem !important;
+}
+.isMobile .text-xdl {
+  font-size: 1.152rem !important;
+}
+.isMobile .text-xgl {
+  font-size: 1.28rem !important;
+}
+.isMobile .text-xxl {
+  font-size: 1.408rem !important;
+}
+.isMobile .text-indent-xs {
+  text-indent: 0.21333333rem;
+}
+.isMobile .text-indent-sm {
+  text-indent: 0.42666667rem;
+}
+.isMobile .text-indent {
+  text-indent: 0.64rem;
+}
+.isMobile .text-indent-lg {
+  text-indent: 0.85333333rem;
+}
+.isMobile .text-indent-xl {
+  text-indent: 1.06666667rem;
+}
+.isMobile .padding {
+  padding: 0.64rem;
+}
+.isMobile .padding-xs {
+  padding: 0.21333333rem;
+}
+.isMobile .padding-sm {
+  padding: 0.42666667rem;
+}
+.isMobile .padding-df {
+  padding: 0.85333333rem;
+}
+.isMobile .padding-lg {
+  padding: 1.06666667rem;
+}
+.isMobile .padding-xl {
+  padding: 1.28rem;
+}
+.isMobile .padding-lr {
+  padding-left: 0.64rem;
+  padding-right: 0.64rem;
+}
+.isMobile .padding-lr-xs {
+  padding-left: 0.21333333rem;
+  padding-right: 0.21333333rem;
+}
+.isMobile .padding-lr-sm {
+  padding-left: 0.42666667rem;
+  padding-right: 0.42666667rem;
+}
+.isMobile .padding-lr-df {
+  padding-left: 0.85333333rem;
+  padding-right: 0.85333333rem;
+}
+.isMobile .padding-lr-lg {
+  padding-left: 1.06666667rem;
+  padding-right: 1.06666667rem;
+}
+.isMobile .padding-lr-xl {
+  padding-left: 1.28rem;
+  padding-right: 1.28rem;
+}
+.isMobile .padding-tb {
+  padding-top: 0.64rem;
+  padding-bottom: 0.64rem;
+}
+.isMobile .padding-tb-xs {
+  padding-top: 0.21333333rem;
+  padding-bottom: 0.21333333rem;
+}
+.isMobile .padding-tb-sm {
+  padding-top: 0.42666667rem;
+  padding-bottom: 0.42666667rem;
+}
+.isMobile .padding-tb-df {
+  padding-top: 0.85333333rem;
+  padding-bottom: 0.85333333rem;
+}
+.isMobile .padding-tb-lg {
+  padding-top: 1.06666667rem;
+  padding-bottom: 1.06666667rem;
+}
+.isMobile .padding-tb-xl {
+  padding-top: 1.28rem;
+  padding-bottom: 1.28rem;
+}
+.isMobile .padding-left {
+  padding-left: 0.64rem;
+}
+.isMobile .padding-left-xs {
+  padding-left: 0.21333333rem;
+}
+.isMobile .padding-left-sm {
+  padding-left: 0.42666667rem;
+}
+.isMobile .padding-left-df {
+  padding-left: 0.85333333rem;
+}
+.isMobile .padding-left-lg {
+  padding-left: 1.06666667rem;
+}
+.isMobile .padding-left-xl {
+  padding-left: 1.28rem;
+}
+.isMobile .padding-right {
+  padding-right: 0.64rem;
+}
+.isMobile .padding-right-xs {
+  padding-right: 0.21333333rem;
+}
+.isMobile .padding-right-sm {
+  padding-right: 0.42666667rem;
+}
+.isMobile .padding-right-df {
+  padding-right: 0.85333333rem;
+}
+.isMobile .padding-right-lg {
+  padding-right: 1.06666667rem;
+}
+.isMobile .padding-right-xl {
+  padding-right: 1.28rem;
+}
+.isMobile .padding-top {
+  padding-top: 0.64rem;
+}
+.isMobile .padding-top-xs {
+  padding-top: 0.21333333rem;
+}
+.isMobile .padding-top-sm {
+  padding-top: 0.42666667rem;
+}
+.isMobile .padding-top-df {
+  padding-top: 0.85333333rem;
+}
+.isMobile .padding-top-lg {
+  padding-top: 1.06666667rem;
+}
+.isMobile .padding-top-xl {
+  padding-top: 1.28rem;
+}
+.isMobile .padding-bottom {
+  padding-bottom: 0.64rem;
+}
+.isMobile .padding-bottom-xs {
+  padding-bottom: 0.21333333rem;
+}
+.isMobile .padding-bottom-sm {
+  padding-bottom: 0.42666667rem;
+}
+.isMobile .padding-bottom-df {
+  padding-bottom: 0.85333333rem;
+}
+.isMobile .padding-bottom-lg {
+  padding-bottom: 1.06666667rem;
+}
+.isMobile .padding-bottom-xl {
+  padding-bottom: 1.28rem;
+}
+.isMobile .margin {
+  margin: 0.64rem;
+}
+.isMobile .margin-xs {
+  margin: 0.21333333rem;
+}
+.isMobile .margin-sm {
+  margin: 0.42666667rem;
+}
+.isMobile .margin-df {
+  margin: 0.85333333rem;
+}
+.isMobile .margin-lg {
+  margin: 1.06666667rem;
+}
+.isMobile .margin-xl {
+  margin: 1.28rem;
+}
+.isMobile .margin-lr {
+  margin-left: 0.64rem;
+  margin-right: 0.64rem;
+}
+.isMobile .margin-lr-xs {
+  margin-left: 0.21333333rem;
+  margin-right: 0.21333333rem;
+}
+.isMobile .margin-lr-sm {
+  margin-left: 0.42666667rem;
+  margin-right: 0.42666667rem;
+}
+.isMobile .margin-lr-df {
+  margin-left: 0.85333333rem;
+  margin-right: 0.85333333rem;
+}
+.isMobile .margin-lr-lg {
+  margin-left: 1.06666667rem;
+  margin-right: 1.06666667rem;
+}
+.isMobile .margin-lr-xl {
+  margin-left: 1.28rem;
+  margin-right: 1.28rem;
+}
+.isMobile .margin-tb {
+  margin-top: 0.64rem;
+  margin-bottom: 0.64rem;
+}
+.isMobile .margin-tb-xs {
+  margin-top: 0.21333333rem;
+  margin-bottom: 0.21333333rem;
+}
+.isMobile .margin-tb-sm {
+  margin-top: 0.42666667rem;
+  margin-bottom: 0.42666667rem;
+}
+.isMobile .margin-tb-df {
+  margin-top: 0.85333333rem;
+  margin-bottom: 0.85333333rem;
+}
+.isMobile .margin-tb-lg {
+  margin-top: 1.06666667rem;
+  margin-bottom: 1.06666667rem;
+}
+.isMobile .margin-tb-xl {
+  margin-top: 1.28rem;
+  margin-bottom: 1.28rem;
+}
+.isMobile .margin-left {
+  margin-left: 0.64rem;
+}
+.isMobile .margin-left-xs {
+  margin-left: 0.21333333rem;
+}
+.isMobile .margin-left-sm {
+  margin-left: 0.42666667rem;
+}
+.isMobile .margin-left-lg {
+  margin-left: 0.85333333rem;
+}
+.isMobile .margin-left-xl {
+  margin-left: 1.06666667rem;
+}
+.isMobile .margin-right {
+  margin-right: 0.64rem;
+}
+.isMobile .margin-right-xs {
+  margin-right: 0.21333333rem;
+}
+.isMobile .margin-right-sm {
+  margin-right: 0.42666667rem;
+}
+.isMobile .margin-right-df {
+  margin-right: 0.85333333rem;
+}
+.isMobile .margin-right-lg {
+  margin-right: 1.06666667rem;
+}
+.isMobile .margin-right-xl {
+  margin-right: 1.28rem;
+}
+.isMobile .margin-top {
+  margin-top: 0.64rem;
+}
+.isMobile .margin-top-xs {
+  margin-top: 0.21333333rem;
+}
+.isMobile .margin-top-sm {
+  margin-top: 0.42666667rem;
+}
+.isMobile .margin-top-df {
+  margin-top: 0.85333333rem;
+}
+.isMobile .margin-top-lg {
+  margin-top: 1.06666667rem;
+}
+.isMobile .margin-top-xl {
+  margin-top: 1.28rem;
+}
+.isMobile .margin-bottom {
+  margin-bottom: 0.64rem;
+}
+.isMobile .margin-bottom-xs {
+  margin-bottom: 0.21333333rem;
+}
+.isMobile .margin-bottom-sm {
+  margin-bottom: 0.42666667rem;
+}
+.isMobile .margin-bottom-df {
+  margin-bottom: 0.85333333rem;
+}
+.isMobile .margin-bottom-lg {
+  margin-bottom: 1.06666667rem;
+}
+.isMobile .margin-bottom-xl {
+  margin-bottom: 1.28rem;
+}
+/*# sourceMappingURL=mobile.css.map */

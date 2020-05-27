@@ -1,4 +1,4 @@
-const baseURL = process.env.NODE_ENV === 'development'?'http://49.232.43.137:9005':'http://49.232.43.137:9005';
+const baseURL = process.env.NODE_ENV === 'development'?'/':'http://49.232.43.137:9005';
 const publicPath= process.env.NODE_ENV === 'development' ? '/' : './';
 
 module.exports = {
@@ -25,6 +25,10 @@ module.exports = {
     },
     // 生产配置
     chainWebpack: config => {
+        config.plugin('html').tap(args => {
+            args[0].title = '筹易达';
+            return args;
+        })
         // 压缩代码
         config.optimization.minimize(true)
         // 分割代码

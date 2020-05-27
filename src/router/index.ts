@@ -21,11 +21,6 @@ const routes = [
     }]
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/index.vue')
-  },
-  {
     path: '/404',
     name: 'NotFound',
     component: () => import('@/views/404/index.vue')
@@ -39,6 +34,7 @@ const routes = [
 const router = new VueRouter({
   mode: process.env.NODE_ENV === "development" ? "history" : "hash",
   base: process.env.BASE_URL,
+  linkActiveClass: 'text-green',
   routes
 })
 

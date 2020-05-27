@@ -189,6 +189,18 @@ video{
 .absolute{
     position:absolute;
 }
+.absolute-t{
+    top:0;
+}
+.absolute-l{
+    left:0;
+}
+.absolute-r{
+    right:0;
+}
+.absolute-b{
+    bottom:0;
+}
 
 .zIndex-xs{
     z-index:2;
@@ -227,6 +239,23 @@ video{
     overflow: hidden;
 }
 
+
+.line-height-xs{
+    line-height:1.4;
+}
+.line-height-sl{
+    line-height:1.7;
+}
+.line-height-sm{
+    line-height:2.0;
+}
+.line-height-lg{
+    line-height:2.4;
+}
+.line-height-xl{
+    line-height:2.8;
+}
+
 /* 字体颜色 */
 .text-red {
     color: #FF0000;
@@ -241,7 +270,7 @@ video{
     color: #8dc63f;
 }
 .text-green {
-    color: #12B700;
+    color: #00BA33;
 }
 .text-cyan {
     color: #1cbbb4;
@@ -330,7 +359,7 @@ video{
     background-color: #8dc63f;
 }
 .bg-green {
-    background-color: #12B700;
+    background-color: #00BA33;
 }
 .bg-cyan {
     background-color: #1cbbb4;
@@ -417,7 +446,7 @@ video{
     background-color: #e7ebed;
 }
 .bg-grayLight {
-    background-color: #F8F9F9;
+    background-color: #F4F4F4;
 }
 .bg-transparent{
     background-color:rgba(255,255,255,0);
