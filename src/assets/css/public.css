@@ -202,6 +202,19 @@ video{
     bottom:0;
 }
 
+.transition-xs{
+    transition: all 0.3s ease-in-out;
+}
+.transition-sm{
+    transition: all 0.5s ease-in-out;
+}
+.transition-df{
+    transition: all 0.8s ease-in-out;
+}
+.transition-lg{
+    transition: all 1s ease-in-out;
+}
+
 .zIndex-xs{
     z-index:2;
 }
@@ -258,7 +271,7 @@ video{
 
 /* 字体颜色 */
 .text-red {
-    color: #FF0000;
+    color: #E73A2E;
 }
 .text-orange {
     color: #f37b1d;
@@ -271,6 +284,9 @@ video{
 }
 .text-green {
     color: #00BA33;
+}
+.text-armyGreen{
+    color: #488E74;
 }
 .text-cyan {
     color: #1cbbb4;
@@ -359,6 +375,9 @@ video{
     background-color: #8dc63f;
 }
 .bg-green {
+    background-color: #52B16E;
+}
+.bg-darkGreen {
     background-color: #00BA33;
 }
 .bg-cyan {
@@ -447,6 +466,30 @@ video{
 }
 .bg-grayLight {
     background-color: #F4F4F4;
+}
+.bg-gradualRed{
+    background:linear-gradient(45deg, #f43f3b, #ec008c);
+}
+.bg-gradualOrange{
+    background:linear-gradient(45deg,  #ed1c24,#ff9700);
+}
+.bg-gradualYellow{
+    background: linear-gradient(90deg,rgba(249,179,58,1) 0%,rgba(253,99,15,1) 100%);
+}
+.bg-gradualGreen{
+    background:linear-gradient(45deg, #39b54a, #8dc63f);
+}
+.bg-gradualPurple{
+    background:linear-gradient(45deg, #9000ff, #5e00ff);
+}
+.bg-gradualPink{
+    background:linear-gradient(45deg, #ec008c, #6739b6);
+}
+.bg-gradualBlue{
+    background:linear-gradient(45deg, #0081ff, #1cbbb4);
+}
+.bg-gradualDarkblue{
+    background:linear-gradient(180deg,rgba(161,185,246,1) 0%,rgba(56,88,214,1) 100%);
 }
 .bg-transparent{
     background-color:rgba(255,255,255,0);

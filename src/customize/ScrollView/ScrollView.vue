@@ -1,6 +1,6 @@
 <template>
     <div ref="wrpper" class="app-main" :style="`overflow:${isPC?'auto':'hidden'};`">
-        <div v-if="!isPC" class="content">
+        <div v-if="!isPC" class="content" :style="`width:${width};`">
             <slot></slot>
         </div>
         <slot v-if="isPC"></slot>
@@ -19,6 +19,7 @@ export default {
         }
     },
     props:{
+        width: String,
         scrollX: Boolean,
         scrollY: Boolean,
         // 开启下拉刷新的动作
@@ -34,16 +35,22 @@ export default {
         scrolltolower: {
             type: Number,
             default: 50
+        },
+        eventPassthrough: {
+            type: String,
+            default: ''
         }
     },
     async mounted() {
         if (!this.isPC) {
             const scroll = this.scroll = await new BScroll(this.$refs.wrpper, {
+                eventPassthrough: this.eventPassthrough,
                 probeType: 3,
                 scrollX:this.scrollX,
                 scrollY:this.scrollY,
                 click: true
-            })
+            });
+
             await setTimeout(async () => {
                 // 当scroll 处于启用状态时发布一个初始化事件
                 await scroll.refresh()

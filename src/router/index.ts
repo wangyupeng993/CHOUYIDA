@@ -7,7 +7,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home',
+    hidden: true
   },
   {
     path: '/home',
@@ -21,13 +22,70 @@ const routes = [
     }]
   },
   {
+    path: '/operation',
+    component: Layout,
+    meta: {title: '运营项目', icon: '',onelevel: true},
+    children: [{
+      path: '',
+      name: 'Home',
+      component: () => import('@/views/pages/home/index.vue'),
+      meta: {title: '运营项目', icon: ''}
+    }]
+  },
+  {
+    path: '/designer',
+    component: Layout,
+    meta: {title: '合作设计师', icon: '',onelevel: true},
+    children: [{
+      path: '',
+      name: 'Home',
+      component: () => import('@/views/pages/home/index.vue'),
+      meta: {title: '合作设计师', icon: ''}
+    }]
+  },
+  {
+    path: '/team',
+    component: Layout,
+    meta: {title: '团队介绍', icon: '',onelevel: true},
+    children: [{
+      path: '',
+      name: 'Home',
+      component: () => import('@/views/pages/home/index.vue'),
+      meta: {title: '团队介绍', icon: ''}
+    }]
+  },
+  {
+    path: '/partner',
+    component: Layout,
+    meta: {title: '合作伙伴', icon: '',onelevel: true},
+    children: [{
+      path: '',
+      name: 'Home',
+      component: () => import('@/views/pages/home/index.vue'),
+      meta: {title: '合作伙伴', icon: ''}
+    }]
+  },
+  {
+    path: '/recruitment',
+    component: Layout,
+    meta: {title: '人才招聘', icon: '',onelevel: true},
+    children: [{
+      path: '',
+      name: 'Home',
+      component: () => import('@/views/pages/home/index.vue'),
+      meta: {title: '人才招聘', icon: ''}
+    }]
+  },
+  {
     path: '/404',
     name: 'NotFound',
+    hidden: true,
     component: () => import('@/views/404/index.vue')
   },
   {
     path: "*",
-    redirect: "/404"
+    redirect: "/404",
+    hidden: true
   }
 ]
 

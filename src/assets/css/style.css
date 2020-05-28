@@ -41,8 +41,20 @@
     transition:opacity 120ms ease-out;
 }
 
+.center-1200{
+    width:1200px;
+    margin:0 auto;
+}
+.counter-skewX-40{
+    transform: skewX(-40deg);
+}
 
-
+.before-slash{
+    float:right;
+    height:100%;
+    content:'';
+    border-right:2px solid ;
+}
 
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{
