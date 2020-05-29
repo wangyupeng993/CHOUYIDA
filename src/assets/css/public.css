@@ -494,6 +494,9 @@ video{
 .bg-gradualDarkblue{
     background:linear-gradient(180deg,rgba(161,185,246,1) 0%,rgba(56,88,214,1) 100%);
 }
+.bg-gradualDarkgreen{
+    background:linear-gradient(0deg,rgba(82,177,110,1) 0%,rgba(82,177,110,0.55) 100%);
+}
 .bg-transparentGreen{
     background:linear-gradient(0deg,rgba(82,177,110,1) 0%,rgba(82,177,110,0) 100%);
 }
