@@ -56,6 +56,15 @@
     border-right:2px solid ;
 }
 
+.rectangle-button{
+    width:254px;
+    height:57px;
+    background: url('../images/home/button.png') no-repeat;
+    background-size:100% 100%;
+    font-size:18px;
+    color:#52B16E;
+}
+
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{
     width:6px;

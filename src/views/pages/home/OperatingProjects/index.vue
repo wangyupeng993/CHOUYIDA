@@ -1,12 +1,12 @@
 <template>
-    <div :class="`bg-grayLight ${isPC?'padding-tb-xl':''}`">
+    <div :class="`bg-grayLight ${isPC?'padding-tb-xl':'padding-bottom-df'}`">
         <div :class="`padding-top-sm ${isPC?'center-1200':''}`">
             <div :class="`padding-tb-xs ${isPC?'flex':''}`">
                 <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
                     <div class="padding-xs flex items-center margin-right-xs">
-                        <span v-if="isPC" class="bg-green inline-block counter-skewX-40"
+                        <span v-if="isPC" class="bg-darkGreen inline-block counter-skewX-40"
                               style="width:24px;height: 16px;"></span>
-                        <span v-else class="bg-green inline-block counter-skewX-40"
+                        <span v-else class="bg-darkGreen inline-block counter-skewX-40"
                               :style="`width:${24/46.875}rem;height: ${16/46.875}rem;`"></span>
                     </div>
                     <div class="text-xsl flex items-center">
@@ -19,7 +19,7 @@
                 <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-df'}`">
                     <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
                         <li v-for="item in switchType" :key="item.name" :class="[
-                    'inline-block bg-green radius-round-sm text-white',
+                    'inline-block bg-darkGreen radius-round-sm text-white',
                     'padding-tb-xs padding-lr-sm pointer',
                     `${item.className}`
                     ]">{{item.name}}</li>
@@ -87,12 +87,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="padding-tb-xs text-sm text-center bg-green text-white">
+                            <div class="padding-tb-xs text-sm text-center bg-darkGreen text-white">
                                 查看案例
                             </div>
                         </div>
                     </div>
                 </scroll-view>
+            </div>
+            <div :class="[
+            'flex items-center justify-center',
+            `${isPC?'padding-top-xl margin-top-sm':'padding-top-sm'}`]"
+            ><router-link to="">
+                    <div class="rectangle-button flex items-center justify-center">
+                        <span class="margin-right-sm">查看更多</span>
+                        <i class="cuIcon-arrowRight"></i>
+                    </div>
+                </router-link>
             </div>
         </div>
     </div>
