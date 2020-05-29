@@ -1,0 +1,116 @@
+<template>
+    <div :class="`bg-grayLight ${isPC?'padding-tb-xl':'padding-bottom-df'}`">
+        <div :class="`padding-top-sm ${isPC?'center-1200':''}`">
+            <div :class="`padding-tb-xs ${isPC?'flex':''}`">
+                <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
+                    <div class="padding-xs flex items-center margin-right-xs">
+                        <span v-if="isPC" class="bg-darkGreen inline-block counter-skewX-40"
+                              style="width:24px;height: 16px;"></span>
+                        <span v-else class="bg-darkGreen inline-block counter-skewX-40"
+                              :style="`width:${24/46.875}rem;height: ${16/46.875}rem;`"></span>
+                    </div>
+                    <div class="text-xsl flex items-center">
+                        <img v-if="isPC" width="260px" height="38px"
+                             src="@/assets/images/home/recruitment.png" alt="" />
+                        <img v-else :style="`width:${260/46.875}rem;height:${38/46.875}rem;`"
+                             src="@/assets/images/home/recruitment.png" alt="" />
+                    </div>
+                    <div class="flex items-center text-df margin-lr-sm white-nowrap">信息</div>
+                </div>
+                <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-df'}`">
+                    <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
+                        <li v-for="item in switchType" :key="item.name" :class="[
+                    'bg-darkGreen radius-round-sm text-white',
+                    'padding-tb-xs padding-lr-sm pointer',
+                    `${item.className}`
+                    ]">{{item.name}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'padding-lr-sm'}`">
+                <div :class="[
+                'basis-sm bg-white padding-sm radius-lg pointer',
+                'flex items-center justify-center relative',
+                `${(index%2) === 1?'margin-lr':''}`
+                ]" v-for="(item,index) in talent" :key="index">
+                    <div class="text-center">
+                        <div class="padding-xs round inline-block"
+                             :style="item.imgWH">
+                            <img class="app-main" src="@/assets/images/home/office.png" alt="" />
+                        </div>
+                        <p :class="`margin-top-xs text-black text-center ${isPC?'text-sm':'text-df'}`">
+                            {{item.name}}
+                        </p>
+                        <p :class="`margin-top-xs text-gray text-center text-hidden ${isPC?'text-xs':'text-sm'}`">
+                            {{item.skill}}
+                        </p>
+                        <div v-if="isPC" :class="[
+                        'text-justify line-height-xs bg-gradualDarkgreen radius-lg hidden',
+                        'app-main absolute absolute-t absolute-l text-white text-sm'
+                        ]"><p class="margin-sm">{{item.content}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div :class="[
+            'flex items-center justify-center',
+            `${isPC?'padding-top-xl margin-top-sm':'padding-top-lg'}`]"
+            ><router-link to="">
+                <div class="rectangle-button flex items-center justify-center">
+                    <span class="margin-right-sm">查看更多</span>
+                    <i class="cuIcon-arrowRight"></i>
+                </div>
+            </router-link>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import ObjectDetection from "@/api/methods/validator";
+
+@Component({
+    components: {}
+})
+export default class Recruitment extends Vue {
+    isPC = ObjectDetection.isPCBroswer();
+    switchType = [{
+        name:'金融',
+        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
+    },{
+        name:'创意研发',
+        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
+    },{
+        name:'品质控制',
+        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
+    },{
+        name:'商业模式',
+        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
+    },{
+        name:'制造加工',
+        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
+    }];
+    talent = [{
+        name: '金融数据分析师',
+        skill: '金融类-M |   厦门市-思明区',
+        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
+        imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
+        isPC: this.isPC
+    },{
+        name: '金融数据分析师',
+        skill: '金融类-M |   厦门市-思明区',
+        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
+        imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
+        isPC: this.isPC
+    },{
+        name: '金融数据分析师',
+        skill: '金融类-M |   厦门市-思明区',
+        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
+        imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
+        isPC: this.isPC
+    }]
+}
+</script>

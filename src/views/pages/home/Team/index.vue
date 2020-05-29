@@ -39,7 +39,7 @@
                 ]" v-for="(item,index) in team" :key="index">
                     <div class="text-center">
                         <div class="padding-xs round inline-block"
-                             :style="`width:${item.imgWidth};${item.imgWidth};`">
+                             :style="`width:${item.imgWidth};height:${item.imgWidth};`">
                             <img class="app-main" src="@/assets/images/home/userImg.png" alt="" />
                         </div>
                         <p :class="`margin-top-xs text-black text-center ${isPC?'text-df':'text-xl'}`">
