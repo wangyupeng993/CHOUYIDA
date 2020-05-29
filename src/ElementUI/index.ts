@@ -6,6 +6,8 @@ import {
     Submenu,
     MenuItem,
     MenuItemGroup,
+    Carousel,
+    CarouselItem
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // fade/zoom 等
@@ -17,3 +19,5 @@ Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Menu)
+Vue.use(Carousel)
+Vue.use(CarouselItem)

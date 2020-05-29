@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import './customize/index'
-import './assets/css/index.css'
-import './ElementUI'
-import './permission'
-import './pixclPatio'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import './customize/index';
+import './assets/css/index.css';
+import './ElementUI';
+import './permission';
+import './pixclPatio';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,

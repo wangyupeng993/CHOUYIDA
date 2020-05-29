@@ -12,6 +12,7 @@
     "better-scroll": "^1.15.2",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.0",
+    "swiper": "^5.4.1",
     "tslib": "latest",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",

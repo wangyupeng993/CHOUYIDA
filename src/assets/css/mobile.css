@@ -363,4 +363,18 @@
   font-size: 0.512rem;
   color: #52B16E;
 }
+.isMobile .swiper-button-prev {
+  left: 0;
+}
+.isMobile .swiper-button-next {
+  right: 0;
+}
+.isMobile .swiper-button-prev,
+.isMobile .swiper-button-next {
+  width: 1.10933333rem;
+  height: 1.10933333rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: #ffffff;
+}
 /*# sourceMappingURL=mobile.css.map */

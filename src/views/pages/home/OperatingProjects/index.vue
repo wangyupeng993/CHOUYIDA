@@ -17,9 +17,9 @@
                     <div class="flex items-center text-df margin-lr-sm white-nowrap">案例</div>
                 </div>
                 <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-df'}`">
-                    <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
+                    <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
                         <li v-for="item in switchType" :key="item.name" :class="[
-                    'inline-block bg-darkGreen radius-round-sm text-white',
+                    'bg-darkGreen radius-round-sm text-white',
                     'padding-tb-xs padding-lr-sm pointer',
                     `${item.className}`
                     ]">{{item.name}}</li>
