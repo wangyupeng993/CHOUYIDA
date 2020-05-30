@@ -67,6 +67,9 @@
 .el-carousel__indicators{
     display: none;
 }
+.menu_drawer .el-drawer__body{
+    background-color: rgba(0,0,0,0);
+}
 
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{

@@ -1,6 +1,8 @@
 <template>
     <div class="flex direction-column justify-end relative">
-        <img width="100%" src="@/assets/images/home/home_banner.png" alt="" />
+        <img width="100%" :style="`min-height:${550/46.875}rem;`"
+             :class="`${isPC?'':'object-fit-cover'}`"
+             src="@/assets/images/home/home_banner.png" alt="" />
         <div class="padding-tb-sm text-white text-center zIndex-sm absolute absolute-b absolute-r absolute-l"
              style="background-color:rgba(82,177,110,0.7);">
             <div :class="`flex justify-center ${isPC?'center-1200':''}`">

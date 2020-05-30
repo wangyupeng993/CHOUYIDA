@@ -230,6 +230,9 @@ video{
 .zIndex-xl{
     z-index:99;
 }
+.zIndex-max{
+    z-index:9999;
+}
 
 .text-bold{
     font-weight:bold;
@@ -426,7 +429,7 @@ video{
     background-color:#242c3e;
 }
 .bg-darkblue{
-    background-color:#29344E;
+    background-color:#10146E;
 }
 .bg-darkbrown{
     background-color:#29292D;
