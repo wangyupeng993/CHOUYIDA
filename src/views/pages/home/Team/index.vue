@@ -2,7 +2,7 @@
     <div class="bg-grayLight">
         <div :class="[
         `${isPC?'center-1200 padding-tb-lg':'padding-tb-df'}`,
-        `animate__animated ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
+        `${isPC?'animate__animated':''} ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
         ]">
             <div :class="`padding-tb-xs ${isPC?'flex margin-top-df':''}`">
 

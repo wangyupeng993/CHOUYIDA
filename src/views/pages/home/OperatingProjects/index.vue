@@ -2,7 +2,7 @@
     <div :class="`bg-grayLight ${isPC?'padding-tb-xl':'padding-bottom-df'}`">
         <div :class="[
         `padding-top-sm ${isPC?'center-1200':''}`,
-        `animate__animated ${visible?'animate__fadeInUp':''}`
+        `${isPC?'animate__animated':''} ${visible?'animate__fadeInUp':''}`
         ]">
             <div :class="`padding-tb-xs ${isPC?'flex':''}`">
                 <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">

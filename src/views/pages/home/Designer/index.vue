@@ -5,7 +5,7 @@
         <div class="absolute absolute-t absolute-l app-main">
             <div :class="[
             `${isPC?'center-1200 padding-top-xl':'padding-top-df'}`,
-            `animate__animated ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
+            `${isPC?'animate__animated':''} ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
             ]">
                 <div :class="`padding-tb-xs ${isPC?'flex margin-top-df':''}`">
 
