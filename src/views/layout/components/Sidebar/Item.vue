@@ -29,10 +29,7 @@
 <script lang="ts">
 import { Component,Prop, Vue } from 'vue-property-decorator';
 
-@Component({
-    components: {},
-    computed: {}
-})
+@Component({})
 export default class Item extends Vue {
     @Prop({
         type: Object,
@@ -44,9 +41,6 @@ export default class Item extends Vue {
         required: false, // 是否必填
         default: ''
     }) mode !: string;
-    mounted(): void {
-        console.log(this.$route.path,'============')
-    }
 }
 </script>
 

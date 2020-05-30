@@ -48,9 +48,5 @@
     import { Component, Vue } from 'vue-property-decorator';
 
     @Component({})
-    export default class Login extends Vue {
-        mounted(): void {
-            console.log(this.$options,'==============')
-        }
-    }
+    export default class Login extends Vue {}
 </script>

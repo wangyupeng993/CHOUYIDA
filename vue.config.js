@@ -1,3 +1,4 @@
+const TerserPlugin = require('terser-webpack-plugin');
 const baseURL = process.env.NODE_ENV === 'development'?'/':'http://49.232.43.137:9005';
 const publicPath= process.env.NODE_ENV === 'development' ? '/' : './';
 
@@ -33,5 +34,18 @@ module.exports = {
         config.optimization.minimize(true)
         // 分割代码
         config.optimization.splitChunks({chunks: 'all'})
+        if (process.env.NODE_ENV === 'production'){
+            return {
+                optimization: {
+                    minimizer: [new TerserPlugin({
+                        terserOptions: {
+                            compress: {
+                                drop_console: true
+                            }
+                        }
+                    })]
+                }
+            }
+        }
     }
 }
