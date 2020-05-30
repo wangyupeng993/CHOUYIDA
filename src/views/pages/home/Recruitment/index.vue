@@ -1,6 +1,9 @@
 <template>
     <div :class="`bg-grayLight ${isPC?'padding-tb-xl':'padding-bottom-df'}`">
-        <div :class="`padding-top-sm ${isPC?'center-1200':''}`">
+        <div :class="[
+        `padding-top-sm ${isPC?'center-1200':''}`,
+        `animate__animated ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
+        ]">
             <div :class="`padding-tb-xs ${isPC?'flex':''}`">
                 <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
                     <div class="padding-xs flex items-center margin-right-xs">
@@ -69,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue,Prop} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 
 @Component({
@@ -77,6 +80,11 @@ import ObjectDetection from "@/api/methods/validator";
 })
 export default class Recruitment extends Vue {
     isPC = ObjectDetection.isPCBroswer();
+    @Prop({
+        type: Boolean,
+        required: false,
+        default: false
+    }) visible !: boolean
     switchType = [{
         name:'金融',
         className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`

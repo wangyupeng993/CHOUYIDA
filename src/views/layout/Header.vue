@@ -1,7 +1,8 @@
 <template>
     <header :class="[
-    'padding-tb-sm absolute absolute-t absolute-l absolute-r',
-    `${isPC?'flex justify-center zIndex-xl':'zIndex-max bg-darkblue'}`
+    'padding-tb-sm absolute absolute-t absolute-l absolute-r transitions-sm',
+    `${isPC?'flex justify-center zIndex-xl':'zIndex-max bg-darkblue'}`,
+    `${scrollTop >= 200?' bg-darkblue shadow-bottom':''}`
     ]">
         <div v-if="isPC" class="padding-tb-xs flex center-1200">
             <div class="basis-sm">
@@ -65,9 +66,13 @@
 <script lang="ts">
 import { Component, Vue} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
+import {mapGetters} from "vuex";
 
 @Component({
-    components: {}
+    components: {},
+    computed: {
+        ...mapGetters(['scrollTop'])
+    }
 })
 export default class Header extends Vue {
     isPC = ObjectDetection.isPCBroswer();

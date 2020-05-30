@@ -1,6 +1,9 @@
 <template>
     <div :class="`bg-grayLight ${isPC?'padding-tb-xl':'padding-bottom-df'}`">
-        <div :class="`padding-top-sm ${isPC?'center-1200':''}`">
+        <div :class="[
+        `padding-top-sm ${isPC?'center-1200':''}`,
+        `animate__animated ${visible?'animate__fadeInUp':''}`
+        ]">
             <div :class="`padding-tb-xs ${isPC?'flex':''}`">
                 <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
                     <div class="padding-xs flex items-center margin-right-xs">
@@ -28,11 +31,11 @@
             </div>
             <div class="inline-block" style="width:100%;">
                 <scroll-view scroll-x :width="`${3*(558/46.875)}rem`">
-                    <div :class="`${isPC?'padding-top-xl flex':'padding-top-sm margin-left-df'}`"
+                    <div :class="`${isPC?'padding-top-xl flex padding-bottom-sm hidden':'padding-top-sm margin-left-df'}`"
                          :style="`width:${isPC?'100%':3*(558/46.875)+'rem'};`">
                         <div :class="[
                     'basis-sm radius-xl bg-white hidden pointer inline-block',
-                    `${(item%2) === 0?'margin-lr-sm':''}`
+                    `${(item%2) === 0?'margin-lr-sm':''} Operating-case`
                     ]" :style="`width:${isPC?'':(518/46.875)+'rem'};`" v-for="item in 3" :key="item">
                             <div class="bg-blueLight">
                                 <img width="100%" src="@/assets/images/home/2306.png" alt="" />
@@ -87,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="padding-tb-xs text-sm text-center bg-darkGreen text-white">
+                            <div class="padding-tb-xs text-sm text-center case-btn">
                                 查看案例
                             </div>
                         </div>
@@ -109,11 +112,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 @Component({})
 export default class OperatingProjects extends Vue {
     isPC = ObjectDetection.isPCBroswer();
+    @Prop({
+        type: Boolean,
+        required: false,
+        default: false
+    }) visible !: boolean
     switchType = [{
         name:'全部',
         className: `${this.isPC?'text-xs margin-lr-df':'text-df margin-lr-sm'}`

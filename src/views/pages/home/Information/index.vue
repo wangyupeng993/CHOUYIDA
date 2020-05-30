@@ -3,7 +3,10 @@
         <img width="100%" :style="`height:${isPC?'704px':(908/46.875)+'rem'};`" class="object-fit-cover"
              src="@/assets/images/home/Information_bg.png" alt="" />
         <div class="absolute absolute-t absolute-l app-main">
-            <div :class="`${isPC?'center-1200 padding-top-xl':'padding-top-df'}`">
+            <div :class="[
+            `${isPC?'center-1200 padding-top-xl':'padding-top-df'}`,
+            `animate__animated ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
+            ]">
 
                 <div :class="`padding-tb-xs ${isPC?'flex margin-top-df':''}`">
                     <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
@@ -81,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue,Prop} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import {Swiper,SwiperSlide} from "vue-awesome-swiper";
 @Component({
@@ -89,6 +92,11 @@ import {Swiper,SwiperSlide} from "vue-awesome-swiper";
 })
 export default class Information extends Vue {
     isPC = ObjectDetection.isPCBroswer();
+    @Prop({
+        type: Boolean,
+        required: false,
+        default: false
+    }) visible !: boolean
     swiperOption = {
         navigation: {
             nextEl: '.swiper-button-next',

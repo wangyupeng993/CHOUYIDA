@@ -1,6 +1,9 @@
 <template>
     <div class="bg-grayLight">
-        <div :class="`${isPC?'center-1200 padding-tb-lg':'padding-tb-df'}`">
+        <div :class="[
+        `${isPC?'center-1200 padding-tb-lg':'padding-tb-df'}`,
+        `animate__animated ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
+        ]">
             <div :class="`padding-tb-xs ${isPC?'flex margin-top-df':''}`">
 
                 <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
@@ -78,11 +81,16 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
+    import { Component, Vue, Prop} from 'vue-property-decorator';
     import ObjectDetection from "@/api/methods/validator";
     @Component({})
     export default class Team extends Vue {
         isPC = ObjectDetection.isPCBroswer();
+        @Prop({
+            type: Boolean,
+            required: false,
+            default: false
+        }) visible !: boolean
         switchType = [{
             name:'创始',
             className: `${this.isPC?'text-sm':'text-df'}`,

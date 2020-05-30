@@ -1,5 +1,6 @@
 <template>
-    <div ref="wrpper" class="app-main" :style="`overflow:${isPC?'auto':'hidden'};`">
+    <div @scroll="mousewheel" ref="wrpper" class="app-main"
+         :style="`overflow:${isPC?'auto':'hidden'};`">
         <div v-if="!isPC" class="content" :style="`width:${width};`">
             <slot></slot>
         </div>
@@ -71,6 +72,11 @@ export default {
                     this.$emit('bind-scroll-down', scroll)
                 }
             })
+        }
+    },
+    methods: {
+        mousewheel () {
+            this.$emit('handle-scroll',this.$refs.wrpper);
         }
     }
 }

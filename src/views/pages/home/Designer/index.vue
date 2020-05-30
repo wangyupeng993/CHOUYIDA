@@ -3,7 +3,10 @@
         <img width="100%" :style="`height:${isPC?'820px':(1028/46.875)+'rem'};`" class="object-fit-cover"
              src="@/assets/images/home/shejishi_bg.png" alt="" />
         <div class="absolute absolute-t absolute-l app-main">
-            <div :class="`${isPC?'center-1200 padding-top-xl':'padding-top-df'}`">
+            <div :class="[
+            `${isPC?'center-1200 padding-top-xl':'padding-top-df'}`,
+            `animate__animated ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`
+            ]">
                 <div :class="`padding-tb-xs ${isPC?'flex margin-top-df':''}`">
 
                     <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
@@ -69,11 +72,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
-@Component({})
+@Component({
+    watch: {
+
+    }
+})
 export default class Designer extends Vue {
     isPC = ObjectDetection.isPCBroswer();
+    @Prop({
+        type: Boolean,
+        required: false,
+        default: false
+    }) visible !: boolean
+
     switchType = [{
         name:'平面',
         className: `${this.isPC?'text-sm':'text-df'}`,
