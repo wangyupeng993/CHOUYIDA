@@ -36,8 +36,9 @@
 
             <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'padding-lr-sm'}`">
                 <div :class="[
+                'team-info',
                 'basis-sm bg-white padding-sm radius-lg pointer',
-                'flex items-center justify-center relative',
+                'flex items-center justify-center relative hidden',
                 `${(index%2) === 1?'margin-lr':''}`
                 ]" v-for="(item,index) in team" :key="index">
                     <div class="text-center">
@@ -52,6 +53,7 @@
                             {{item.skill}}
                         </p>
                         <div v-if="isPC" :class="[
+                        'team-description',
                         'text-justify line-height-xs bg-gradualDarkgreen radius-lg hidden',
                         'app-main absolute absolute-t absolute-l text-white text-sm'
                         ]"><p class="margin-sm">{{item.content}}</p>

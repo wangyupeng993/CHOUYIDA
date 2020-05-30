@@ -33,6 +33,7 @@
 
             <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'padding-lr-sm'}`">
                 <div :class="[
+                'recruitment-info hidden',
                 'basis-sm bg-white padding-sm radius-lg pointer',
                 'flex items-center justify-center relative',
                 `${(index%2) === 1?'margin-lr':''}`
@@ -49,6 +50,7 @@
                             {{item.skill}}
                         </p>
                         <div v-if="isPC" :class="[
+                        'recruitment-description',
                         'text-justify line-height-xs bg-gradualDarkgreen radius-lg hidden',
                         'app-main absolute absolute-t absolute-l text-white text-sm'
                         ]"><p class="margin-sm">{{item.content}}</p>

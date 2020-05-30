@@ -2,7 +2,7 @@
     <div class="relative">
         <img width="100%" :style="`height:${isPC?'704px':(908/46.875)+'rem'};`" class="object-fit-cover"
              src="@/assets/images/home/Information_bg.png" alt="" />
-        <div class="absolute absolute-t absolute-l app-main">
+        <div class="absolute absolute-t absolute-l app-main hidden">
             <div :class="[
             `${isPC?'center-1200 padding-top-xl':'padding-top-df'}`,
             `${isPC?'animate__animated':''} ${visible?'animate__fadeInUp':'animate__fadeOutDown'}`

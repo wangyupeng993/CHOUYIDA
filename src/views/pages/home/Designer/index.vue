@@ -37,9 +37,12 @@
                     </div>
                 </div>
                 <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'flex-wrap-wrap'}`">
-                    <div :class="`basis-sm padding-sm radius-xl ${isPC?'bg-transparentGreen':''}`"
+                    <div :class="[
+                    'basis-sm padding-top-sm padding-lr-sm pointer relative',
+                    `${isPC?'padding-bottom-xl':''} radius-xl designer-info hidden`
+                    ]"
                          v-for="(item,index) in designer" :key="index">
-                        <div class="text-center">
+                        <div class="text-center relative zIndex-xs">
                             <div class="padding-xs round inline-block"
                                  :style="`width:${item.imgWidth};${item.imgWidth};border:${isPC?'5px':(5/46.875)+'rem'} solid #52B16E;`">
                                 <img class="app-main" src="@/assets/images/home/userImg.png" alt="" />
@@ -47,19 +50,23 @@
                             <p :class="`margin-top text-white text-center ${isPC?'text-df':'text-xl'}`">
                                 {{item.name}}
                             </p>
-                            <p :class="`margin-top-xs text-white text-center ${isPC?'text-sm':'text-df'}`">
+                            <p :class="`margin-top-xs text-white text-center ${isPC?'text-sm padding-bottom-xl':'text-df'}`">
                                 {{item.skill}}
                             </p>
-                            <p v-if="item.isPC" class="padding-tb-sm text-justify line-height-xs text-white text-xs">
-                                {{item.content}}
-                            </p>
                         </div>
+                        <p v-if="item.isPC" :class="[
+                        'absolute absolute-t absolute-r absolute-l absolute-b padding-sm',
+                        'designer-description radius-xl bg-transparentGreen text-white',
+                        'flex direction-column justify-end'
+                        ]">
+                            {{item.content}}
+                        </p>
                     </div>
                 </div>
             </div>
             <div :class="[
             'flex items-center justify-center',
-            `${isPC?'padding-top-xl margin-top-sm':'padding-top-lg'}`]"
+            `${isPC?'padding-top-df margin-top-sm':'padding-top-lg'}`]"
             ><router-link to="">
                 <div class="rectangle-button flex items-center justify-center">
                     <span class="margin-right-sm">查看更多</span>

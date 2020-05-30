@@ -70,6 +70,27 @@
     transform: scale(1.05);
 }
 
+.designer-info,.designer-description{
+    transition:0.5s;
+}
+.designer-info .designer-description{
+    transition: 0.3s ease-out;
+    transform: translateY(-100%);
+    opacity: 0;
+}
+.designer-info:hover .designer-description{
+    opacity:1;
+    transform: translateY(0);
+}
+
+.team-info .team-description,.recruitment-info .recruitment-description{
+    transition: 0.3s ease-out;
+    transform: translateY(-100%);
+}
+.team-info:hover .team-description,.recruitment-info:hover .recruitment-description{
+    transform: translateY(0);
+}
+
 .el-carousel__indicators{
     display: none;
 }
