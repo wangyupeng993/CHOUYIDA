@@ -28,7 +28,7 @@ const routes = [
     children: [{
       path: '',
       name: 'Home',
-      component: () => import('@/views/pages/home/index.vue'),
+      component: () => import('@/views/pages/operation/index.vue'),
       meta: {title: '运营项目', icon: ''}
     }]
   },
@@ -74,6 +74,17 @@ const routes = [
       name: 'Home',
       component: () => import('@/views/pages/home/index.vue'),
       meta: {title: '人才招聘', icon: ''}
+    }]
+  },
+  {
+    path: '/information',
+    component: Layout,
+    meta: {title: '资讯动态', icon: '',onelevel: true},
+    children: [{
+      path: '',
+      name: 'Home',
+      component: () => import('@/views/pages/home/index.vue'),
+      meta: {title: '资讯动态', icon: ''}
     }]
   },
   {

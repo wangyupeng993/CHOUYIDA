@@ -115,6 +115,10 @@
     color:#FFFFFF;
 }
 
+.el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color:#52B16E !important;
+}
+
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{
     width:6px;

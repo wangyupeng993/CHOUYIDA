@@ -8,7 +8,8 @@ import {
     MenuItemGroup,
     Carousel,
     CarouselItem,
-    Drawer
+    Drawer,
+    Pagination
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // fade/zoom 等
@@ -23,3 +24,4 @@ Vue.use(Menu)
 Vue.use(Carousel)
 Vue.use(CarouselItem)
 Vue.use(Drawer)
+Vue.use(Pagination)
