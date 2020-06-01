@@ -1,6 +1,45 @@
 <template>
     <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
+        <div>
+            <img width="100%" src="@/assets/images/banner/partner_banner.png" alt="" />
+        </div>
+        <div :class="`${isPC?'center-1200':''}`">
+            <div class="padding-tb-df margin-lr-sm">
+                <div :class="`text-black ${isPC?'text-sm':'text-df'}`">首页 > {{$route.meta.title}}</div>
+            </div>
 
+            <div class="padding-tb-df">
+                <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
+                    <li v-for="item in switchType" :key="item.name" :class="[
+                    'bg-darkGreen radius-round-sm text-white',
+                    'padding-tb-xs pointer',
+                    `${item.className}`
+                    ]">{{item.name}}</li>
+                </ul>
+            </div>
+
+            <div class="flex padding-bottom-df">
+                <div :class="[
+                'basis-sm padding-top-sm radius-xl hidden pointer',
+                `${(item%2) === 0?'margin-lr-df':''} partner-info`
+                ]" style="border:1px solid rgba(238,238,238,1);" v-for="item in 3" :key="item">
+                    <div class="text-center padding-tb-sm">
+                        <img src="@/assets/images/home/swiper_img.png" alt="" />
+                    </div>
+                    <div class="text-xs text-black text-justify padding-bottom-xl padding-lr-sm">
+                        “帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”
+                    </div>
+                    <div class="padding-tb-xs text-white text-sm text-center partner-btn">
+                        查看详情
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="isPC" class="flex justify-center padding-bottom-df">
+                <Pagination background />
+            </div>
+        </div>
+        <Footer />
     </scroll-view>
 </template>
 <script lang="ts">
@@ -14,54 +53,23 @@ import Pagination from "@/components/pagination/index.vue";
 export default class Partner extends Vue {
     isPC = ObjectDetection.isPCBroswer();
     switchType = [{
-        name:'创始',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
+        name:'金融投资',
+        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
     },{
-        name:'创意团队',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
+        name:'创意研发',
+        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
     },{
-        name:'项目经理',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
+        name:'品质控制',
+        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
     },{
-        name:'风险控制',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
+        name:'商业模式',
+        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
     },{
-        name:'网络技术',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
+        name:'制造加工',
+        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
     },{
-        name:'顾问团队',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: false
-    }];
-    designer = [{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
+        name:'法律法规',
+        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
     }];
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);

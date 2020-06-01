@@ -1,3 +1,15 @@
+.isMobile .shadow {
+  box-shadow: 0 0 0.21333333rem 0 rgba(20, 10, 4, 0.11);
+}
+.isMobile .shadow-left {
+  box-shadow: 0 0.064rem 0.42666667rem rgba(20, 10, 4, 0.11);
+}
+.isMobile .shadow-right {
+  box-shadow: 0 0 0.42666667rem rgba(20, 10, 4, 0.11);
+}
+.isMobile .shadow-bottom {
+  box-shadow: 0 0.064rem 0.128rem rgba(20, 10, 4, 0.11);
+}
 .isMobile .radius-xs {
   border-radius: 0.08533333rem;
 }

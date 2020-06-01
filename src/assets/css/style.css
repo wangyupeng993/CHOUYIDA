@@ -114,6 +114,21 @@
     background-color: #52B16E;
     color:#FFFFFF;
 }
+.partner-info{
+    box-shadow: 0 0 10px 0 rgba(20,10,4,0);
+}
+.partner-btn{
+    background-color:#ffffff;
+}
+.partner-info,.partner-btn{
+    transition: 0.3s ease-out;
+}
+.partner-info:hover{
+    box-shadow: 0 0 10px 0 rgba(20,10,4,0.11);
+}
+.partner-info:hover .partner-btn{
+    background-color:#52B16E;
+}
 
 .el-pagination.is-background .el-pager li:not(.disabled).active{
     background-color:#52B16E !important;
