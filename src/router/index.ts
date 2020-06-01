@@ -50,7 +50,7 @@ const routes = [
     children: [{
       path: '',
       name: 'Home',
-      component: () => import('@/views/pages/home/index.vue'),
+      component: () => import('@/views/pages/team/index.vue'),
       meta: {title: '团队介绍', icon: ''}
     }]
   },

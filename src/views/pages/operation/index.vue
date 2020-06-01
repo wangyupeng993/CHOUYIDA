@@ -1,7 +1,7 @@
 <template>
     <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
         <div>
-            <img width="100%" src="@/assets/images/operation/operation_banner.png" alt="" />
+            <img width="100%" src="@/assets/images/banner/operation_banner.png" alt="" />
         </div>
         <div :class="`${isPC?'center-1200':''}`">
             <div class="padding-tb-df margin-lr-sm">
