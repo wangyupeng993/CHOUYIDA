@@ -63,7 +63,7 @@ import Pagination from "@/components/pagination/index.vue";
 @Component({
     components:{Footer,Pagination}
 })
-export default class Partner extends Vue {
+export default class Recruitment extends Vue {
     isPC = ObjectDetection.isPCBroswer();
     switchType = [{
         name:'金融',

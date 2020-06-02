@@ -313,11 +313,17 @@ video{
 .text-brown {
     color: #a5673f;
 }
+.text-inkblue{
+    color:#314069;
+}
 .text-black {
     color: #474747;
 }
 .text-grey {
     color: #8799a3;
+}
+.text-darkGrey{
+    color:#646F91;
 }
 .text-darkGray {
     color: #666666;
@@ -424,7 +430,7 @@ video{
     background-color:#171E2E;
 }
 .bg-inkdarkblue{
-    background-color:#1A2234;
+    background-color:#314069;
 }
 .bg-inkblue{
     background-color:#242c3e;

@@ -83,7 +83,7 @@ const routes = [
     children: [{
       path: '',
       name: 'Home',
-      component: () => import('@/views/pages/home/index.vue'),
+      component: () => import('@/views/pages/information/index.vue'),
       meta: {title: '资讯动态', icon: ''}
     }]
   },

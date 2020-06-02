@@ -130,6 +130,22 @@
     background-color:#52B16E;
 }
 
+.information-info{
+    background-color:#ffffff;
+}
+.information-info .information-title{
+    color:#314069;
+}
+.information-info,.information-title{
+    transition: 0.3s ease-out;
+}
+.information-info:hover{
+    background-color:rgba(244,248,245,1);
+}
+.information-info:hover .information-title{
+    color:#01962A;
+}
+
 .el-pagination.is-background .el-pager li:not(.disabled).active{
     background-color:#52B16E !important;
 }

@@ -4,6 +4,7 @@ const publicPath= process.env.NODE_ENV === 'development' ? '/' : './';
 
 module.exports = {
     publicPath,
+    transpileDependencies: ['vue-clamp', 'resize-detector'],
     devServer: {
         port: 80, //端口号
         host: 'localhost',// 本地连接
