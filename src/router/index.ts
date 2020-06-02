@@ -72,7 +72,7 @@ const routes = [
     children: [{
       path: '',
       name: 'Home',
-      component: () => import('@/views/pages/home/index.vue'),
+      component: () => import('@/views/pages/recruitment/index.vue'),
       meta: {title: '人才招聘', icon: ''}
     }]
   },
