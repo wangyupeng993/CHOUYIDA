@@ -1,7 +1,9 @@
 <template>
     <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
         <div>
-            <img width="100%" src="@/assets/images/banner/about_banner.png" alt="" />
+            <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
+                 :class="`${isPC?'':'object-fit-cover'}`"
+                 src="@/assets/images/banner/about_banner.png" alt="" />
         </div>
     </scroll-view>
 </template>
