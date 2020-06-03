@@ -27,7 +27,7 @@ const routes = [
     meta: {title: '运营项目', icon: '',onelevel: true},
     children: [{
       path: '',
-      name: 'Home',
+      name: 'Operation',
       component: () => import('@/views/pages/operation/index.vue'),
       meta: {title: '运营项目', icon: ''}
     }]
@@ -38,7 +38,7 @@ const routes = [
     meta: {title: '合作设计师', icon: '',onelevel: true},
     children: [{
       path: '',
-      name: 'Home',
+      name: 'Designer',
       component: () => import('@/views/pages/designer/index.vue'),
       meta: {title: '合作设计师', icon: ''}
     }]
@@ -49,7 +49,7 @@ const routes = [
     meta: {title: '团队介绍', icon: '',onelevel: true},
     children: [{
       path: '',
-      name: 'Home',
+      name: 'Team',
       component: () => import('@/views/pages/team/index.vue'),
       meta: {title: '团队介绍', icon: ''}
     }]
@@ -60,7 +60,7 @@ const routes = [
     meta: {title: '合作伙伴', icon: '',onelevel: true},
     children: [{
       path: '',
-      name: 'Home',
+      name: 'Partner',
       component: () => import('@/views/pages/partner/index.vue'),
       meta: {title: '合作伙伴', icon: ''}
     }]
@@ -71,7 +71,7 @@ const routes = [
     meta: {title: '人才招聘', icon: '',onelevel: true},
     children: [{
       path: '',
-      name: 'Home',
+      name: 'Recruitment',
       component: () => import('@/views/pages/recruitment/index.vue'),
       meta: {title: '人才招聘', icon: ''}
     }]
@@ -82,9 +82,57 @@ const routes = [
     meta: {title: '资讯动态', icon: '',onelevel: true},
     children: [{
       path: '',
-      name: 'Home',
+      name: 'Information',
       component: () => import('@/views/pages/information/index.vue'),
       meta: {title: '资讯动态', icon: ''}
+    }]
+  },
+  {
+    path: '/about',
+    component: Layout,
+    meta: {title: '关于筹易达', icon: 'cuIcon-form',onelevel: true},
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'About',
+      component: () => import('@/views/pages/about/index.vue'),
+      meta: {title: '关于筹易达', icon: 'cuIcon-form'}
+    }]
+  },
+  {
+    path: '/downloadApp',
+    component: Layout,
+    meta: {title: '下载app', icon: 'cuIcon-down',onelevel: true},
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'DownloadApp',
+      component: () => import('@/views/pages/downloadApp/index.vue'),
+      meta: {title: '下载app', icon: 'cuIcon-down'}
+    }]
+  },
+  {
+    path: '/cooperation',
+    component: Layout,
+    meta: {title: '项目合作', icon: 'cuIcon-cooperation',onelevel: true},
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'Cooperation',
+      component: () => import('@/views/pages/cooperation/index.vue'),
+      meta: {title: '项目合作', icon: 'cuIcon-cooperation'}
+    }]
+  },
+  {
+    path: '/attention',
+    component: Layout,
+    meta: {title: '项目合作', icon: 'cuIcon-attention',onelevel: true},
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'Attention',
+      component: () => import('@/views/pages/attention/index.vue'),
+      meta: {title: '项目合作', icon: 'cuIcon-attention'}
     }]
   },
   {
