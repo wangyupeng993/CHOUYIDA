@@ -3,6 +3,35 @@
         <div>
             <img width="100%" src="@/assets/images/banner/downloadApp_banner.png" alt="" />
         </div>
+        <div :class="`${isPC?'center-1200 relative padding-bottom-xl':''}`">
+            <div class="padding-tb-df margin-lr-sm">
+                <div :class="`text-black ${isPC?'text-sm':'text-df'}`">首页 > {{$route.meta.title}}</div>
+            </div>
+
+            <div class="padding-df bg-grayLight relative flex justify-end">
+                <img src="@/assets/images/downloadApp_mobile.png" alt="" />
+                <div class="absolute absolute-l absolute-t">
+                    <div :class="[
+                    'text-black text-xxl margin-left-xl padding-left-sm',
+                    `${isPC?'margin-top-df padding-top-xl':' padding-top-df'}`
+                    ]">
+                        筹易达
+                    </div>
+                    <p :class="[
+                    ' text-black text-df margin-left-xl padding-left-sm',
+                    `${isPC?'padding-top-df':'padding-top-sm'}`
+                    ]">
+                        安全 简易  界面美观
+                    </p>
+                    <img :class="[
+                    'margin-left-xl padding-left-sm',
+                    `${isPC?'margin-top-xl padding-top-xl':' padding-top-sm'}`
+                    ]" :style="`width:${isPC?'112px':(112/46.875)+'rem'};height: ${isPC?'112px':(112/46.875)+'rem'};`"
+                         src="@/assets/images/footer/code.png" alt="">
+                </div>
+            </div>
+        </div>
+        <Footer />
     </scroll-view>
 </template>
 <script lang="ts">
@@ -11,7 +40,7 @@ import ObjectDetection from "@/api/methods/validator";
 import Footer from "@/components/Footer/index.vue";
 import Pagination from "@/components/pagination/index.vue";
 @Component({
-    components:{Footer,Pagination}
+    components:{Footer}
 })
 export default class About extends Vue {
     isPC = ObjectDetection.isPCBroswer();
