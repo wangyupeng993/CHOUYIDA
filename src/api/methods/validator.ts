@@ -69,6 +69,11 @@ class ObjectDetection {
         const IOS = Navigator.toLowerCase().match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Windows Phone)/i);
         return IOS !== null;
     }
+    static iosVersion (): number {
+        const version: RegExpMatchArray = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/)||[];
+        if (Object.prototype.toString.call(version) === '[object Null]'||version.length <= 0) return 0;
+        return Number(`${version[1]}.${version[2]}`);
+    }
     // 判断手机是否横竖屏
     static isVertical () {
         return window.orientation === 180 || window.orientation === 0

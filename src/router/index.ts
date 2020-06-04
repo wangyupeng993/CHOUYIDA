@@ -126,13 +126,13 @@ const routes = [
   {
     path: '/attention',
     component: Layout,
-    meta: {title: '项目合作', icon: 'cuIcon-attention',onelevel: true},
+    meta: {title: '关注我们', icon: 'cuIcon-attention',onelevel: true},
     hidden: true,
     children: [{
       path: '',
       name: 'Attention',
       component: () => import('@/views/pages/attention/index.vue'),
-      meta: {title: '项目合作', icon: 'cuIcon-attention'}
+      meta: {title: '关注我们', icon: 'cuIcon-attention'}
     }]
   },
   {

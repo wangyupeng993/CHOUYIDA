@@ -150,6 +150,11 @@
     background-color:#52B16E !important;
 }
 
+.el-upload--picture-card{
+    background-color: #ffffff !important;
+    border:1px solid rgba(153,153,153,1) !important;
+}
+
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{
     width:6px;

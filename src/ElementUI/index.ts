@@ -9,7 +9,8 @@ import {
     Carousel,
     CarouselItem,
     Drawer,
-    Pagination
+    Pagination,
+    Upload
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // fade/zoom 等
@@ -25,3 +26,4 @@ Vue.use(Carousel)
 Vue.use(CarouselItem)
 Vue.use(Drawer)
 Vue.use(Pagination)
+Vue.use(Upload)

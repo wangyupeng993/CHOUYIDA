@@ -59,8 +59,31 @@ export default {
             }, 100)
             // 监听滚动事件
             scroll.on('scroll', (pos) => {
-                this.$emit('bind-scroll', pos)
+                const iosVersion = ObjectDetection.iosVersion();
+                if (iosVersion >= 13.4&&this.scrollY&&pos.y <= scroll.maxScrollY||iosVersion >= 13.4&&this.scrollY&&pos.y >= 0||iosVersion >= 13.4&&this.scrollX&&pos.x <= scroll.maxScrollX||iosVersion >= 13.4&&this.scrollX&&pos.x >= 0) {
+                    scroll.stop();
+                }
+                this.$emit('onScroll', pos);
+            });
+
+            scroll.on('scrollEnd', (pos) => {
+                const iosVersion = ObjectDetection.iosVersion();
+                if (iosVersion >= 13.4&&this.scrollY&&pos.y <= scroll.maxScrollY) {
+                    scroll.scrollTo(0,scroll.maxScrollY);
+                }
+                if (iosVersion >= 13.4&&this.scrollY&&pos.y >= 0) {
+                    scroll.scrollTo(0,0);
+                }
+                if (iosVersion >= 13.4&&this.scrollX&&pos.x <= scroll.maxScrollX) {
+                    scroll.scrollTo(scroll.maxScrollX,0);
+                }
+                if (iosVersion >= 13.4&&this.scrollX&&pos.x >= 0) {
+                    scroll.scrollTo(0,0);
+                }
+
+                this.$emit('onScrollEnd', pos);
             })
+
             // 上拉加载 / 下拉刷新
             scroll.on('touchEnd', pos => {
                 // 上拉加载更多
