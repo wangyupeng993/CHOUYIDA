@@ -9,6 +9,7 @@
             <div class="padding-tb-df margin-lr-sm">
                 <div :class="`text-black ${isPC?'text-sm':'text-df'}`">首页 > {{$route.meta.title}}</div>
             </div>
+
             <div :class="`flex hidden margin-lr-sm ${isPC?'radius-round-sm':'radius-round-df'}`"
                  style="border:1px solid #00BA33;">
                 <input :class="[
@@ -20,6 +21,7 @@
                 `${isPC?'basis-min text-sm':'basis-xs text-df'}`
                 ]">搜索</button>
             </div>
+
             <div class="padding-tb-df">
                 <ul class="text-center">
                     <li v-for="item in switchType" :key="item.name" :class="[
@@ -31,12 +33,13 @@
                     </li>
                 </ul>
             </div>
+
             <div class="flex padding-bottom-df">
                 <div :class="[
-                'team-info',
-                'basis-xs bg-white padding-sm radius-lg pointer',
+                `team-info ${isPC?'basis-xs':'basis-df'} shadow`,
+                'bg-white padding-sm radius-lg pointer',
                 'flex items-center justify-center relative hidden',
-                `${(index%2) === 1?'margin-lr':''}`
+                `${(index%2) === 1&&isPC?'margin-lr':'margin-lr-sm'}`
                 ]" v-for="(item,index) in designer" :key="index">
                     <div class="text-center">
                         <div class="padding-xs round inline-block"
@@ -99,18 +102,6 @@ export default class Designer extends Vue {
         isSlash: false
     }];
     designer = [{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
         name: '王利军',
         skill: '创始人   CEO',
         content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',

@@ -34,8 +34,8 @@
 
             <div class="flex padding-bottom-df">
                 <div :class="[
-                `basis-sm padding-tb-sm padding-lr-df text-black radius-sm`,
-                `${(index%2)===1?'margin-lr-sm':''} pointer`
+                `${isPC?'basis-xs':'basis-sm'} padding-tb-sm padding-lr-df text-black radius-sm`,
+                `${(index%2)===1&&isPC?'margin-lr-sm':'margin-lr-sm'} pointer`
                 ]" style="border:1px solid rgba(229,229,229,1);"
                      v-for="(item,index) in recuitment" :key="index">
                     <p :class="item.className">{{item.name}}
@@ -100,15 +100,7 @@ export default class Recruitment extends Vue {
         education: '本科',
         salary: '7-12k',
         className: `${this.isPC?'text-sm':'text-df'}`
-    },{
-        name: '金融变现产品经理',
-        time: '17:02',
-        city: '厦门',
-        years: '3-5年',
-        education: '本科',
-        salary: '7-12k',
-        className: `${this.isPC?'text-sm':'text-df'}`
-    },]
+    }]
 
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);

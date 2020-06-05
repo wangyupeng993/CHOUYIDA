@@ -22,13 +22,17 @@
 
             <div class="flex padding-bottom-df">
                 <div :class="[
-                'basis-sm padding-top-sm radius-xl hidden pointer',
-                `${(item%2) === 0?'margin-lr-df':''} partner-info`
-                ]" style="border:1px solid rgba(238,238,238,1);" v-for="item in 3" :key="item">
+                `${isPC?'basis-sm':'basis-df'}`,
+                'padding-top-sm radius-xl hidden pointer',
+                `${(item%2) === 0&&isPC?'margin-lr-df':'margin-lr-sm'} partner-info`
+                ]" style="border:1px solid rgba(238,238,238,1);" v-for="item in 2" :key="item">
                     <div class="text-center padding-tb-sm">
                         <img src="@/assets/images/home/swiper_img.png" alt="" />
                     </div>
-                    <div class="text-xs text-black text-justify padding-bottom-xl padding-lr-sm">
+                    <div :class="[
+                    'padding-bottom-xl padding-lr-sm',
+                    `${isPC?'text-xs':'text-sm'} text-black text-justify`
+                    ]">
                         “帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”
                     </div>
                     <div class="padding-tb-xs text-white text-sm text-center partner-btn">

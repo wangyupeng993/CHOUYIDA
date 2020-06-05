@@ -9,6 +9,7 @@
             <div class="padding-tb-df margin-lr-sm">
                 <div :class="`text-black ${isPC?'text-sm':'text-df'}`">首页 > {{$route.meta.title}}</div>
             </div>
+
             <div :class="`flex hidden margin-lr-sm ${isPC?'radius-round-sm':'radius-round-df'}`"
                  style="border:1px solid #00BA33;">
                 <input :class="[
@@ -20,6 +21,7 @@
                 `${isPC?'basis-min text-sm':'basis-xs text-df'}`
                 ]">搜索</button>
             </div>
+
             <div class="padding-tb-df">
                 <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
                     <li v-for="item in switchType" :key="item.name" :class="[
@@ -29,11 +31,12 @@
                     ]">{{item.name}}</li>
                 </ul>
             </div>
+
             <div class="flex padding-bottom-df">
                 <div :class="[
                     'radius-xl bg-white hidden pointer inline-block',
                     `${isPC?'basis-sm':'basis-df'}`,
-                    `${(item%2) === 0?'margin-lr-sm':''} Operating-case`
+                    `${(item%2) === 0&&isPC?'margin-lr-sm':'margin-lr-sm'} Operating-case`
                     ]" :style="`width:${isPC?'':(518/46.875)+'rem'};`" v-for="item in 2" :key="item">
                     <div class="bg-blueLight">
                         <img width="100%" src="@/assets/images/home/2306.png" alt="" />
