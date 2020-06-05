@@ -11,23 +11,24 @@
             </div>
 
             <div class="padding-df bg-grayLight relative flex justify-end">
-                <img src="@/assets/images/downloadApp_mobile.png" alt="" />
+                <img :style="`width:${isPC?'':'100%'};`"
+                     src="@/assets/images/downloadApp_mobile.png" alt="" />
                 <div class="absolute absolute-l absolute-t">
                     <div :class="[
-                    'text-black text-xxl margin-left-xl padding-left-sm',
-                    `${isPC?'margin-top-df padding-top-xl':' padding-top-df'}`
+                    'text-black text-xxl padding-left-sm',
+                    `${isPC?'margin-top-df margin-left-xl padding-top-xl':'padding-top-df'}`
                     ]">
                         筹易达
                     </div>
                     <p :class="[
-                    ' text-black text-df margin-left-xl padding-left-sm',
-                    `${isPC?'padding-top-df':'padding-top-sm'}`
+                    ' text-black text-df padding-left-sm',
+                    `${isPC?'margin-left-xl padding-top-df':'padding-top-sm'}`
                     ]">
                         安全 简易  界面美观
                     </p>
                     <img :class="[
-                    'margin-left-xl padding-left-sm',
-                    `${isPC?'margin-top-xl padding-top-xl':' padding-top-sm'}`
+                    'padding-left-sm',
+                    `${isPC?'margin-top-xl margin-left-xl padding-top-xl':' padding-top-sm'}`
                     ]" :style="`width:${isPC?'112px':(112/46.875)+'rem'};height: ${isPC?'112px':(112/46.875)+'rem'};`"
                          src="@/assets/images/footer/code.png" alt="">
                 </div>
