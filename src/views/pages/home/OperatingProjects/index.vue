@@ -99,7 +99,7 @@
             <div :class="[
             'flex items-center justify-center',
             `${isPC?'padding-top-xl margin-top-sm':'padding-top-sm'}`]"
-            ><router-link to="">
+            ><router-link to="/operation">
                     <div class="rectangle-button flex items-center justify-center">
                         <span class="margin-right-sm">查看更多</span>
                         <i class="cuIcon-arrowRight"></i>

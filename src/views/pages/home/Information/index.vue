@@ -77,6 +77,14 @@
                         <div class="swiper-button-prev margin-top-xl" slot="button-prev"></div>
                         <div class="swiper-button-next margin-top-xl" slot="button-next"></div>
                     </swiper>
+                    <div v-if="!isPC" class="margin-tb-df text-center">
+                        <router-link to="/information" :class="[
+                        'padding-tb-sm padding-lr-df',
+                        'text-white text-df radius-round-lg'
+                        ]" style="border:1px solid rgba(255,255,255,1);">
+                            查看更多
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </div>
