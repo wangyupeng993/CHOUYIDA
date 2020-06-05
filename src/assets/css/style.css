@@ -49,13 +49,6 @@
     transform: skewX(-40deg);
 }
 
-.before-slash{
-    float:right;
-    height:100%;
-    content:'';
-    border-right:2px solid ;
-}
-
 .rectangle-button{
     width:254px;
     height:57px;

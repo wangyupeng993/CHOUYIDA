@@ -7,18 +7,16 @@
             <div :class="`padding-tb-xs ${isPC?'flex':''}`">
                 <div :class="`flex basis-df ${isPC?'':'padding-left-sm'}`">
                     <div class="padding-xs flex items-center margin-right-xs">
-                        <span v-if="isPC" class="bg-darkGreen inline-block counter-skewX-40"
-                              style="width:24px;height: 16px;"></span>
-                        <span v-else class="bg-darkGreen inline-block counter-skewX-40"
-                              :style="`width:${24/46.875}rem;height: ${16/46.875}rem;`"></span>
+                        <span class="bg-darkGreen inline-block counter-skewX-40"
+                              :style="`width:${isPC?'24px':(24/46.875)+'rem'};height: ${isPC?'16px':(16/46.875)+'rem'};`"></span>
                     </div>
                     <div class="text-xsl flex items-center">
-                        <img v-if="isPC" width="254px" height="38px" src="@/assets/images/home/yunying.png" alt="" />
-                        <img v-else :style="`width:${254/46.875}rem;height:${38/46.875}rem;`"
+                        <img :style="`width:${isPC?'254px':(254/46.875)+'rem'};height:${isPC?'38px':(38/46.875)+'rem'};`"
                              src="@/assets/images/home/yunying.png" alt="" />
                     </div>
                     <div class="flex items-center text-df margin-lr-sm white-nowrap">案例</div>
                 </div>
+
                 <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-df'}`">
                     <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
                         <li v-for="item in switchType" :key="item.name" :class="[
@@ -29,6 +27,7 @@
                     </ul>
                 </div>
             </div>
+
             <div class="inline-block" style="width:100%;">
                 <scroll-view scroll-x :width="`${3*(558/46.875)}rem`">
                     <div :class="`${isPC?'padding-top-xl flex padding-bottom-sm hidden':'padding-top-sm margin-left-df'}`"
