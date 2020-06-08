@@ -49,7 +49,10 @@ export default {
                 probeType: 3,
                 scrollX:this.scrollX,
                 scrollY:this.scrollY,
-                click: true
+                click: true,
+                preventDefaultException: {
+                    tagName: /^(IMG|INPUT|TEXTAREA|BUTTON|SELECT)$/
+                }
             });
 
             await setTimeout(async () => {
