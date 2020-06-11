@@ -85,6 +85,22 @@ const routes = [
       name: 'Information',
       component: () => import('@/views/pages/information/index.vue'),
       meta: {title: '资讯动态', icon: ''}
+    },{
+      path: 'details',
+      name: 'Details',
+      component: () => import('@/views/pages/information/details/index.vue'),
+      meta: {title: '资讯详情', icon: ''}
+    }]
+  },
+  {
+    path: '/help',
+    component: Layout,
+    meta: {title: '帮助', icon: '',onelevel: true},
+    children: [{
+      path: '',
+      name: 'Help',
+      component: () => import('@/views/pages/help/index.vue'),
+      meta: {title: '帮助', icon: ''}
     }]
   },
   {

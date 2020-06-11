@@ -389,17 +389,17 @@
 }
 
 .solid{
-    border:1px solid rgba(135,153,163,0.7);
+    border:1px solid rgba(229,229,229,1);
 }
 .solid-bottom{
-    border-bottom:1px solid rgba(135,153,163,0.7);
+    border-bottom:1px solid rgba(229,229,229,1);
 }
 .solid-top{
-    border-top:1px solid rgba(135,153,163,0.7);
+    border-top:1px solid rgba(229,229,229,1);
 }
 .solid-left{
-    border-left:2px solid rgba(135,153,163,0.7);
+    border-left:2px solid rgba(229,229,229,1);
 }
 .solid-right{
-    border-right:2px solid rgba(135,153,163,0.7);
+    border-right:2px solid rgba(229,229,229,1);
 }

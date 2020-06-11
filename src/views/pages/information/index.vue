@@ -49,17 +49,21 @@
                         <img class="object-fit-cover app-main" src="@/assets/images/147.png" alt="">
                     </div>
                     <div class="basis-xl hidden padding-right-sm">
-                        <h3 :class="`information-title padding-tb-xs ${isPC?'':'text-hidden text-lg'}`">
-                            {{item.title}}
-                        </h3>
+                        <router-link to="/information/details">
+                            <h3 :class="`information-title padding-tb-xs ${isPC?'':'text-hidden text-lg'}`">
+                                {{item.title}}
+                            </h3>
+                        </router-link>
                         <p :class="`text-darkGrey ${isPC?'text-sm':'text-df'} text-justify`">
                             {{item.description}}
                         </p>
                         <div :class="`flex padding-top-sm ${isPC?'text-xs':'text-sm'}`">
                             <p class="basis-xl text-grey">{{item.date}}</p>
-                            <p class="basis-xs text-green text-right">
-                                查看详情 <i class="cuIcon-right"></i>
-                            </p>
+                            <router-link to="/information/details" class="basis-xs">
+                                <p class="text-green text-right">
+                                    查看详情 <i class="cuIcon-right"></i>
+                                </p>
+                            </router-link>
                         </div>
                     </div>
                 </div>

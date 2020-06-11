@@ -12,17 +12,17 @@
                 </router-link>
             </div>
             <ul v-if="isPC" class="basis-xl flex text-sm justify-end">
-                <li class="padding-lr-sm margin-lr-xs white-nowrap"
+                <li class="padding-lr-xs margin-lr-xs white-nowrap"
                     v-for="item in routes" :key="item.path">
                     <router-link :to="item.path"
                                  :class="[
                                      'block text-center',
-                                     `${item.path === $route.path?'':'text-white'}`
+                                     `${item.path === $route.matched[0].path?'':'text-white'}`
                                      ]">{{item.meta.title}}</router-link>
                     <p :class="[
                         'bg-green margin-tb-xs transition-xs',
-                        `${item.path === '/home'?'':'margin-lr-sm'}`
-                        ]" :style="`border:1px solid #00BA33;opacity:${item.path === $route.path?1:0};`">
+                        `${item.path === '/home'||item.path === '/help'?'':'margin-lr-sm'}`
+                        ]" :style="`border:1px solid #00BA33;opacity:${item.path === $route.matched[0].path?1:0};`">
                     </p>
                 </li>
             </ul>
@@ -31,16 +31,6 @@
                    :class="`${isVisible?'cuIcon-close':'cuIcon-menu'} text-xml padding-lr-xl`"></i>
             </div>
         </div>
-        <!--<div class="flex">
-            <div class="basis-df padding-lr-xl">
-                <img :style="`width:${152/46.875}rem;height:${50/46.875}rem;`"
-                     src="@/assets/images/home/logo.png" alt="" />
-            </div>
-            <div class="basis-df flex items-center justify-end text-white">
-                <i @click="isVisible = !isVisible"
-                   :class="`${isVisible?'cuIcon-close':'cuIcon-menu'} text-xml padding-lr-xl`"></i>
-            </div>
-        </div>-->
         <el-drawer
                 custom-class="menu_drawer"
                 :size="'auto'"
@@ -87,9 +77,7 @@ export default class Header extends Vue {
     }
     @Watch('$route')
     routeChange  (route: RouterOptions) {
-        if (!this.isPC) {
-            this.isVisible = false;
-        }
+        !this.isPC?this.isVisible = false:this.$store.commit('getScrollTop',0);
     }
 }
 </script>
