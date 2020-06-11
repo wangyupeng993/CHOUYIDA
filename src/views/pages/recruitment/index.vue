@@ -5,6 +5,7 @@
                  :class="`${isPC?'':'object-fit-cover'}`"
                  src="@/assets/images/banner/recruitment_banner.png" alt="" />
         </div>
+
         <div :class="`${isPC?'center-1200':''}`">
             <div class="padding-tb-df margin-lr-sm">
                 <div :class="`text-black ${isPC?'text-sm':'text-df'}`">首页 > {{$route.meta.title}}</div>
@@ -38,9 +39,11 @@
                 `${(index%2)===1&&isPC?'margin-lr-sm':'margin-lr-sm'} pointer`
                 ]" style="border:1px solid rgba(229,229,229,1);"
                      v-for="(item,index) in recuitment" :key="index">
-                    <p :class="item.className">{{item.name}}
-                        <span class="text-gray text-xs">{{item.time}}发布</span>
-                    </p>
+                    <router-link to="/recruitment/details">
+                        <p :class="`${item.className} text-black`">{{item.name}}
+                            <span class="text-gray text-xs">{{item.time}}发布</span>
+                        </p>
+                    </router-link>
                     <p :class="`text-xs padding-tb-xs`">
                         {{item.city}} | {{item.years}} | {{item.education}}
                     </p>

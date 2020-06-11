@@ -74,7 +74,12 @@ const routes = [
       name: 'Recruitment',
       component: () => import('@/views/pages/recruitment/index.vue'),
       meta: {title: '人才招聘', icon: ''}
-    }]
+    },{
+      path: 'details',
+      name: 'RecruitmentDetails',
+      component: () => import('@/views/pages/recruitment/details/index.vue'),
+      meta: {title: '人才招聘', icon: ''}
+    },]
   },
   {
     path: '/information',
