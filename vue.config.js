@@ -1,22 +1,22 @@
-const TerserPlugin = require('terser-webpack-plugin');
-const baseURL = process.env.NODE_ENV === 'development'?'/':'http://49.232.43.137:9005';
-const publicPath= process.env.NODE_ENV === 'development' ? '/' : './';
+const baseURL = process.env.NODE_ENV === 'development'?'http://www.chouyida.eshchat.com':'/';
 
 module.exports = {
-    publicPath,
-    transpileDependencies: ['vue-clamp', 'resize-detector'],
+    publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
+    lintOnSave: true,
+    // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建
+    productionSourceMap: false,
     devServer: {
         port: 80, //端口号
         host: 'localhost',// 本地连接
         open: true, // 是否自动启动浏览器
         proxy: {
-            '/product': {
+            '/addons': {
                 target: baseURL,
                 ws: true,
                 https: true,
                 changeOrigin: true,
-                pathRewrite: {
-                    '^/product':'/product'
+                pathRequiresRewrite: {
+                    '^/addons': '/addons'
                 }
             }
         }
@@ -35,18 +35,5 @@ module.exports = {
         config.optimization.minimize(true)
         // 分割代码
         config.optimization.splitChunks({chunks: 'all'})
-        if (process.env.NODE_ENV === 'production'){
-            return {
-                optimization: {
-                    minimizer: [new TerserPlugin({
-                        terserOptions: {
-                            compress: {
-                                drop_console: true
-                            }
-                        }
-                    })]
-                }
-            }
-        }
     }
 }

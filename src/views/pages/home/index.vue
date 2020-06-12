@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch} from 'vue-property-decorator';
+import { Component, Vue} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import Banner from "@/views/pages/home/Banner/index.vue";
 import OperatingProjects from "@/views/pages/home/OperatingProjects/index.vue";
@@ -23,6 +23,7 @@ import Recruitment from "@/views/pages/home/Recruitment/index.vue";
 import Information from "@/views/pages/home/Information/index.vue";
 import Footer from "@/components/Footer/index.vue";
 import {isElementInViewport} from "@/api/methods/common";
+import service from "@/api/request";
 
 @Component({
     components: {Banner,OperatingProjects,Designer,Team,Partner,Recruitment,Information,Footer}
@@ -52,11 +53,17 @@ export default class Home extends Vue {
         this.visibleInformation = visible
     }
     mousewheel = (ev: Element) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const designer: any = this.$refs.designer;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const team: any = this.$refs.team;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const partner: any = this.$refs.partner;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const recruitment: any = this.$refs.recruitment;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const information: any = this.$refs.information;
+
         this.$store.commit('getScrollTop',ev.scrollTop);
         if (isElementInViewport(designer.$el)) {
             this.setVisibleDesigner(true);
@@ -74,8 +81,14 @@ export default class Home extends Vue {
             this.setVisibleInformation(true);
         }
     }
-    mounted(): void {
+    async mounted() {
         this.visibleOperating = true;
+        try {
+            const result = await service.geHomeData()
+            console.log(result,'=======================');
+        }catch (e) {
+            console.log(e,'======================');
+        }
     }
 }
 </script>
