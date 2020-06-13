@@ -36,7 +36,7 @@
                         </ul>
                     </div>
                 </div>
-                <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'flex-wrap-wrap'}`">
+                <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'flex-wrap-wrap justify-center'}`">
                     <div :class="[
                     'basis-sm padding-top-sm padding-lr-sm pointer relative',
                     `${isPC?'padding-bottom-xl':''} radius-xl designer-info hidden`
