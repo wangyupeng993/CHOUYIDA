@@ -89,8 +89,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="padding-tb-xs text-sm text-center case-btn">
-                                查看案例
+                            <div class="text-sm text-center case-btn">
+                                <router-link to="/operation/details" class="padding-tb-xs block">
+                                    查看案例
+                                </router-link>
                             </div>
                         </div>
                     </div>

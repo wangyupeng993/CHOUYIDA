@@ -30,7 +30,12 @@ const routes = [
       name: 'Operation',
       component: () => import('@/views/pages/operation/index.vue'),
       meta: {title: '运营项目', icon: ''}
-    }]
+    },{
+      path: 'details',
+      name: 'OperationDetails',
+      component: () => import('@/views/pages/operation/details/index.vue'),
+      meta: {title: '案例', icon: ''}
+    },]
   },
   {
     path: '/designer',

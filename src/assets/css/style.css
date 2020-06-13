@@ -95,7 +95,7 @@
 .Operating-case,.Operating-case .case-btn{
     transition:0.5s;
 }
-.Operating-case .case-btn{
+.Operating-case .case-btn,.Operating-case .case-btn a{
     background:rgba(233,239,237,1);
     color:#488E74;
 }
@@ -103,10 +103,11 @@
     transform: scale(1.01);
     box-shadow:0px 9px 9px rgba(82,177,110,0.33);
 }
-.Operating-case:hover .case-btn{
+.Operating-case:hover .case-btn,.Operating-case:hover .case-btn a{
     background-color: #52B16E;
     color:#FFFFFF;
 }
+
 .partner-info{
     box-shadow: 0 0 10px 0 rgba(20,10,4,0);
 }
