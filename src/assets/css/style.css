@@ -114,14 +114,16 @@
 .partner-btn{
     background-color:#ffffff;
 }
-.partner-info,.partner-btn{
+.partner-info,.partner-btn > a{
     transition: 0.3s ease-out;
+    color:#FFFFFF;
 }
 .partner-info:hover{
     box-shadow: 0 0 10px 0 rgba(20,10,4,0.11);
 }
-.partner-info:hover .partner-btn{
+.partner-info:hover .partner-btn > a{
     background-color:#52B16E;
+    color:#FFFFFF;
 }
 
 .information-info{

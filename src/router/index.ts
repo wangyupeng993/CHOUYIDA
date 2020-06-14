@@ -68,6 +68,11 @@ const routes = [
       name: 'Partner',
       component: () => import('@/views/pages/partner/index.vue'),
       meta: {title: '合作伙伴', icon: ''}
+    },{
+      path: 'details',
+      name: 'PartnerDetails',
+      component: () => import('@/views/pages/partner/details/index.vue'),
+      meta: {title: '合作伙伴', icon: ''}
     }]
   },
   {

@@ -35,8 +35,10 @@
                     ]">
                         “帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”
                     </div>
-                    <div class="padding-tb-xs text-white text-sm text-center partner-btn">
-                        查看详情
+                    <div class="text-sm text-center partner-btn">
+                        <router-link to="/partner/details" class="padding-tb-xs block">
+                            查看详情
+                        </router-link>
                     </div>
                 </div>
             </div>

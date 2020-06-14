@@ -37,19 +37,21 @@
                 <div :class="`${isPC?'padding-top-xl margin-top-xl':'padding-top-df'}`">
                     <el-carousel v-if="isPC" :interval="4000" type="card" height="260px">
                         <el-carousel-item v-for="item in 6" :key="item" class="bg-white radius-sm">
-                            <div class="app-main flex">
+                            <router-link tag="div" to="/partner/details" class="block app-main flex">
                                 <div class="basis-xs flex items-center">
                                     <img src="@/assets/images/home/swiper_img.png" alt="" />
                                 </div>
                                 <div class="basis-xl margin-lr text-black text-sm flex items-center">
                                     <p class="line-height-xs">“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”</p>
                                 </div>
-                            </div>
+                            </router-link>
                         </el-carousel-item>
                     </el-carousel>
                     <swiper v-if="!isPC" class="swiper margin-lr-sm" :options="swiperOption">
                         <swiper-slide v-for="item in 6" :key="item">
-                            <div class="flex margin-lr-xl bg-white radius-df" style="height:100%;">
+                            <router-link tag="div" to="/partner/details"
+                                         class="block flex margin-lr-xl bg-white radius-df"
+                                         style="height:100%;">
                                 <div class="basis-sm flex items-center">
                                     <img width="100%" src="@/assets/images/home/swiper_img.png" alt="" />
                                 </div>
@@ -58,7 +60,7 @@
                                         “帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”
                                     </p>
                                 </div>
-                            </div>
+                            </router-link>
                         </swiper-slide>
                         <div class="swiper-button-prev" slot="button-prev"></div>
                         <div class="swiper-button-next" slot="button-next"></div>
