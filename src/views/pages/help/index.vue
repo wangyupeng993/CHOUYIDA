@@ -22,22 +22,22 @@
                 ]">搜索</button>
             </div>
 
-            <div class="flex margin-top-xl">
-                <div class="basis-sm padding-lr-sm solid-right padding-bottom-xl">
-                    <h2 class="padding-tb-sm text-gray">问题分类</h2>
+            <div :class="`${isPC?'flex':''} margin-top-xl`">
+                <div :class="`${isPC?'basis-sm solid-right':''} padding-lr-sm padding-bottom-xl`">
+                    <h2 :class="`padding-tb-sm text-gray ${isPC?'':'text-xl'}`">问题分类</h2>
                     <el-collapse>
                         <el-collapse-item v-for="(item,index) in question" :key="index">
                             <template slot="title">
-                                <p class="text-sm">{{item.title}}</p>
+                                <p :class="`${isPC?'text-sm':'text-lg'}`">{{item.title}}</p>
                             </template>
                             <div v-for="(child,childIndex) in item.type" :key="childIndex"
-                                 class="padding-left-sm text-xs padding-tb-xs pointer">
+                                 :class="`padding-left-sm ${isPC?'text-xs':'text-df'} padding-tb-xs pointer`">
                                 {{child}}
                             </div>
                         </el-collapse-item>
                     </el-collapse>
                 </div>
-                <div class="basis-xl padding-lr-xl">
+                <div v-if="isPC" class="basis-xl padding-lr-xl">
                     <h2 class="padding-tb-sm text-black solid-bottom">产品保障</h2>
                     <div class="line-height-df text-justify padding-tb-df">
                         平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;

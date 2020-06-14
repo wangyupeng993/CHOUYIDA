@@ -151,6 +151,19 @@
     border:1px solid rgba(153,153,153,1) !important;
 }
 
+.el-collapse{
+    border-top:none !important;
+}
+.el-collapse-item__header{
+    border-bottom:none !important;
+}
+.el-collapse-item__arrow{
+    font-size:20px;
+}
+.el-collapse-item__arrow.is-active{
+    color:#52B16E !important;
+}
+
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{
     width:6px;
