@@ -50,19 +50,19 @@
                             {{item.name}}
                         </p>
                         <p :class="`margin-top-xs text-black text-center ${isPC?'text-sm':'text-df'}`">
-                            {{item.skill}}
+                            {{item.type_name}}
                         </p>
                         <div v-if="isPC" :class="[
                         'team-description',
                         'text-justify line-height-xs bg-gradualDarkgreen radius-lg hidden',
                         'app-main absolute absolute-t absolute-l text-white text-sm'
-                        ]"><p class="margin-sm">{{item.content}}</p>
+                        ]"><p class="margin-sm">{{item.introduction}}</p>
                         </div>
 
                         <div v-if="!isPC" :class="[
                         'text-justify line-height-xs',
                         'padding-tb-sm text-black text-sm'
-                        ]"><p>{{item.content}}</p>
+                        ]"><p>{{item.introduction}}</p>
                         </div>
                     </div>
                 </div>
@@ -85,14 +85,22 @@
 <script lang="ts">
     import { Component, Vue, Prop} from 'vue-property-decorator';
     import ObjectDetection from "@/api/methods/validator";
-    @Component({})
+    import service from "@/api/request";
+    @Component
     export default class Team extends Vue {
-        isPC = ObjectDetection.isPCBroswer();
+        private isPC: boolean;
+        private team: object[];
+        constructor () {
+            super();
+            this.isPC = ObjectDetection.isPCBroswer();
+            this.team = [];
+        }
         @Prop({
             type: Boolean,
             required: false,
             default: false
         }) visible !: boolean
+
         switchType = [{
             name:'创始',
             className: `${this.isPC?'text-sm':'text-df'}`,
@@ -118,24 +126,20 @@
             className: `${this.isPC?'text-sm':'text-df'}`,
             isSlash: false
         }];
-        team = [{
-            name: '王利军',
-            skill: '创始人   CEO',
-            content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-            imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-            isPC: this.isPC
-        },{
-            name: '王利军',
-            skill: '创始人   CEO',
-            content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-            imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-            isPC: this.isPC
-        },{
-            name: '王利军',
-            skill: '创始人   CEO',
-            content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-            imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-            isPC: this.isPC
-        }]
+
+        async getTeamList () {
+            service.getTeamList().then(response => {
+                this.team = response.data.slice(0,3).map(item => {
+                    return {
+                        ...item,
+                        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
+                        isPC: this.isPC
+                    }
+                });
+            });
+        }
+        mounted(): void {
+            this.getTeamList();
+        }
     }
 </script>

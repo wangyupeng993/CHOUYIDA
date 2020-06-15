@@ -38,7 +38,7 @@
                 </div>
                 <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'flex-wrap-wrap justify-center'}`">
                     <div :class="[
-                    'basis-sm padding-top-sm padding-lr-sm pointer relative',
+                    'basis-xs padding-top-sm padding-lr-sm pointer relative',
                     `${isPC?'padding-bottom-xl':''} radius-xl designer-info hidden`
                     ]"
                          v-for="(item,index) in designer" :key="index">
@@ -51,7 +51,7 @@
                                 {{item.name}}
                             </p>
                             <p :class="`margin-top-xs text-white text-center ${isPC?'text-sm padding-bottom-xl':'text-df'}`">
-                                {{item.skill}}
+                                {{item.type_name}}
                             </p>
                         </div>
                         <p v-if="item.isPC" :class="[
@@ -59,7 +59,7 @@
                         'designer-description radius-xl bg-transparentGreen text-white',
                         'flex direction-column justify-end'
                         ]">
-                            {{item.content}}
+                            {{item.introduction}}
                         </p>
                     </div>
                 </div>
@@ -79,15 +79,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
-@Component({
-    watch: {
-
-    }
-})
+import service from "@/api/request";
+@Component
 export default class Designer extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
+    private isPC: boolean;
+    private designer: object[];
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.designer = [];
+    }
     @Prop({
         type: Boolean,
         required: false,
@@ -99,42 +102,33 @@ export default class Designer extends Vue {
         className: `${this.isPC?'text-sm':'text-df'}`,
         isSlash: true
     },{
-        name:'插画',
+        name: '插画',
         className: `${this.isPC?'text-sm':'text-df'}`,
         isSlash: true
     },{
-        name:'工艺设计',
+        name: '工艺设计',
         className: `${this.isPC?'text-sm':'text-df'}`,
         isSlash: true
     },{
-        name:'工业设计',
+        name: '工业设计',
         className: `${this.isPC?'text-sm':'text-df'}`,
         isSlash: false
     }];
-    designer = [{
-        name: '周晓晓',
-        skill: '平面、插画',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '周晓晓',
-        skill: '平面、插画',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '周晓晓',
-        skill: '平面、插画',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '周晓晓',
-        skill: '平面、插画',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`,
-        isPC: this.isPC
-    }]
+
+    async getDesignerList () {
+        service.getDesignerList().then(response => {
+            this.designer = response.data.slice(0,3).map((item: object) => {
+                return {
+                    ...item,
+                    isPC: this.isPC,
+                    imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`
+                }
+            });
+        });
+    }
+
+    mounted(): void {
+        this.getDesignerList();
+    }
 }
 </script>
