@@ -8,5 +8,10 @@ interface ServiceResult<T> {
     code?:number
     msg?:string
     time?:string|number
-    data: T
+    data: {
+        count?: number
+        limit?: number
+        page?: number
+        list: T
+    }
 }

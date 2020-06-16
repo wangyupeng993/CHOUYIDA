@@ -27,12 +27,12 @@
 
                     <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-sm'}`">
                         <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
-                            <li v-for="item in switchType" :key="item.name" :class="[
-                    'inline-block text-white',
-                    'padding-tb-xs pointer',
-                    `${item.className}`
-                    ]"><span class="inline-block  padding-lr-df">{{item.name}}</span>
-                                <i v-if="item.isSlash">/</i>
+                            <li v-for="item in Nav" :key="item.id" :class="[
+                                'inline-block padding-tb-xs pointer',`${item.className} text-white`
+                                ]"><span :class="[
+                                'inline-block  padding-lr-df',
+                                `${navActive == item.id?'text-green':'text-white'}`
+                                ]">{{item.name}}</span><i v-if="item.isSlash">/</i>
                             </li>
                         </ul>
                     </div>
@@ -40,14 +40,12 @@
 
                 <div :class="`${isPC?'padding-top-xl margin-top-xl':'padding-top-df'}`">
                     <el-carousel v-if="isPC" :interval="4000" height="350px">
-                        <el-carousel-item v-for="item in 6" :key="item" class="margin-lr-xl">
+                        <el-carousel-item v-for="item in news" :key="item.id" class="margin-lr-xl">
                             <div class="app-main flex">
                                 <div class="basis-sm padding-lr-df">
-                                    <p class="text-white text-lg margin-bottom-lg">
-                                        银保合作综合监管将给保险行业带来三大影响和变化
-                                    </p>
+                                    <p class="text-white text-lg margin-bottom-lg">{{item.title}}</p>
                                     <p class="text-sm text-white text-justify margin-bottom-lg">
-                                        3月27日，中央政治局委员、国务院副总理刘鹤在金融管理部门调研时表示，要平稳有序推进机构改革工作，加快银行保险监管职责调整，增强综合监管能力。中国银行保险监督管理委员会的组建，标志着综合监管趋势已经确立，下一步动作备受关...
+                                        {{item.detail}}
                                     </p>
                                     <router-link to="" class="padding-tb-xs padding-lr-sm text-white text-sm radius-round-sm solid">
                                         查看更多
@@ -62,10 +60,10 @@
                     </el-carousel>
 
                     <swiper v-if="!isPC" class="swiper margin-lr-sm" :options="swiperOption">
-                        <swiper-slide v-for="item in 6" :key="item">
+                        <swiper-slide v-for="item in news" :key="item.id">
                             <div class="text-center margin-bottom-lg">
                                 <p :style="`width:${490/46.875}rem;`" class="inline-block text-left text-white text-xl">
-                                    银保合作综合监管将给保险行业带来三大影响和变化
+                                    {{item.title}}
                                 </p>
                             </div>
                             <div class="text-center">
@@ -92,41 +90,49 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue,Prop} from 'vue-property-decorator';
+import { Component, Vue,Prop, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import {Swiper,SwiperSlide} from "vue-awesome-swiper";
+import {Getter} from "vuex-class";
+import service from "@/api/request";
+
 @Component({
     components: {Swiper,SwiperSlide}
 })
 export default class Information extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
+    private isPC: boolean;
+    private swiperOption: object;
+    private navActive: number;
+    private news: object[]
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.navActive = 0;
+        this.news = [];
+        this. swiperOption = {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            }
+        };
+    }
     @Prop({
         type: Boolean,
         required: false,
         default: false
     }) visible !: boolean
-    swiperOption = {
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-        }
-    };
-    switchType = [{
-        name:'新闻',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name:'流行动态',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name:'公益活动',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name:'营销活动',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: false
-    }];
+
+    @Getter('newsNav') Nav: any
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.navActive = nav[0].id;
+        this.getNewsList({type: nav[0].id});
+    }
+
+    getNewsList (params: ServicePagination) {
+        service.getNewsList(params).then(response => {
+            this.news = response.data.list.slice(0,3).map(item => item);
+        })
+    }
 }
 </script>

@@ -22,10 +22,9 @@
                 </div>
                 <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-df'}`">
                     <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
-                        <li v-for="item in switchType" :key="item.name" :class="[
-                    'bg-darkGreen radius-round-sm text-white',
-                    'padding-tb-xs padding-lr-sm pointer',
-                    `${item.className}`
+                        <li v-for="item in Nav" :key="item.id" :class="[
+                    'radius-round-sm padding-tb-xs padding-lr-sm pointer',
+                    `${item.className} ${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`
                     ]">{{item.name}}</li>
                     </ul>
                 </div>
@@ -37,7 +36,7 @@
                 'basis-sm bg-white padding-sm radius-lg pointer',
                 'flex items-center justify-center relative',
                 `${(index%2) === 1?'margin-lr':''}`
-                ]" v-for="(item,index) in talent" :key="index">
+                ]" v-for="(item,index) in recruitment" :key="index">
                     <div class="text-center">
                         <div class="padding-xs round inline-block"
                              :style="item.imgWH">
@@ -74,53 +73,43 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue,Prop} from 'vue-property-decorator';
+import { Component, Vue,Prop, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
+import {Getter} from "vuex-class";
+import service from "@/api/request";
 
-@Component({
-    components: {}
-})
+@Component
 export default class Recruitment extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
+    private isPC: boolean;
+    private navActive: number
+    private recruitment: object[]
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.navActive = 0;
+        this.recruitment = [];
+    }
     @Prop({
         type: Boolean,
         required: false,
         default: false
     }) visible !: boolean
-    switchType = [{
-        name:'金融',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'创意研发',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'品质控制',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'商业模式',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'制造加工',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    }];
-    talent = [{
-        name: '金融数据分析师',
-        skill: '金融类-M |   厦门市-思明区',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
-        isPC: this.isPC
-    },{
-        name: '金融数据分析师',
-        skill: '金融类-M |   厦门市-思明区',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
-        isPC: this.isPC
-    },{
-        name: '金融数据分析师',
-        skill: '金融类-M |   厦门市-思明区',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
-        isPC: this.isPC
-    }]
+
+    @Getter('recruitmentNav') Nav: any
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.navActive = nav[0].id;
+        this.getRecruitmentList({type: nav[0].id});
+    }
+
+    getRecruitmentList (params: ServicePagination) {
+        service.getRecruitmentList(params).then(response => {
+            this.recruitment = response.data.list.slice(0,3).map(item => {
+                return {...item,
+                    imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
+                    isPC: this.isPC}
+            })
+        })
+    }
 }
 </script>

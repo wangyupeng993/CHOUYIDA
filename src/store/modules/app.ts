@@ -1,10 +1,30 @@
 const app = {
     state: {
-        scrollTop: 0
+        scrollTop: 0,
+        designerNav: [],
+        teamNav: [],
+        partnerNav: [],
+        recruitmentNav: [],
+        newsNav: []
     },
     mutations: {
-        getScrollTop (state: any,payload: number) {
+        getScrollTop (state: {scrollTop: number},payload: number) {
             state.scrollTop = payload
+        },
+        getDesignerNav (state: {designerNav: object[]},payload: object[]) {
+            state.designerNav = payload;
+        },
+        getTeamNav (state: {teamNav: object[]},payload: object[]) {
+            state.teamNav = payload;
+        },
+        getPartnerNav (state: {partnerNav: object[]},payload: object[]) {
+            state.partnerNav = payload;
+        },
+        getRecruitmentNav (state: {recruitmentNav: object[]},payload: object[]) {
+            state.recruitmentNav = payload;
+        },
+        getNewsNav (state: {newsNav: object[]},payload: object[]) {
+            state.newsNav = payload;
         }
     },
     actions: {}

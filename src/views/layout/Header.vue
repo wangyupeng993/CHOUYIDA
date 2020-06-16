@@ -59,7 +59,6 @@
 import { Component, Vue, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import {mapGetters} from "vuex";
-import {RouterOptions} from "vue-router";
 
 @Component({
     components: {},
@@ -76,7 +75,7 @@ export default class Header extends Vue {
         return Routes.filter((item: any) => !item.hidden);
     }
     @Watch('$route')
-    routeChange  (route: RouterOptions) {
+    routeChange  () {
         !this.isPC?this.isVisible = false:this.$store.commit('getScrollTop',0);
     }
 }

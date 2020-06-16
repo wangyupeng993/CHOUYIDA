@@ -2,11 +2,11 @@
     <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
         <Banner />
         <OperatingProjects :visible.sync="visibleOperating" ref="Operating" />
-        <Designer :visible.sync="visibleDesigner" ref="designer" />
+        <Designer  :visible.sync="visibleDesigner" ref="designer" />
         <Team :visible.sync="visibleTeam" ref="team" />
-        <Partner :visible.sync="visiblePartner" ref="partner" />
-        <Recruitment :visible.sync="visibleRecruitment" ref="recruitment" />
-        <Information :visible.sync="visibleInformation" ref="information" />
+        <Partner  :visible.sync="visiblePartner" ref="partner" />
+        <Recruitment  :visible.sync="visibleRecruitment" ref="recruitment" />
+        <Information  :visible.sync="visibleInformation" ref="information" />
         <Footer />
     </scroll-view>
 </template>
@@ -29,13 +29,23 @@ import service from "@/api/request";
     components: {Banner,OperatingProjects,Designer,Team,Partner,Recruitment,Information,Footer}
 })
 export default class Home extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
-    visibleOperating = false;
-    visibleDesigner = false;
-    visibleTeam = false;
-    visiblePartner = false;
-    visibleRecruitment = false;
-    visibleInformation = false;
+    private isPC: boolean;
+    private visibleOperating: boolean;
+    private visibleDesigner: boolean;
+    private visibleTeam: boolean;
+    private visiblePartner: boolean;
+    private visibleRecruitment: boolean;
+    private visibleInformation: boolean;
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.visibleOperating = false;
+        this.visibleDesigner = false;
+        this.visibleTeam = false;
+        this.visiblePartner = false;
+        this.visibleRecruitment = false;
+        this.visibleInformation = false;
+    }
 
     setVisibleDesigner (visible: boolean) {
         this.visibleDesigner = visible
@@ -81,14 +91,9 @@ export default class Home extends Vue {
             this.setVisibleInformation(true);
         }
     }
-    async mounted() {
+
+    mounted() {
         this.visibleOperating = true;
-        try {
-            const result = await service.geHomeData()
-            console.log(result,'=======================');
-        }catch (e) {
-            console.log(e,'======================');
-        }
     }
 }
 </script>

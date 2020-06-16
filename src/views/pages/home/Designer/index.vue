@@ -26,12 +26,12 @@
 
                     <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-sm'}`">
                         <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
-                            <li v-for="item in switchType" :key="item.name" :class="[
-                    'inline-block text-grey',
-                    'padding-tb-xs pointer',
-                    `${item.className}`
-                    ]"><span class="inline-block  padding-lr-df">{{item.name}}</span>
-                                <i v-if="item.isSlash">/</i>
+                            <li v-for="item in Nav" :key="item.id" :class="[
+                                'inline-block padding-tb-xs pointer',`${item.className} text-grey`
+                                ]"><span :class="[
+                                'inline-block  padding-lr-df',
+                                `${navActive == item.id?'text-green':'text-grey'}`
+                                ]">{{item.name}}</span><i v-if="item.isSlash">/</i>
                             </li>
                         </ul>
                     </div>
@@ -79,17 +79,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop,Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import service from "@/api/request";
+import {Getter} from "vuex-class";
+
 @Component
 export default class Designer extends Vue {
     private isPC: boolean;
     private designer: object[];
+    private navActive: number;
     constructor () {
         super();
         this.isPC = ObjectDetection.isPCBroswer();
         this.designer = [];
+        this.navActive = 0;
     }
     @Prop({
         type: Boolean,
@@ -97,27 +101,17 @@ export default class Designer extends Vue {
         default: false
     }) visible !: boolean
 
-    switchType = [{
-        name:'平面',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name: '插画',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name: '工艺设计',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name: '工业设计',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: false
-    }];
+    @Getter('designerNav') Nav: any
 
-    async getDesignerList () {
-        service.getDesignerList().then(response => {
-            this.designer = response.data.slice(0,3).map((item: object) => {
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.navActive = nav[0].id
+        this.getDesignerList({type: nav[0].id});
+    }
+
+    async getDesignerList (params: ServicePagination) {
+        service.getDesignerList(params).then(response => {
+            this.designer = response.data.list.slice(0,3).map((item: object) => {
                 return {
                     ...item,
                     isPC: this.isPC,
@@ -125,10 +119,6 @@ export default class Designer extends Vue {
                 }
             });
         });
-    }
-
-    mounted(): void {
-        this.getDesignerList();
     }
 }
 </script>

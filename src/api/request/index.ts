@@ -5,30 +5,30 @@ const service = {
         url: '/addons/cydweb/api.index/index',
         method: 'GET'
     }),
-    getDesignerList: (data?: ServicePagination): Promise<ServiceResult<object[]>> => request({
+    getDesignerList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
         url: '/addons/cydweb/api.index/designerList',
         method: 'GET',
-        data
+        params
     }),
-    getTeamList: (data?: ServicePagination): Promise<ServiceResult<object[]>> => request({
+    getTeamList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
         url: '/addons/cydweb/api.index/teamList',
         method: 'GET',
-        data
+        params
     }),
-    getPartnerList: (data?: ServicePagination): Promise<ServiceResult<object[]>> => request({
+    getPartnerList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
         url: '/addons/cydweb/api.index/partnerList',
         method: 'GET',
-        data
+        params
     }),
-    getRecruitmentList: (data?: ServicePagination): Promise<ServiceResult<object[]>> => request({
+    getRecruitmentList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
         url: '/addons/cydweb/api.index/recruitmentList',
         method: 'GET',
-        data
+        params
     }),
-    getNewsList: (data?: ServicePagination): Promise<ServiceResult<object[]>> => request({
+    getNewsList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
         url: '/addons/cydweb/api.index/newsList',
         method: 'GET',
-        data
+        params
     })
 }
 

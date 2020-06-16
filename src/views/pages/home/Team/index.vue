@@ -23,12 +23,12 @@
 
                 <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-sm'}`">
                     <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
-                        <li v-for="item in switchType" :key="item.name" :class="[
-                    'inline-block text-grey',
-                    'padding-tb-xs pointer',
-                    `${item.className}`
-                    ]"><span class="inline-block  padding-lr-xs">{{item.name}}</span>
-                            <i v-if="item.isSlash">/</i>
+                        <li v-for="item in Nav" :key="item.id" :class="[
+                            'inline-block padding-tb-xs pointer',`${item.className} text-grey`
+                            ]"><span :class="[
+                            'inline-block padding-lr-df',
+                            `${navActive == item.id?'text-green':'text-grey'}`
+                            ]">{{item.name}}</span><i v-if="item.isSlash">/</i>
                         </li>
                     </ul>
                 </div>
@@ -83,63 +83,45 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop} from 'vue-property-decorator';
-    import ObjectDetection from "@/api/methods/validator";
-    import service from "@/api/request";
-    @Component
-    export default class Team extends Vue {
-        private isPC: boolean;
-        private team: object[];
-        constructor () {
-            super();
-            this.isPC = ObjectDetection.isPCBroswer();
-            this.team = [];
-        }
-        @Prop({
-            type: Boolean,
-            required: false,
-            default: false
-        }) visible !: boolean
-
-        switchType = [{
-            name:'创始',
-            className: `${this.isPC?'text-sm':'text-df'}`,
-            isSlash: true
-        },{
-            name:'创意团队',
-            className: `${this.isPC?'text-sm':'text-df'}`,
-            isSlash: true
-        },{
-            name:'项目经理',
-            className: `${this.isPC?'text-sm':'text-df'}`,
-            isSlash: true
-        },{
-            name:'风险控制',
-            className: `${this.isPC?'text-sm':'text-df'}`,
-            isSlash: true
-        },{
-            name:'网络技术',
-            className: `${this.isPC?'text-sm':'text-df'}`,
-            isSlash: true
-        },{
-            name:'顾问团队',
-            className: `${this.isPC?'text-sm':'text-df'}`,
-            isSlash: false
-        }];
-
-        async getTeamList () {
-            service.getTeamList().then(response => {
-                this.team = response.data.slice(0,3).map(item => {
-                    return {
-                        ...item,
-                        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-                        isPC: this.isPC
-                    }
-                });
-            });
-        }
-        mounted(): void {
-            this.getTeamList();
-        }
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import ObjectDetection from "@/api/methods/validator";
+import service from "@/api/request";
+import {Getter} from "vuex-class";
+@Component
+export default class Team extends Vue {
+    private isPC: boolean;
+    private team: object[];
+    private navActive: number;
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.team = [];
+        this.navActive = 0;
     }
+    @Prop({
+        type: Boolean,
+        required: false,
+        default: false
+    }) visible !: boolean
+
+    @Getter('teamNav') Nav: any
+
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.navActive = nav[0].id;
+        this.getTeamList({type: nav[0].id});
+    }
+
+    async getTeamList (params: ServicePagination) {
+        service.getTeamList(params).then(response => {
+            this.team = response.data.list.slice(0,3).map(item => {
+                return {
+                    ...item,
+                    imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
+                    isPC: this.isPC
+                }
+            });
+        });
+    }
+}
 </script>

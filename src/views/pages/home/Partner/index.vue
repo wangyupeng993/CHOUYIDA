@@ -25,10 +25,9 @@
 
                     <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-df'}`">
                         <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
-                            <li v-for="(item) in switchType" :key="item.name" :class="[
-                    'bg-darkGreen radius-round-sm text-white',
-                    'padding-xs pointer white-nowrap',
-                    `${item.className}`
+                            <li v-for="(item) in Nav" :key="item.id" :class="[
+                    'radius-round-sm padding-xs pointer white-nowrap',
+                    `${item.className} ${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`
                     ]">{{item.name}}</li>
                         </ul>
                     </div>
@@ -36,7 +35,7 @@
 
                 <div :class="`${isPC?'padding-top-xl margin-top-xl':'padding-top-df'}`">
                     <el-carousel v-if="isPC" :interval="4000" type="card" height="260px">
-                        <el-carousel-item v-for="item in 6" :key="item" class="bg-white radius-sm">
+                        <el-carousel-item v-for="item in partner" :key="item.id" class="bg-white radius-sm">
                             <router-link tag="div" to="/partner/details" class="block app-main flex">
                                 <div class="basis-xs flex items-center">
                                     <img src="@/assets/images/home/swiper_img.png" alt="" />
@@ -48,7 +47,7 @@
                         </el-carousel-item>
                     </el-carousel>
                     <swiper v-if="!isPC" class="swiper margin-lr-sm" :options="swiperOption">
-                        <swiper-slide v-for="item in 6" :key="item">
+                        <swiper-slide v-for="item in partner" :key="item.id">
                             <router-link tag="div" to="/partner/details"
                                          class="block flex margin-lr-xl bg-white radius-df"
                                          style="height:100%;">
@@ -83,45 +82,50 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue,Prop} from 'vue-property-decorator';
+import { Component, Vue,Prop,Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import {Swiper,SwiperSlide} from "vue-awesome-swiper";
 import 'swiper/css/swiper.css';
+import {Getter} from "vuex-class";
+import service from "@/api/request";
 
 @Component({
     components: {Swiper,SwiperSlide}
 })
 export default class Partner extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
+    private isPC: boolean;
+    private swiperOption: object;
+    private partner: object[];
+    private navActive: number
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.partner = [];
+        this.navActive = 0;
+        this.swiperOption = {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            }
+        }
+    }
     @Prop({
         type: Boolean,
         required: false,
         default: false
     }) visible !: boolean
-    swiperOption = {
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-        }
-    };
-    switchType = [{
-        name:'金融投资',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'创意研发',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'品质控制',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'商业模式',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'制造加工',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'法律法规',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    }];
+
+    @Getter('partnerNav') Nav: any
+
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.navActive = nav[0].id;
+        this.getPartnerList({type: nav[0].id});
+    }
+    getPartnerList (params: ServicePagination) {
+        service.getPartnerList(params).then(response => {
+            this.partner = response.data.list.slice(0,3).map(item => item);
+        })
+    }
 }
 </script>
