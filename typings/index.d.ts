@@ -1,5 +1,5 @@
 interface ServicePagination {
-    type?:number
+    type:number
     page?:number
     limit?:number
 }

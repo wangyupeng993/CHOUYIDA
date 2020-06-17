@@ -1,5 +1,5 @@
 <template>
-    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
+    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC" v-loading="Loading">
         <div class="">
              <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
                   :class="`${isPC?'':'object-fit-cover'}`"
@@ -89,24 +89,28 @@ export default class Designer extends Vue {
     private navActive: number;
     private designer: object[];
     private paging: ServicePagination;
+    private Loading: boolean;
     constructor () {
         super();
         this.isPC = ObjectDetection.isPCBroswer();
         this.navActive = 0;
         this.designer = [];
         this.paging = {type: 0,limit: 8,page: 1}
+        this.Loading = false;
     }
     @Getter('designerNav') Nav: any
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.navActive = nav[0].id
         this.paging = {...this.paging,type: nav[0].id}
         this.getDesignerList(this.paging);
     }
 
     getDesignerList (params: ServicePagination) {
-        service.getDesignerList(params).then(response => {
+        this.Loading = true;
+        this.navActive = params.type;
+            service.getDesignerList(params).then(response => {
             const {limit,page} = response.data;
+            this.Loading = false;
             this.paging = {limit,page,type: this.navActive}
             this.designer = response.data.list.map((item: object) => {
                 return {
@@ -115,12 +119,12 @@ export default class Designer extends Vue {
                     imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`
                 }
             });
-        })
+        }).catch(() => {
+            this.Loading = false;
+        });
     }
-
     switchDesigner (id: number) {
         if (id === this.navActive) return ;
-        this.navActive = id;
         this.paging = {limit: 6,page: 1,type: id};
         this.getDesignerList(this.paging);
     }

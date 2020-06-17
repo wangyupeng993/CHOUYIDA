@@ -119,10 +119,10 @@ export default class Partner extends Vue {
 
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.navActive = nav[0].id;
         this.getPartnerList({type: nav[0].id});
     }
     getPartnerList (params: ServicePagination) {
+        this.navActive = params.type;
         service.getPartnerList(params).then(response => {
             this.partner = response.data.list.slice(0,3).map(item => item);
         })
@@ -130,8 +130,13 @@ export default class Partner extends Vue {
 
     switchPartner (id: number) {
         if (id === this.navActive) return ;
-        this.navActive = id;
         this.getPartnerList({type: id});
+    }
+
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.getPartnerList({type: this.Nav[0].id});
+        }
     }
 }
 </script>

@@ -98,11 +98,11 @@ export default class Recruitment extends Vue {
     @Getter('recruitmentNav') Nav: any
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.navActive = nav[0].id;
         this.getRecruitmentList({type: nav[0].id});
     }
 
     getRecruitmentList (params: ServicePagination) {
+        this.navActive = params.type;
         service.getRecruitmentList(params).then(response => {
             this.recruitment = response.data.list.slice(0,3).map(item => {
                 return {...item,
@@ -114,8 +114,13 @@ export default class Recruitment extends Vue {
 
     switchRecruitment (id: number) {
         if (id === this.navActive) return ;
-        this.navActive = id;
-        this.getRecruitmentList({type: id})
+        this.getRecruitmentList({type: id});
+    }
+
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.getRecruitmentList({type: this.Nav[0].id});
+        }
     }
 }
 </script>

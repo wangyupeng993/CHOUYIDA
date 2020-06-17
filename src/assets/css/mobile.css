@@ -399,4 +399,8 @@
 .isMobile .el-collapse-item__arrow {
   font-size: 0.81066667rem;
 }
+.isMobile .el-loading-spinner .circular {
+  width: 2.13333333rem !important;
+  height: 2.13333333rem !important;
+}
 /*# sourceMappingURL=mobile.css.map */

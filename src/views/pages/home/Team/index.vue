@@ -108,11 +108,11 @@ export default class Team extends Vue {
 
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.navActive = nav[0].id;
         this.getTeamList({type: nav[0].id});
     }
 
     async getTeamList (params: ServicePagination) {
+        this.navActive = params.type;
         service.getTeamList(params).then(response => {
             this.team = response.data.list.slice(0,3).map(item => {
                 return {
@@ -126,8 +126,13 @@ export default class Team extends Vue {
 
     switchTeam (id: number) {
         if (id === this.navActive) return ;
-        this.navActive = id;
-        this.getTeamList({type: id})
+        this.getTeamList({type: id});
+    }
+
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.getTeamList({type: this.Nav[0].id});
+        }
     }
 }
 </script>

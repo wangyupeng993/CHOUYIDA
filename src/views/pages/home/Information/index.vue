@@ -125,11 +125,11 @@ export default class Information extends Vue {
     @Getter('newsNav') Nav: any
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.navActive = nav[0].id;
         this.getNewsList({type: nav[0].id});
     }
 
     getNewsList (params: ServicePagination) {
+        this.navActive = params.type;
         service.getNewsList(params).then(response => {
             this.news = response.data.list.slice(0,3).map(item => item);
         })
@@ -137,8 +137,13 @@ export default class Information extends Vue {
 
     switchNews (id: number) {
         if (id === this.navActive) return ;
-        this.navActive = id;
         this.getNewsList({type: id})
+    }
+
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.getNewsList({type: this.Nav[0].id});
+        }
     }
 }
 </script>
