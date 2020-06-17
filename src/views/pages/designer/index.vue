@@ -24,45 +24,45 @@
 
             <div class="padding-tb-df">
                 <ul class="text-center">
-                    <li v-for="item in switchType" :key="item.name" :class="[
-                    'inline-block text-grey',
-                    'padding-tb-xs pointer',
-                    `${item.className}`
-                    ]"><span class="inline-block  padding-lr-df">{{item.name}}</span>
-                        <i v-if="item.isSlash">/</i>
+                    <li v-for="item in Nav" :key="item.id" :class="[
+                        'inline-block padding-tb-xs pointer',`${item.className} text-grey`
+                        ]" @click="switchDesigner(item.id)"><span :class="[
+                        'inline-block  padding-lr-df',
+                        `${navActive == item.id?'text-green':'text-grey'}`
+                        ]">{{item.name}}</span><i v-if="item.isSlash">/</i>
                     </li>
                 </ul>
             </div>
 
-            <div class="flex padding-bottom-df">
+            <div class="flex padding-bottom-df flex-wrap-wrap">
                 <div :class="[
-                `team-info ${isPC?'basis-xs':'basis-df'} shadow`,
-                'bg-white padding-sm radius-lg pointer',
+                `team-info ${isPC?'basis-xs padding-sm':'basis-df'}`,
+                'bg-white radius-lg pointer',
                 'flex items-center justify-center relative hidden',
-                `${(index%2) === 1&&isPC?'margin-lr':'margin-lr-sm'}`
+                `${(index%2) === 1&&isPC?'margin-lr-xs':''} margin-bottom-df`
                 ]" v-for="(item,index) in designer" :key="index">
                     <div class="text-center">
                         <div class="padding-xs round inline-block"
-                             :style="`width:${item.imgWidth};height:${item.imgWidth};`">
+                             :style="`width:${item.imgWidth};height:${item.imgWidth};border:${isPC?'5px':(5/46.875)+'rem'} solid #52B16E;`">
                             <img class="app-main" src="@/assets/images/home/userImg.png" alt="" />
                         </div>
                         <p :class="`margin-top-xs text-black text-center ${isPC?'text-df':'text-xl'}`">
                             {{item.name}}
                         </p>
                         <p :class="`margin-top-xs text-black text-center ${isPC?'text-sm':'text-df'}`">
-                            {{item.skill}}
+                            {{item.type_name}}
                         </p>
                         <div v-if="isPC" :class="[
                         'team-description',
                         'text-justify line-height-xs bg-gradualDarkgreen radius-lg hidden',
                         'app-main absolute absolute-t absolute-l text-white text-sm'
-                        ]"><p class="margin-sm">{{item.content}}</p>
+                        ]"><p class="margin-sm">{{item.introduction}}</p>
                         </div>
 
                         <div v-if="!isPC" :class="[
                         'text-justify line-height-xs',
                         'padding-tb-sm text-black text-sm'
-                        ]"><p>{{item.content}}</p>
+                        ]"><p>{{item.introduction}}</p>
                         </div>
                     </div>
                 </div>
@@ -75,47 +75,65 @@
     </scroll-view>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import Footer from "@/components/Footer/index.vue";
 import Pagination from "@/components/pagination/index.vue";
+import {Getter} from "vuex-class";
+import service from "@/api/request";
 @Component({
     components:{Footer,Pagination}
 })
 export default class Designer extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
-    switchType = [{
-        name:'平面',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name:'插画',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name:'工艺设计',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: true
-    },{
-        name:'工业设计',
-        className: `${this.isPC?'text-sm':'text-df'}`,
-        isSlash: false
-    }];
-    designer = [{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
-    },{
-        name: '王利军',
-        skill: '创始人   CEO',
-        content: '内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容......',
-        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-        isPC: this.isPC
-    }]
+    private isPC: boolean;
+    private navActive: number;
+    private designer: object[];
+    private paging: ServicePagination;
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.navActive = 0;
+        this.designer = [];
+        this.paging = {type: 0,limit: 8,page: 1}
+    }
+    @Getter('designerNav') Nav: any
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.navActive = nav[0].id
+        this.paging = {...this.paging,type: nav[0].id}
+        this.getDesignerList(this.paging);
+    }
+
+    getDesignerList (params: ServicePagination) {
+        service.getDesignerList(params).then(response => {
+            const {limit,page} = response.data;
+            this.paging = {limit,page,type: this.navActive}
+            this.designer = response.data.list.map((item: object) => {
+                return {
+                    ...item,
+                    isPC: this.isPC,
+                    imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`
+                }
+            });
+        })
+    }
+
+    switchDesigner (id: number) {
+        if (id === this.navActive) return ;
+        this.navActive = id;
+        this.paging = {limit: 6,page: 1,type: id};
+        this.getDesignerList(this.paging);
+    }
+
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
+    }
+
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.paging = {...this.paging,type: this.Nav[0].id}
+            this.getDesignerList(this.paging);
+        }
     }
 }
 </script>
