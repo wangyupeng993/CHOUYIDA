@@ -520,6 +520,9 @@ video{
 .basis-xs {
     flex-basis: 20%;
 }
+.basis-xm {
+    flex-basis: 26%;
+}
 .basis-sm {
     flex-basis: 40%;
 }
