@@ -25,15 +25,15 @@
                         <li v-for="item in Nav" :key="item.id" :class="[
                     'radius-round-sm padding-tb-xs padding-lr-sm pointer',
                     `${item.className} ${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`
-                    ]">{{item.name}}</li>
+                    ]" @click="switchRecruitment(item.id)">{{item.name}}</li>
                     </ul>
                 </div>
             </div>
 
             <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'padding-lr-sm'}`">
                 <div :class="[
-                'recruitment-info hidden',
-                'basis-sm bg-white padding-sm radius-lg pointer',
+                `${isPC?'basis-xs':'basis-sm'} recruitment-info hidden`,
+                'bg-white padding-sm radius-lg pointer',
                 'flex items-center justify-center relative',
                 `${(index%2) === 1?'margin-lr':''}`
                 ]" v-for="(item,index) in recruitment" :key="index">
@@ -110,6 +110,12 @@ export default class Recruitment extends Vue {
                     isPC: this.isPC}
             })
         })
+    }
+
+    switchRecruitment (id: number) {
+        if (id === this.navActive) return ;
+        this.navActive = id;
+        this.getRecruitmentList({type: id})
     }
 }
 </script>

@@ -29,7 +29,7 @@
                         <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
                             <li v-for="item in Nav" :key="item.id" :class="[
                                 'inline-block padding-tb-xs pointer',`${item.className} text-white`
-                                ]"><span :class="[
+                                ]" @click="switchNews(item.id)"><span :class="[
                                 'inline-block  padding-lr-df',
                                 `${navActive == item.id?'text-green':'text-white'}`
                                 ]">{{item.name}}</span><i v-if="item.isSlash">/</i>
@@ -133,6 +133,12 @@ export default class Information extends Vue {
         service.getNewsList(params).then(response => {
             this.news = response.data.list.slice(0,3).map(item => item);
         })
+    }
+
+    switchNews (id: number) {
+        if (id === this.navActive) return ;
+        this.navActive = id;
+        this.getNewsList({type: id})
     }
 }
 </script>

@@ -28,7 +28,7 @@
                         <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
                             <li v-for="item in Nav" :key="item.id" :class="[
                                 'inline-block padding-tb-xs pointer',`${item.className} text-grey`
-                                ]"><span :class="[
+                                ]" @click="switchDesigner(item.id)"><span :class="[
                                 'inline-block  padding-lr-df',
                                 `${navActive == item.id?'text-green':'text-grey'}`
                                 ]">{{item.name}}</span><i v-if="item.isSlash">/</i>
@@ -38,10 +38,9 @@
                 </div>
                 <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'flex-wrap-wrap justify-center'}`">
                     <div :class="[
-                    'basis-xs padding-top-sm padding-lr-sm pointer relative',
-                    `${isPC?'padding-bottom-xl':''} radius-xl designer-info hidden`
-                    ]"
-                         v-for="(item,index) in designer" :key="index">
+                    'padding-top-sm padding-lr-sm pointer relative',
+                    `${isPC?'basis-xs padding-bottom-xl':'basis-sm'} radius-xl designer-info hidden`
+                    ]" v-for="(item,index) in designer" :key="index">
                         <div class="text-center relative zIndex-xs">
                             <div class="padding-xs round inline-block"
                                  :style="`width:${item.imgWidth};${item.imgWidth};border:${isPC?'5px':(5/46.875)+'rem'} solid #52B16E;`">
@@ -119,6 +118,12 @@ export default class Designer extends Vue {
                 }
             });
         });
+    }
+
+    switchDesigner (id: number) {
+        if (id === this.navActive) return ;
+        this.navActive = id;
+        this.getDesignerList({type: id});
     }
 }
 </script>

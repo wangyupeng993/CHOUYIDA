@@ -28,7 +28,7 @@
                             <li v-for="(item) in Nav" :key="item.id" :class="[
                     'radius-round-sm padding-xs pointer white-nowrap',
                     `${item.className} ${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`
-                    ]">{{item.name}}</li>
+                    ]" @click="switchPartner(item.id)">{{item.name}}</li>
                         </ul>
                     </div>
                 </div>
@@ -126,6 +126,12 @@ export default class Partner extends Vue {
         service.getPartnerList(params).then(response => {
             this.partner = response.data.list.slice(0,3).map(item => item);
         })
+    }
+
+    switchPartner (id: number) {
+        if (id === this.navActive) return ;
+        this.navActive = id;
+        this.getPartnerList({type: id});
     }
 }
 </script>

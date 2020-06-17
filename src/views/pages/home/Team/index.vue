@@ -25,7 +25,7 @@
                     <ul :class="`white-nowrap ${isPC?'':'text-center'}`">
                         <li v-for="item in Nav" :key="item.id" :class="[
                             'inline-block padding-tb-xs pointer',`${item.className} text-grey`
-                            ]"><span :class="[
+                            ]" @click="switchTeam(item.id)"><span :class="[
                             'inline-block padding-lr-df',
                             `${navActive == item.id?'text-green':'text-grey'}`
                             ]">{{item.name}}</span><i v-if="item.isSlash">/</i>
@@ -36,8 +36,8 @@
 
             <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'padding-lr-sm'}`">
                 <div :class="[
-                'team-info',
-                'basis-sm bg-white padding-sm radius-lg pointer',
+                `${isPC?'basis-xs':'basis-sm'} team-info`,
+                'bg-white padding-sm radius-lg pointer',
                 'flex items-center justify-center relative hidden',
                 `${(index%2) === 1?'margin-lr':''}`
                 ]" v-for="(item,index) in team" :key="index">
@@ -122,6 +122,12 @@ export default class Team extends Vue {
                 }
             });
         });
+    }
+
+    switchTeam (id: number) {
+        if (id === this.navActive) return ;
+        this.navActive = id;
+        this.getTeamList({type: id})
     }
 }
 </script>
