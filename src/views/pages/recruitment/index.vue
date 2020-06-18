@@ -25,86 +25,100 @@
 
             <div class="padding-tb-df">
                 <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
-                    <li v-for="item in switchType" :key="item.name" :class="[
-                    'bg-darkGreen radius-round-sm text-white',
-                    'padding-tb-xs padding-lr-sm pointer',
-                    `${item.className}`
-                    ]">{{item.name}}</li>
+                    <li v-for="item in Nav" :key="item.id" :class="[
+                    'radius-round-sm padding-tb-xs padding-lr-sm pointer',
+                    `${item.className} ${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`
+                    ]" @click="switchRecruitment(item.id)">{{item.name}}</li>
                 </ul>
             </div>
 
-            <div class="flex padding-bottom-df">
+            <div class="flex padding-bottom-df flex-wrap-wrap">
                 <div :class="[
-                `${isPC?'basis-xs':'basis-sm'} padding-tb-sm padding-lr-df text-black radius-sm`,
-                `${(index%2)===1&&isPC?'margin-lr-sm':'margin-lr-sm'} pointer`
-                ]" style="border:1px solid rgba(229,229,229,1);"
-                     v-for="(item,index) in recuitment" :key="index">
-                    <router-link to="/recruitment/details">
-                        <p :class="`${item.className} text-black`">{{item.name}}
-                            <span class="text-gray text-xs">{{item.time}}发布</span>
+                `${isPC?'basis-xm margin-lr-sm padding-sm':'basis-df'} margin-bottom-df`,
+                `text-black radius-sm pointer`
+                ]" :style="`${isPC?'border:1px solid rgba(229,229,229,1);':''}`"
+                     v-for="(item,index) in recruitment" :key="index">
+                    <div :class="`${isPC?'':'padding-sm margin-lr-sm'}`" :style="`${isPC?'':'border:1px solid rgba(229,229,229,1);'}`">
+                        <router-link to="/recruitment/details">
+                            <p :class="`${item.className} text-black`">{{item.name}}
+                                <span class="text-gray text-xs">{{item.time}}发布</span>
+                            </p>
+                        </router-link>
+                        <p :class="`text-xs padding-tb-xs`">
+                            {{item.city}} | {{item.years}} | {{item.education}}
                         </p>
-                    </router-link>
-                    <p :class="`text-xs padding-tb-xs`">
-                        {{item.city}} | {{item.years}} | {{item.education}}
-                    </p>
-                    <p :class="`text-sm text-red`">
-                        {{item.salary}}
-                    </p>
+                        <p :class="`text-sm text-red`">
+                            {{item.salary}}
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <div v-if="isPC" class="flex justify-center padding-bottom-df">
-                <Pagination background />
+                <Pagination background :page-size="Number(paging.limit)"
+                            :current-page="paging.page" :total="paging.count"
+                            @current-change="handlePageChange" />
             </div>
         </div>
         <Footer />
     </scroll-view>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import Footer from "@/components/Footer/index.vue";
 import Pagination from "@/components/pagination/index.vue";
+import {Getter} from "vuex-class";
+import service from "@/api/request";
 @Component({
     components:{Footer,Pagination}
 })
 export default class Recruitment extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
-    switchType = [{
-        name:'金融',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'创意研发',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'品质控制',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'商业模式',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'制造加工',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    }];
+    private isPC: boolean;
+    private recruitment: object[];
+    private navActive: number;
+    private paging: ServicePagination;
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.recruitment = [];
+        this.navActive = 0;
+        this.paging = {type: 0,limit: 6,page: 1,count: 0};
+    }
+    @Getter('recruitmentNav') Nav: any
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.paging = {...this.paging,type: nav[0].id};
+        this.getRecruitmentList(this.paging);
+    }
 
-    recuitment = [{
-        name: '金融变现产品经理',
-        time: '17:02',
-        city: '厦门',
-        years: '3-5年',
-        education: '本科',
-        salary: '7-12k',
-        className: `${this.isPC?'text-sm':'text-df'}`
-    },{
-        name: '金融变现产品经理',
-        time: '17:02',
-        city: '厦门',
-        years: '3-5年',
-        education: '本科',
-        salary: '7-12k',
-        className: `${this.isPC?'text-sm':'text-df'}`
-    }]
+    getRecruitmentList (params: ServicePagination) {
+        this.navActive = params.type;
+        service.getRecruitmentList(params).then(response => {
+            const {limit,page,count,list} = response.data;
+            this.paging = {limit,page,count,type: this.navActive}
+            this.recruitment = list.map((item: object) => {
+                return {...item,
+                    className: `${this.isPC?'text-sm':'text-df'}`}
+            })
+        })
+    }
 
+    switchRecruitment (id: number) {
+        if (id === this.navActive) return ;
+        this.paging = {...this.paging,page: 1,type: id};
+        this.getRecruitmentList(this.paging );
+    }
+
+    handlePageChange (pages: ServicePagination) {
+        this.getRecruitmentList({type:this.navActive,limit: pages.limit,page: pages.page});
+    }
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.paging = {...this.paging,type: this.Nav[0].id}
+            this.getRecruitmentList(this.paging);
+        }
+    }
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
     }

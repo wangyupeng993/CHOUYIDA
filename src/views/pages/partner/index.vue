@@ -12,10 +12,9 @@
 
             <div class="padding-tb-df">
                 <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
-                    <li v-for="item in Nav" :key="item.id" :class="[
-                    'bg-darkGreen radius-round-sm text-white',
-                    'padding-tb-xs pointer',
-                    `${item.className}`
+                    <li v-for="(item) in Nav" :key="item.id" :class="[
+                    'radius-round-sm padding-xs pointer white-nowrap',
+                    `${item.className} ${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`
                     ]" @click="switchPartner(item.id)">{{item.name}}</li>
                 </ul>
             </div>
