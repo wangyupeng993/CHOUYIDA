@@ -108,13 +108,13 @@ export default class Team extends Vue {
 
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.getTeamList({type: nav[0].id});
+        this.getTeamList({type: nav[0].id,limit: 4});
     }
 
     async getTeamList (params: ServicePagination) {
         this.navActive = params.type;
         service.getTeamList(params).then(response => {
-            this.team = response.data.list.slice(0,3).map(item => {
+            this.team = response.data.list.map(item => {
                 return {
                     ...item,
                     imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
@@ -126,12 +126,12 @@ export default class Team extends Vue {
 
     switchTeam (id: number) {
         if (id === this.navActive) return ;
-        this.getTeamList({type: id});
+        this.getTeamList({type: id,limit: 4});
     }
 
     mounted(): void {
         if (this.Nav[0]) {
-            this.getTeamList({type: this.Nav[0].id});
+            this.getTeamList({type: this.Nav[0].id,limit: 4});
         }
     }
 }

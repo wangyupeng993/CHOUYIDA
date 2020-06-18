@@ -104,13 +104,13 @@ export default class Designer extends Vue {
 
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.getDesignerList({type: nav[0].id});
+        this.getDesignerList({type: nav[0].id,limit: 4});
     }
 
     async getDesignerList (params: ServicePagination) {
         this.navActive = params.type;
         service.getDesignerList(params).then(response => {
-            this.designer = response.data.list.slice(0,3).map((item: object) => {
+            this.designer = response.data.list.map((item: object) => {
                 return {
                     ...item,
                     isPC: this.isPC,
@@ -122,12 +122,12 @@ export default class Designer extends Vue {
 
     switchDesigner (id: number) {
         if (id === this.navActive) return ;
-        this.getDesignerList({type: id});
+        this.getDesignerList({type: id,limit: 4});
     }
 
     mounted(): void {
         if (this.Nav[0]) {
-            this.getDesignerList({type: this.Nav[0].id});
+            this.getDesignerList({type: this.Nav[0].id,limit: 4});
         }
     }
 }

@@ -1,12 +1,13 @@
 <template>
     <el-pagination :background="background" :page-sizes="pageSizes"
-                   :page-size="pageSize" :total="total"
+                   :page-size="pageSize" :total="total" :current-page="currentPage"
+                   @current-change="handleChange" @prev-click="handleChange" @next-clik="handleChange"
                    :layout="layout" prev-text="上一页" next-text="下一页">
     </el-pagination>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop, Emit} from 'vue-property-decorator';
 @Component({})
 export default class Pagination extends Vue {
     @Prop({
@@ -17,8 +18,8 @@ export default class Pagination extends Vue {
     @Prop({
         type: Number,
         required: false,
-        default: 0
-    }) pageNumber !: number;
+        default: 1
+    }) currentPage !: number
     @Prop({
         type: Number,
         required: false,
@@ -28,7 +29,7 @@ export default class Pagination extends Vue {
         type: Array,
         required: false,
         default: () => []
-    }) pageSizes !: any[];
+    }) pageSizes !: number[];
     @Prop({
         type: String,
         required: false,
@@ -39,5 +40,10 @@ export default class Pagination extends Vue {
         required: false,
         default: false
     }) background !: boolean;
+
+    @Emit('current-change')
+    private handleChange () {
+        return {limit: this.pageSize,page: this.currentPage}
+    }
 }
 </script>

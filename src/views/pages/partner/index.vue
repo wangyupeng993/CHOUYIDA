@@ -1,5 +1,5 @@
 <template>
-    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
+    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC" v-loading="Loading">
         <div>
             <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
                  :class="`${isPC?'':'object-fit-cover'}`"
@@ -12,75 +12,105 @@
 
             <div class="padding-tb-df">
                 <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
-                    <li v-for="item in switchType" :key="item.name" :class="[
+                    <li v-for="item in Nav" :key="item.id" :class="[
                     'bg-darkGreen radius-round-sm text-white',
                     'padding-tb-xs pointer',
                     `${item.className}`
-                    ]">{{item.name}}</li>
+                    ]" @click="switchPartner(item.id)">{{item.name}}</li>
                 </ul>
             </div>
 
-            <div class="flex padding-bottom-df">
+            <div class="flex padding-bottom-df flex-wrap-wrap">
                 <div :class="[
-                `${isPC?'basis-sm':'basis-df'}`,
-                'padding-top-sm radius-xl hidden pointer',
-                `${(item%2) === 0&&isPC?'margin-lr-df':'margin-lr-sm'} partner-info`
-                ]" style="border:1px solid rgba(238,238,238,1);" v-for="item in 2" :key="item">
-                    <div class="text-center padding-tb-sm">
-                        <img src="@/assets/images/home/swiper_img.png" alt="" />
-                    </div>
-                    <div :class="[
+                `${isPC?'basis-30 margin-lr-xs margin-bottom-df':'basis-df margin-bottom-sm'}`,
+                'padding-top-sm radius-xl hidden pointer partner-info'
+                ]" :style="`${isPC?'border:1px solid rgba(238,238,238,1);':''}`"
+                     v-for="item in partner" :key="item.id">
+                    <div :class="`${isPC?'':'padding-sm margin-sm shadow'}`">
+                        <div class="text-center padding-tb-sm">
+                            <img src="@/assets/images/home/swiper_img.png" alt="" />
+                        </div>
+                        <div :class="[
                     'padding-bottom-xl padding-lr-sm',
                     `${isPC?'text-xs':'text-sm'} text-black text-justify`
-                    ]">
-                        “帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”
-                    </div>
-                    <div class="text-sm text-center partner-btn">
-                        <router-link to="/partner/details" class="padding-tb-xs block">
-                            查看详情
-                        </router-link>
+                    ]">{{item.introduction}}</div>
+                        <div class="text-sm text-center partner-btn">
+                            <router-link to="/partner/details" class="padding-tb-xs block">
+                                查看详情
+                            </router-link>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div v-if="isPC" class="flex justify-center padding-bottom-df">
-                <Pagination background />
+                <Pagination background :page-size="Number(paging.limit)"
+                            :current-page="paging.page" :total="paging.count"
+                            @current-change="handlePageChange" />
             </div>
         </div>
         <Footer />
     </scroll-view>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import Footer from "@/components/Footer/index.vue";
 import Pagination from "@/components/pagination/index.vue";
+import {Getter} from "vuex-class";
+import service from "@/api/request";
+
 @Component({
     components:{Footer,Pagination}
 })
 export default class Partner extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
-    switchType = [{
-        name:'金融投资',
-        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
-    },{
-        name:'创意研发',
-        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
-    },{
-        name:'品质控制',
-        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
-    },{
-        name:'商业模式',
-        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
-    },{
-        name:'制造加工',
-        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
-    },{
-        name:'法律法规',
-        className: `${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`
-    }];
+    private isPC: boolean;
+    private partner: object[];
+    private navActive: number;
+    private paging: ServicePagination;
+    private Loading: boolean;
+    constructor () {
+        super();
+        this.isPC =  ObjectDetection.isPCBroswer();
+        this.partner = [];
+        this.navActive = 0;
+        this.paging = {type: 0,limit: 6,page: 1,count: 0};
+        this.Loading = false;
+    }
+    @Getter('partnerNav') Nav: any
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.paging = {...this.paging,type: nav[0].id};
+        this.getPartnerList(this.paging);
+    }
+
+    getPartnerList (params: ServicePagination) {
+        this.navActive = params.type;
+        this.Loading = true;
+        service.getPartnerList(params).then(response => {
+            const {limit,page,count,list} = response.data;
+            this.Loading = false;
+            this.paging = {limit,page,count,type: this.navActive}
+            this.partner = list.map((item: object) => item);
+        }).catch(error => {this.Loading = false;})
+    }
+    switchPartner (id: number) {
+        if (id === this.navActive) return ;
+        this.paging = {...this.paging,page: 1,type: id};
+        this.getPartnerList(this.paging);
+    }
+
+    handlePageChange (pages: ServicePagination) {
+        this.getPartnerList({type:this.navActive,limit: pages.limit,page: pages.page});
+    }
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
+    }
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.paging = {...this.paging,type: this.Nav[0].id}
+            this.getPartnerList(this.paging);
+        }
     }
 }
 </script>

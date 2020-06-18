@@ -41,7 +41,7 @@
                                     <img src="@/assets/images/home/swiper_img.png" alt="" />
                                 </div>
                                 <div class="basis-xl margin-lr text-black text-sm flex items-center">
-                                    <p class="line-height-xs">“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”</p>
+                                    <p class="line-height-xs">{{item.introduction}}</p>
                                 </div>
                             </router-link>
                         </el-carousel-item>
@@ -55,9 +55,7 @@
                                     <img width="100%" src="@/assets/images/home/swiper_img.png" alt="" />
                                 </div>
                                 <div class="basis-xl margin-lr text-black text-df flex items-center">
-                                    <p class="line-height-xs padding-tb-sm text-justify">
-                                        “帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”“帮助我们更好地实现集团化管理，提升内部协作效率与质量。数据安全方面，也另我们感到十分放心。”
-                                    </p>
+                                    <p class="line-height-xs padding-tb-sm text-justify">{{item.introduction}}</p>
                                 </div>
                             </router-link>
                         </swiper-slide>
@@ -119,23 +117,23 @@ export default class Partner extends Vue {
 
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.getPartnerList({type: nav[0].id});
+        this.getPartnerList({type: nav[0].id,limit: 4});
     }
     getPartnerList (params: ServicePagination) {
         this.navActive = params.type;
         service.getPartnerList(params).then(response => {
-            this.partner = response.data.list.slice(0,3).map(item => item);
+            this.partner = response.data.list.map(item => item);
         })
     }
 
     switchPartner (id: number) {
         if (id === this.navActive) return ;
-        this.getPartnerList({type: id});
+        this.getPartnerList({type: id,limit: 4});
     }
 
     mounted(): void {
         if (this.Nav[0]) {
-            this.getPartnerList({type: this.Nav[0].id});
+            this.getPartnerList({type: this.Nav[0].id,limit: 4});
         }
     }
 }

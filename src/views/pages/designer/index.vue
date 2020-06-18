@@ -68,7 +68,9 @@
                 </div>
             </div>
             <div v-if="isPC" class="flex justify-center padding-bottom-df">
-                <Pagination background />
+                <Pagination background :page-size="Number(paging.limit)"
+                            :current-page="paging.page" :total="paging.count"
+                            @current-change="handlePageChange" />
             </div>
         </div>
         <Footer />
@@ -95,7 +97,7 @@ export default class Designer extends Vue {
         this.isPC = ObjectDetection.isPCBroswer();
         this.navActive = 0;
         this.designer = [];
-        this.paging = {type: 0,limit: 8,page: 1}
+        this.paging = {type: 0,limit: 8,page: 1,count: 0};
         this.Loading = false;
     }
     @Getter('designerNav') Nav: any
@@ -108,10 +110,10 @@ export default class Designer extends Vue {
     getDesignerList (params: ServicePagination) {
         this.Loading = true;
         this.navActive = params.type;
-            service.getDesignerList(params).then(response => {
-            const {limit,page} = response.data;
+        service.getDesignerList(params).then(response => {
+            const {limit,page,count} = response.data;
             this.Loading = false;
-            this.paging = {limit,page,type: this.navActive}
+            this.paging = {limit,page,count,type: this.navActive}
             this.designer = response.data.list.map((item: object) => {
                 return {
                     ...item,
@@ -125,8 +127,11 @@ export default class Designer extends Vue {
     }
     switchDesigner (id: number) {
         if (id === this.navActive) return ;
-        this.paging = {limit: 6,page: 1,type: id};
+        this.paging = {limit: 8,page: 1,type: id};
         this.getDesignerList(this.paging);
+    }
+    handlePageChange (pages: ServicePagination) {
+        this.getDesignerList({type:this.navActive,limit: pages.limit,page: pages.page});
     }
 
     mousewheel = (ev: Element) => {

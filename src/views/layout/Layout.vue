@@ -39,7 +39,7 @@ export default class Layout extends Vue {
             }));
             this.$store.commit('getPartnerNav',partnerList.nav.map((item: object) => {
                 return {...item,
-                    className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`}
+                    className:`${this.isPC?'text-xs margin-lr-xs padding-lr-sm':'text-df padding-lr-xs'}`}
             }));
             this.$store.commit('getRecruitmentNav',recruitmentList.nav.map((item: object) => {
                 return {...item,

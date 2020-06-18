@@ -55,7 +55,9 @@
                 </div>
             </div>
             <div v-if="isPC" class="flex justify-center padding-bottom-df">
-                <Pagination background />
+                <Pagination background :page-size="Number(paging.limit)"
+                            :current-page="paging.page" :total="paging.count"
+                            @current-change="handlePageChange" />
             </div>
         </div>
         <Footer />
@@ -83,7 +85,7 @@ export default class Team extends Vue {
         this.team = [];
         this.navActive = 0;
         this.Loading = false;
-        this.paging = {type: 0,limit: 8,page: 1}
+        this.paging = {type: 0,limit: 8,page: 1,count: 0}
     }
     @Getter('teamNav') Nav: any
     @Watch('Nav')
@@ -96,7 +98,9 @@ export default class Team extends Vue {
         this.navActive = params.type;
         this.Loading = true;
         service.getTeamList(params).then(response => {
+            const {limit,page,count} = response.data;
             this.Loading = false;
+            this.paging = {limit,page,count,type: this.navActive};
             this.team = response.data.list.map(item => {
                 return {
                     ...item,
@@ -115,6 +119,11 @@ export default class Team extends Vue {
         if (id === this.navActive) return ;
         this.paging = {limit: 6,page: 1,type: id};
         this.getTeamList(this.paging);
+    }
+
+
+    private handlePageChange (pages: ServicePagination) {
+        this.getTeamList({type:this.navActive,limit: pages.limit,page: pages.page});
     }
 
     mounted(): void {

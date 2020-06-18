@@ -98,13 +98,13 @@ export default class Recruitment extends Vue {
     @Getter('recruitmentNav') Nav: any
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.getRecruitmentList({type: nav[0].id});
+        this.getRecruitmentList({type: nav[0].id,limit: 4});
     }
 
     getRecruitmentList (params: ServicePagination) {
         this.navActive = params.type;
         service.getRecruitmentList(params).then(response => {
-            this.recruitment = response.data.list.slice(0,3).map(item => {
+            this.recruitment = response.data.list.map(item => {
                 return {...item,
                     imgWH: `width:${this.isPC?'92px':(92/46.875)+'rem'};height:${this.isPC?'105px':(105/46.875)+'rem'};`,
                     isPC: this.isPC}
@@ -114,12 +114,12 @@ export default class Recruitment extends Vue {
 
     switchRecruitment (id: number) {
         if (id === this.navActive) return ;
-        this.getRecruitmentList({type: id});
+        this.getRecruitmentList({type: id,limit: 4});
     }
 
     mounted(): void {
         if (this.Nav[0]) {
-            this.getRecruitmentList({type: this.Nav[0].id});
+            this.getRecruitmentList({type: this.Nav[0].id,limit: 4});
         }
     }
 }
