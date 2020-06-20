@@ -45,3 +45,17 @@ interface ServiceRecDetails {
     type_name?: string
     updatetime?: number
 }
+
+interface ServiceNewDetails {
+    id: number,
+    title?: string,
+    user_id?: number,
+    type_ids?: string,
+    detail?: string,
+    status?: number,
+    view_times?: number,
+    createtime: string,
+    updatetime?: number,
+    deletetime?: number,
+    type_name?: string
+}

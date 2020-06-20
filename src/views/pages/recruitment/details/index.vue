@@ -1,5 +1,5 @@
 <template>
-    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
+    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC" v-loading="Loading">
         <div>
             <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
                  :class="`${isPC?'':'object-fit-cover'}`"
@@ -54,12 +54,14 @@ import PostResume from "@/views/pages/recruitment/details/PostResume.vue";
 export default class RecruitmentDetails extends Vue {
     private isPC: boolean;
     private RecDetails: ServiceRecDetails;
-    private visible: boolean
+    private visible: boolean;
+    private Loading: boolean;
     constructor () {
         super();
         this.isPC =  ObjectDetection.isPCBroswer();
         this.RecDetails = {};
         this.visible = false;
+        this.Loading = false;
     }
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
@@ -67,12 +69,12 @@ export default class RecruitmentDetails extends Vue {
 
     getRecruitmentDetails () {
         const {id} = this.$route.query;
+        this.Loading = true;
         service.getRecruitmentDetails({id: Number(id)}).then(response => {
             const {data} = response;
             this.RecDetails = data;
-        }).catch(error => {
-            console.log(error,'=============')
-        });
+            this.Loading = false;
+        }).catch(error => {this.Loading = false;});
     }
 
     handleConfirm (raw: {visible: boolean}) {

@@ -31,13 +31,19 @@
                 </ul>
             </div>
 
-            <div :class="`radius-lg margin-bottom-df ${isPC?'padding-df':'padding-sm margin-lr-sm'}`"
+            <div v-if="information[0]" :class="`radius-lg margin-bottom-df ${isPC?'padding-df':'padding-sm margin-lr-sm'}`"
                  style="border:1px solid rgba(229,229,229,1);">
-                <h2 :class="`text-inkblue padding-bottom-sm ${isPC?'':'text-lg text-hidden'}`">
-                    WICC 高峰对话：一场 5G+通信云行业发展的华山论剑
+                <h2 :class="`padding-bottom-sm ${isPC?'':'text-lg text-hidden'}`">
+                    <router-link :to="{path: '/information/details',query: {id: information[0].id}}"
+                                 class="text-inkblue">
+                        {{information[0].title}}
+                    </router-link>
                 </h2>
                 <p :class="`text-darkGrey text-justify ${isPC?'text-sm':'text-df'}`">
-                    2019 年 11 月 30 日，全球互联网通信云大会（WICC）在上海圆满落幕。互联网通信云行业领导者融云作为主办方，邀请到阿里、百度、京东等知名公司的技术领袖，对通信云技术如何支撑 5G 时代下的互联网通信云新应用......
+                    <router-link :to="{path: '/information/details',query: {id: information[0].id}}"
+                                 class="text-inkblue">
+                        {{information[0].detail}}
+                    </router-link>
                 </p>
             </div>
 
@@ -48,7 +54,7 @@
                         <img class="object-fit-cover app-main" src="@/assets/images/147.png" alt="">
                     </div>
                     <div class="basis-xl hidden padding-right-sm">
-                        <router-link to="/information/details">
+                        <router-link :to="{path: '/information/details',query: {id: item.id}}">
                             <h3 :class="`information-title padding-tb-xs ${isPC?'':'text-hidden text-lg'}`">
                                 {{item.title}}
                             </h3>
@@ -58,7 +64,7 @@
                         </p>
                         <div :class="`flex padding-top-sm ${isPC?'text-xs':'text-sm'}`">
                             <p class="basis-xl text-grey">{{item.date}}</p>
-                            <router-link to="/information/details" class="basis-xs">
+                            <router-link :to="{path: '/information/details',query: {id: item.id}}" class="basis-xs">
                                 <p class="text-green text-right">
                                     查看详情 <i class="cuIcon-right"></i>
                                 </p>

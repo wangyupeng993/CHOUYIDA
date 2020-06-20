@@ -43,6 +43,11 @@ const service = {
         url: '/addons/cydweb/api.index/recruitmentDetail',
         method: 'GET',
         params
+    }),
+    getNewsDetails: (params: {id: number}): Promise<{data: ServiceNewDetails}> => request({
+        url: '/addons/cydweb/api.index/newsDetail',
+        method: 'GET',
+        params
     })
 }
 
