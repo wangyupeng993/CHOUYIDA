@@ -27,7 +27,7 @@
                      v-for="item in partner" :key="item.id">
                     <div :class="`${isPC?'':'padding-sm margin-sm shadow'}`">
                         <div class="text-center padding-tb-sm">
-                            <img src="@/assets/images/home/swiper_img.png" alt="" />
+                            <img width="100%" :src="item.headimage" alt="" />
                         </div>
                         <div :class="[
                     'padding-bottom-xl padding-lr-sm',

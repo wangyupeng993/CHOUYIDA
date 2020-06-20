@@ -38,7 +38,7 @@
                         <el-carousel-item v-for="item in partner" :key="item.id" class="bg-white radius-sm">
                             <router-link tag="div" to="/partner/details" class="block app-main flex">
                                 <div class="basis-xs flex items-center">
-                                    <img src="@/assets/images/home/swiper_img.png" alt="" />
+                                    <img width="100%" :src="item.headimage" class="object-fit-contain" alt="" />
                                 </div>
                                 <div class="basis-xl margin-lr text-black text-sm flex items-center">
                                     <p class="line-height-xs">{{item.introduction}}</p>
@@ -51,8 +51,8 @@
                             <router-link tag="div" to="/partner/details"
                                          class="block flex margin-lr-xl bg-white radius-df"
                                          style="height:100%;">
-                                <div class="basis-sm flex items-center">
-                                    <img width="100%" src="@/assets/images/home/swiper_img.png" alt="" />
+                                <div class="basis-sm flex items-center hidden">
+                                    <img width="100%" :src="item.headimage" alt="" />
                                 </div>
                                 <div class="basis-xl margin-lr text-black text-df flex items-center">
                                     <p class="line-height-xs padding-tb-sm text-justify">{{item.introduction}}</p>

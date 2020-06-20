@@ -44,7 +44,7 @@
                         <div class="text-center relative zIndex-xs">
                             <div class="padding-xs round inline-block"
                                  :style="`width:${item.imgWidth};${item.imgWidth};border:${isPC?'5px':(5/46.875)+'rem'} solid #52B16E;`">
-                                <img class="app-main" src="@/assets/images/home/userImg.png" alt="" />
+                                <img class="app-main round" :src="item.headimage" alt="" />
                             </div>
                             <p :class="`margin-top text-white text-center ${isPC?'text-df':'text-xl'}`">
                                 {{item.name}}

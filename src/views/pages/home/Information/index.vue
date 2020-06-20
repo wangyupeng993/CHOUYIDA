@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="basis-df padding-lr-df">
                                     <img class="radius-xl" width="490px" height="350px"
-                                         src="@/assets/images/home/2306.png" alt="" />
+                                         :src="item.headimage" alt="" />
                                 </div>
                             </div>
                         </el-carousel-item>
@@ -68,8 +68,7 @@
                             </div>
                             <div class="text-center">
                                 <img :style="`width:${490/46.875};height:${350/46.875}rem;`"
-                                     class="radius-xl"
-                                     src="@/assets/images/home/2306.png" alt="" />
+                                     class="radius-xl" :src="item.headimage" alt="" />
                             </div>
                         </swiper-slide>
                         <div class="swiper-button-prev margin-top-xl" slot="button-prev"></div>

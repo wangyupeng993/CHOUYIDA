@@ -53,7 +53,7 @@ export default class Details extends Vue {
         this.Loading = true;
             service.getNewsDetails({id: Number(id)}).then(response => {
             const {data} = response;
-            // this.Loading = false;
+            this.Loading = false;
             this.newsDetails = {...data,createtime: formatTime(new Date(Number(data.createtime)))};
         }).catch(error => {this.Loading = false;});
     }

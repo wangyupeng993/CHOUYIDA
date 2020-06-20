@@ -31,7 +31,7 @@
                     <div :class="`text-center ${isPC?'':'margin-xs padding-sm shadow radius-lg'}`">
                         <div class="padding-xs round inline-block"
                              :style="`width:${item.imgWidth};height:${item.imgWidth};`">
-                            <img class="app-main" src="@/assets/images/home/userImg.png" alt="" />
+                            <img class="app-main round" :src="item.headimage" alt="" />
                         </div>
                         <p :class="`margin-top-xs text-black text-center ${isPC?'text-df':'text-xl'}`">
                             {{item.name}}

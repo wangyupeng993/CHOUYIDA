@@ -51,7 +51,7 @@
                 <div :class="`information-info flex margin-bottom-sm radius-df hidden pointer ${isPC?'':'margin-lr-sm'}`"
                      v-for="(item,index) in information" :key="index">
                     <div :class="`${isPC?'basis-xs':'basis-sm'} radius-df hidden margin-right-sm`">
-                        <img class="object-fit-cover app-main" src="@/assets/images/147.png" alt="">
+                        <img class="object-fit-cover app-main" :src="item.headimage" alt="">
                     </div>
                     <div class="basis-xl hidden padding-right-sm">
                         <router-link :to="{path: '/information/details',query: {id: item.id}}">
