@@ -39,17 +39,17 @@
                 ]" :style="`${isPC?'border:1px solid rgba(229,229,229,1);':''}`"
                      v-for="(item,index) in recruitment" :key="index">
                     <div :class="`${isPC?'':'padding-sm margin-lr-sm'}`" :style="`${isPC?'':'border:1px solid rgba(229,229,229,1);'}`">
-                        <router-link to="/recruitment/details">
+                        <router-link :to="{path: '/recruitment/details',query: {id:item.id}}">
                             <p :class="`${item.className} text-black`">{{item.name}}
                                 <span class="text-gray text-xs">{{item.time}}发布</span>
                             </p>
+                            <p :class="`text-xs text-black padding-tb-xs`">
+                                {{item.city}} | {{item.years}} | {{item.education}}
+                            </p>
+                            <p :class="`text-sm text-red`">
+                                {{item.salary}}
+                            </p>
                         </router-link>
-                        <p :class="`text-xs padding-tb-xs`">
-                            {{item.city}} | {{item.years}} | {{item.education}}
-                        </p>
-                        <p :class="`text-sm text-red`">
-                            {{item.salary}}
-                        </p>
                     </div>
                 </div>
             </div>

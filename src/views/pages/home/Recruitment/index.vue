@@ -37,24 +37,26 @@
                 'flex items-center justify-center relative',
                 `${(index%2) === 1?'margin-lr':''}`
                 ]" v-for="(item,index) in recruitment" :key="index">
-                    <div class="text-center">
-                        <div class="padding-xs round inline-block"
-                             :style="item.imgWH">
-                            <img class="app-main" src="@/assets/images/home/office.png" alt="" />
-                        </div>
-                        <p :class="`margin-top-xs text-black text-center ${isPC?'text-sm':'text-df'}`">
-                            {{item.name}}
-                        </p>
-                        <p :class="`margin-top-xs text-gray text-center text-hidden ${isPC?'text-xs':'text-sm'}`">
-                            {{item.skill}}
-                        </p>
-                        <div v-if="isPC" :class="[
+                    <router-link :to="{path: '/recruitment/details', query: {id: item.id}}">
+                        <div class="text-center">
+                            <div class="padding-xs round inline-block"
+                                 :style="item.imgWH">
+                                <img class="app-main" src="@/assets/images/home/office.png" alt="" />
+                            </div>
+                            <p :class="`margin-top-xs text-black text-center ${isPC?'text-sm':'text-df'}`">
+                                {{item.name}}
+                            </p>
+                            <p :class="`margin-top-xs text-gray text-center text-hidden ${isPC?'text-xs':'text-sm'}`">
+                                {{item.skill}}
+                            </p>
+                            <div v-if="isPC" :class="[
                         'recruitment-description',
                         'text-justify line-height-xs bg-gradualDarkgreen radius-lg hidden',
                         'app-main absolute absolute-t absolute-l text-white text-sm'
-                        ]"><p class="margin-sm">{{item.content}}</p>
+                        ]"><p class="margin-sm">{{item.detail}}</p>
+                            </div>
                         </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
 

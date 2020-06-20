@@ -1,6 +1,6 @@
 <template>
     <el-dialog :visible.sync="dialogVisible" width="80%" center
-               custom-class="isMobile"
+               custom-class="isMobile" @close="handleConfirm"
                :close-on-click-modal="false" :append-to-body="true">
         <div class="hidden" style="height:60vh;">
             <scroll-view :scroll-y="true">

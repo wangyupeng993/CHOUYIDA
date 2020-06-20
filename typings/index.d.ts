@@ -33,3 +33,15 @@ interface ServiceHelpDetails {
     deletetime?: number
     id?: number
 }
+
+interface ServiceRecDetails {
+    createtime?: number
+    deletetime?: number
+    detail?: string
+    id?: number
+    name?: string
+    status?: number
+    type_ids?: number|string
+    type_name?: string
+    updatetime?: number
+}
