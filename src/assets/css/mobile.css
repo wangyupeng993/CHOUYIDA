@@ -403,4 +403,7 @@
   width: 2.13333333rem !important;
   height: 2.13333333rem !important;
 }
+.isMobile .el-dialog__header {
+  display: none;
+}
 /*# sourceMappingURL=mobile.css.map */

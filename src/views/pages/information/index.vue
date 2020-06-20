@@ -24,10 +24,9 @@
 
             <div class="padding-tb-df">
                 <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
-                    <li v-for="item in switchType" :key="item.name" :class="[
-                    'bg-darkGreen radius-round-sm text-white',
-                    'padding-tb-xs padding-lr-sm pointer',
-                    `${item.className}`
+                    <li v-for="item in Nav" :key="item.id" :class="[
+                    'radius-round-sm padding-tb-xs padding-lr-sm pointer',
+                    `${item.className} ${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`
                     ]">{{item.name}}</li>
                 </ul>
             </div>
@@ -55,7 +54,7 @@
                             </h3>
                         </router-link>
                         <p :class="`text-darkGrey ${isPC?'text-sm':'text-df'} text-justify`">
-                            {{item.description}}
+                            {{item.detail}}
                         </p>
                         <div :class="`flex padding-top-sm ${isPC?'text-xs':'text-sm'}`">
                             <p class="basis-xl text-grey">{{item.date}}</p>
@@ -70,62 +69,68 @@
             </div>
 
             <div v-if="isPC" class="flex justify-center padding-bottom-df">
-                <Pagination background />
+                <Pagination background :page-size="Number(paging.limit)"
+                            :current-page="paging.page" :total="paging.count"
+                            @current-change="handlePageChange"/>
             </div>
         </div>
         <Footer />
     </scroll-view>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import Footer from "@/components/Footer/index.vue";
 import Pagination from "@/components/pagination/index.vue";
+import {Getter} from "vuex-class";
+import service from "@/api/request";
+
 @Component({
     components:{Footer,Pagination}
 })
 export default class Information extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
-    switchType = [{
-        name:'全部',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'金融',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'创意研发',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'品质控制',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'商业模式',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    },{
-        name:'制造加工',
-        className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`
-    }];
+    private isPC: boolean;
+    private navActive: number;
+    private paging: ServicePagination;
+    private information: object[];
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.navActive = 0;
+        this.paging = {type: 0,limit: 6,page: 1,count: 0};
+        this.information = [];
+    }
+    @Getter('newsNav') Nav: any
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.paging = {...this.paging,type: nav[0].id};
+        this.getNewsList(this.paging);
+    }
 
-    information = [{
-        title: '互联网通信云 PaaS 选型 开发者必备指南',
-        description: '打击无牌照金融活动的行动正延伸至保险行业。获悉，各地保监局已收到中国银保监会下发的相关通知，将开展2018年打击非法商业保险活动专项行动，重点打击非持牌金融机构...持牌金融机构...持牌金融机构...',
-        date: '发布：2020-04-11',
-    },{
-        title: '互联网通信云 PaaS 选型 开发者必备指南',
-        description: '打击无牌照金融活动的行动正延伸至保险行业。获悉，各地保监局已收到中国银保监会下发的相关通知，将开展2018年打击非法商业保险活动专项行动，重点打击非持牌金融机构...持牌金融机构...持牌金融机构...',
-        date: '发布：2020-04-11',
-    },{
-        title: '互联网通信云 PaaS 选型 开发者必备指南',
-        description: '打击无牌照金融活动的行动正延伸至保险行业。获悉，各地保监局已收到中国银保监会下发的相关通知，将开展2018年打击非法商业保险活动专项行动，重点打击非持牌金融机构...持牌金融机构...持牌金融机构...',
-        date: '发布：2020-04-11',
-    },{
-        title: '互联网通信云 PaaS 选型 开发者必备指南',
-        description: '打击无牌照金融活动的行动正延伸至保险行业。获悉，各地保监局已收到中国银保监会下发的相关通知，将开展2018年打击非法商业保险活动专项行动，重点打击非持牌金融机构...持牌金融机构...持牌金融机构...',
-        date: '发布：2020-04-11',
-    }]
+    getNewsList (params: ServicePagination) {
+        this.navActive = params.type;
+        service.getNewsList(params).then(response => {
+            const {limit,page,count,list} = response.data;
+            this.paging = {limit,page,count,type: this.navActive}
+            this.information = list.map(item => item);
+        }).catch(error => {
+            console.log(error,'===========');
+        })
+    }
+
+    handlePageChange (pages: ServicePagination) {
+        this.getNewsList({type:this.navActive,limit: pages.limit,page: pages.page});
+    }
 
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
+    }
+
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.paging = {...this.paging,type: this.Nav[0].id}
+            this.getNewsList(this.paging);
+        }
     }
 }
 </script>

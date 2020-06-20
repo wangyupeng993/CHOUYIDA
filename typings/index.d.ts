@@ -16,3 +16,20 @@ interface ServiceResult<T> {
         list: T
     }
 }
+
+interface ServiceResultObject<T> {
+    code?:number
+    msg?:string
+    time?:string|number
+    data: T
+}
+
+interface ServiceHelpDetails {
+    category_id?: number
+    detail?: string
+    title?: string
+    updatetime?: number
+    createtime?: number
+    deletetime?: number
+    id?: number
+}

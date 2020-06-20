@@ -12,7 +12,8 @@ import {
     Pagination,
     Upload,
     Collapse,
-    CollapseItem
+    CollapseItem,
+    Dialog
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // fade/zoom 等
@@ -31,3 +32,4 @@ Vue.use(Pagination)
 Vue.use(Upload)
 Vue.use(Collapse)
 Vue.use(CollapseItem)
+Vue.use(Dialog)

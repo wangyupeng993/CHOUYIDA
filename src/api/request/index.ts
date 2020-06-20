@@ -29,6 +29,15 @@ const service = {
         url: '/addons/cydweb/api.index/newsList',
         method: 'GET',
         params
+    }),
+    getHelpNav: (): Promise<ServiceResultObject<object[]>> => request({
+        url: '/addons/cydweb/api.index/helpNav',
+        method: 'GET'
+    }),
+    getHelpDetails: (params: {id: number}): Promise<{data: ServiceHelpDetails}> => request({
+        url: '/addons/cydweb/api.index/helpDetail',
+        method: 'GET',
+        params
     })
 }
 

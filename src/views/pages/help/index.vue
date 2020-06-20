@@ -5,7 +5,7 @@
                  :class="`${isPC?'':'object-fit-cover'}`"
                  src="@/assets/images/banner/help_banner.png" alt="" />
         </div>
-        <div :class="`${isPC?'center-1200 relative padding-bottom-xl':''}`">
+        <div :class="`${isPC?'center-1200 padding-bottom-xl':''} relative`">
             <div class="padding-tb-df margin-lr-sm">
                 <div :class="`text-black ${isPC?'text-sm':'text-df'}`">首页 > {{$route.meta.title}}</div>
             </div>
@@ -26,24 +26,29 @@
                 <div :class="`${isPC?'basis-sm solid-right':''} padding-lr-sm padding-bottom-xl`">
                     <h2 :class="`padding-tb-sm text-gray ${isPC?'':'text-xl'}`">问题分类</h2>
                     <el-collapse>
-                        <el-collapse-item v-for="(item,index) in question" :key="index">
+                        <el-collapse-item v-for="(item) in question" :key="item.id">
                             <template slot="title">
-                                <p :class="`${isPC?'text-sm':'text-lg'}`">{{item.title}}</p>
+                                <p :class="`${isPC?'text-sm':'text-lg'}`">{{item.name}}</p>
                             </template>
-                            <div v-for="(child,childIndex) in item.type" :key="childIndex"
-                                 :class="`padding-left-sm ${isPC?'text-xs':'text-df'} padding-tb-xs pointer`">
-                                {{child}}
-                            </div>
+                            <div v-for="(child) in item._child" :key="child.id"
+                                 @click="getHelpDetails(child.id)"
+                                 :class="[
+                                 'padding-left-sm  padding-tb-xs pointer',
+                                 `${helpDetails.category_id == child.id?'text-green':''}`,
+                                 `${isPC?'text-xs':'text-df'}`
+                                 ]">{{child.name}}</div>
                         </el-collapse-item>
                     </el-collapse>
                 </div>
                 <div v-if="isPC" class="basis-xl padding-lr-xl">
-                    <h2 class="padding-tb-sm text-black solid-bottom">产品保障</h2>
+                    <h2 class="padding-tb-sm text-black solid-bottom">{{helpDetails.title}}</h2>
                     <div class="line-height-df text-justify padding-tb-df">
-                        平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;平台上项目是否有保障;
+                        {{helpDetails.detail}}
                     </div>
                 </div>
             </div>
+
+            <HelpDetails v-if="visible" :details.sync="helpDetails" @handle-confirm="handleConfirm" />
         </div>
         <Footer />
     </scroll-view>
@@ -52,27 +57,55 @@
 import { Component, Vue } from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import Footer from "@/components/Footer/index.vue";
+import service from "@/api/request";
+import HelpDetails from "@/views/pages/help/details/index.vue";
 @Component({
-    components: {Footer}
+    components: {Footer, HelpDetails}
 })
 export default class Help extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
-    question = [{
-        title: '账户问题',
-        type: ['产品保障','项目保障','关于保险']
-    },{
-        title: '协议问题',
-        type: ['产品保障','项目保障','关于保险']
-    }, {
-        title: '求职问题',
-        type: ['产品保障','项目保障','关于保险']
-    },{
-        title: '项目保障问题',
-        type: ['产品保障','项目保障','关于保险']
-    }]
+    private isPC: boolean;
+    private question: object[];
+    private helpDetails: ServiceHelpDetails;
+    private visible: boolean;
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.question = [];
+        this.helpDetails = {};
+        this.visible = false;
+    }
+
+    getHelpNav () {
+        service.getHelpNav().then(response => {
+            const {data} = response;
+            this.question = data.map(item => item);
+        }).catch(error => {
+            console.log(error,'===============');
+        });
+    }
+
+    getHelpDetails (id: number) {
+        if (this.helpDetails.category_id&& this.helpDetails.category_id == id) return ;
+        service.getHelpDetails({id: id}).then(response => {
+            const {data} = response;
+            this.helpDetails = data;
+            if (!this.isPC) {this.visible = true}
+        }).catch(error => {
+            console.log(error,'=================');
+        })
+    }
+    handleConfirm (raw: {visible: boolean}) {
+        this.visible = raw.visible;
+        this.helpDetails = {};
+    }
+
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
     }
+
+     mounted(): void {
+        this.getHelpNav();
+     }
 }
 </script>
 
