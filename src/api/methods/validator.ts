@@ -124,10 +124,10 @@ class ObjectDetection {
         const isLettersNumber = new RegExp('^[A-Za-z].*[0-9]|[0-9].*[A-Za-z]+$')
         return isLettersNumber.test(string)
     }
-    static isNull (string: string) {
+    static isNull (string: string|undefined) {
         const space = new RegExp('^[ ]+$')
         if (string === '') return true
-        return space.test(string)
+        return space.test(string?string:'')
     }
 }
 export default ObjectDetection;

@@ -1,5 +1,8 @@
 <template>
-    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC" v-loading="Loading">
+    <scroll-view @handle-scroll="mousewheel" ref="scrollBar"
+                 @onPullingUp="onPullingUp" :pullUpLoad="{threshold: 10}"
+                 :pullDownRefresh="{threshold: 50}" @onPullingDown="onPullingDown"
+                 :scroll-y="!isPC" v-loading="Loading">
         <div class="">
              <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
                   :class="`${isPC?'':'object-fit-cover'}`"
@@ -12,11 +15,11 @@
 
             <div :class="`flex hidden margin-lr-sm ${isPC?'radius-round-sm':'radius-round-df'}`"
                  style="border:1px solid #00BA33;">
-                <input :class="[
+                <input @input="enterInputChange" :class="[
                 'line-height-xl text-indent-sm',
                 `${isPC?'text-sm basis-max':'text-df basis-xl'}`
-                ]" type="text" name="" placeholder="输入设计师名称" />
-                <button :class="[
+                ]" type="text" v-model="paging.keyword" name="keyword" placeholder="输入设计师名称" />
+                <button @click="designerSearch" :class="[
                 'text-white bg-green pointer',
                 `${isPC?'basis-min text-sm':'basis-xs text-df'}`
                 ]">搜索</button>
@@ -73,7 +76,7 @@
                             @current-change="handlePageChange" />
             </div>
         </div>
-        <Footer />
+        <Footer v-if="isPC||(!isPC&&paging.page >= paging.countPage)" />
     </scroll-view>
 </template>
 <script lang="ts">
@@ -97,13 +100,13 @@ export default class Designer extends Vue {
         this.isPC = ObjectDetection.isPCBroswer();
         this.navActive = 0;
         this.designer = [];
-        this.paging = {type: 0,limit: 8,page: 1,count: 0};
+        this.paging = {type: 0,limit: 8,page: 1,count: 0,countPage: 0,keyword: ''};
         this.Loading = false;
     }
     @Getter('designerNav') Nav: any
     @Watch('Nav')
     NavChange (nav: [{id: number}]) {
-        this.paging = {...this.paging,type: nav[0].id}
+        this.paging = {...this.paging,type: nav[0].id};
         this.getDesignerList(this.paging);
     }
 
@@ -111,27 +114,76 @@ export default class Designer extends Vue {
         this.Loading = true;
         this.navActive = params.type;
         service.getDesignerList(params).then(response => {
-            const {limit,page,count} = response.data;
+            const {limit,page,count,list} = response.data;
             this.Loading = false;
-            this.paging = {limit,page,count,type: this.navActive}
-            this.designer = response.data.list.map((item: object) => {
-                return {
-                    ...item,
-                    isPC: this.isPC,
-                    imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`
-                }
-            });
+            this.paging = {
+                limit,page,count,
+                type: params.type,
+                countPage: Math.ceil((Number(count) / Number(limit))),
+                keyword: this.paging.keyword
+            };
+            if (this.isPC) {
+                this.designer = list.map((item: object) => {
+                    return {
+                        ...item,
+                        isPC: this.isPC,
+                        imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`
+                    }
+                });
+            } else {
+                this.designer = [...this.designer,...list.map((item: object) => {
+                    return {
+                        ...item,
+                        isPC: this.isPC,
+                        imgWidth: `${this.isPC?'150px':(150/46.875)+'rem'}`
+                    }
+                })];
+            }
         }).catch(() => {
             this.Loading = false;
         });
     }
+
     switchDesigner (id: number) {
         if (id === this.navActive) return ;
-        this.paging = {limit: 8,page: 1,type: id};
+        this.designer = [];
+        this.paging = {...this.paging,limit: 8,page: 1,type: id};
         this.getDesignerList(this.paging);
     }
+
+    async onPullingUp () {
+        const {page,countPage} = this.paging;
+        if (Number(page) >= Number(countPage)) return false;
+        await this.getDesignerList({
+            ...this.paging,
+            type: this.navActive,
+            page:(Number(page) + 1)
+        });
+    }
+
+    async onPullingDown () {
+        this.designer = [];
+        await this.getDesignerList({
+            ...this.paging,
+            type: this.navActive,
+            page: 1
+        });
+    }
+
+    designerSearch () {
+        this.designer = [];
+        this.getDesignerList({type: this.navActive,limit: 8,page: 1,keyword: this.paging.keyword});
+    }
+
+    enterInputChange () {
+        if (ObjectDetection.isNull(this.paging.keyword)) {
+            this.designer = [];
+            this.getDesignerList({type: this.navActive,limit: 8,page: 1,keyword: this.paging.keyword});
+        }
+    }
+
     handlePageChange (pages: ServicePagination) {
-        this.getDesignerList({type:this.navActive,limit: pages.limit,page: pages.page});
+        this.getDesignerList({...pages,type: this.navActive,keyword: this.paging.keyword});
     }
 
     mousewheel = (ev: Element) => {

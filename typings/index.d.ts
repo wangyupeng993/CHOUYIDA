@@ -3,6 +3,14 @@ interface ServicePagination {
     page?:number
     limit?:number
     count?: number
+    countPage?: number
+    keyword?: string
+}
+
+interface ServiceSearch {
+    keyword: string
+    page?: number
+    limit?: number
 }
 
 interface ServiceResult<T> {

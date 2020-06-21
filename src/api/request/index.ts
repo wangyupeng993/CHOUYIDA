@@ -53,6 +53,11 @@ const service = {
         url: '/addons/cydweb/api.index/partnerDetail',
         method: 'GET',
         params
+    }),
+    designerSearch: (params: ServiceSearch): Promise<ServiceResult<object[]>> => request({
+        url: '/addons/cydweb/api.index/designerSearch',
+        method: 'GET',
+        params
     })
 }
 

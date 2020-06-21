@@ -21,7 +21,7 @@
                 <div class="flex text-black padding-tb-df">
                     <p class="basis-lg text-lg">{{RecDetails.name}}</p>
                     <p :class="`basis-sm ${isPC?'text-sm':'text-df'} flex direction-column justify-end`">
-                        厦门、上海、广州
+                        {{RecDetails.area}}
                     </p>
                 </div>
                 <div :class="`text-black text-justify  ${isPC?'text-xs':'text-df'}`">

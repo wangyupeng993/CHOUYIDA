@@ -24,9 +24,9 @@ export default {
         scrollX: Boolean,
         scrollY: Boolean,
         // 开启下拉刷新的动作
-        pullingDown: Boolean,
+        pullDownRefresh: Object,
         // 开启上拉加载的动作
-        pullingUp: Boolean,
+        pullUpLoad: Object,
         // 滚动到顶部/左边 多少距离时触发
         scrolltoupper: {
             type: Number,
@@ -52,13 +52,15 @@ export default {
                 click: true,
                 preventDefaultException: {
                     tagName: /^(IMG|INPUT|TEXTAREA|BUTTON|SELECT)$/
-                }
+                },
+                pullUpLoad: this.pullUpLoad,
+                pullDownRefresh: this.pullDownRefresh
             });
 
             await setTimeout(async () => {
                 // 当scroll 处于启用状态时发布一个初始化事件
-                await scroll.refresh()
-                if (scroll.enabled) await this.$emit('before-scroll', scroll)
+                await scroll.refresh();
+                if (scroll.enabled) await this.$emit('before-scroll', scroll);
             }, 100)
             // 监听滚动事件
             scroll.on('scroll', (pos) => {
@@ -85,19 +87,15 @@ export default {
                 }
 
                 this.$emit('onScrollEnd', pos);
-            })
+            });
 
-            // 上拉加载 / 下拉刷新
-            scroll.on('touchEnd', pos => {
-                // 上拉加载更多
-                if (scroll.maxScrollY >= (pos.y + this.scrolltolower) && this.pullingUp||scroll.maxScrollX >= (pos.x + this.scrolltolower) && this.pullingUp) {
-                    this.$emit('bind-scroll-up', scroll)
-                }
-                // 下拉刷新
-                if (pos.y > this.scrolltoupper||pos.x > this.scrolltoupper) {
-                    this.$emit('bind-scroll-down', scroll)
-                }
-            })
+            scroll.on('pullingUp', () => {
+                this.$emit('onPullingUp', scroll);
+            });
+
+            scroll.on('pullingDown', () => {
+                this.$emit('onPullingDown', scroll);
+            });
         }
     },
     methods: {

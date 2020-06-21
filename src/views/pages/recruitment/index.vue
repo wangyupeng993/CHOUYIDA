@@ -44,10 +44,10 @@
                                 <span class="text-gray text-xs">{{item.time}}发布</span>
                             </p>
                             <p :class="`text-xs text-black padding-tb-xs`">
-                                {{item.city}} | {{item.years}} | {{item.education}}
+                                {{item.area}} | {{item.year_limit}} | {{item.education}}
                             </p>
                             <p :class="`text-sm text-red`">
-                                {{item.salary}}
+                                {{item.money}}
                             </p>
                         </router-link>
                     </div>
