@@ -1,5 +1,8 @@
 <template>
-    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC" v-loading="Loading">
+    <scroll-view @handle-scroll="mousewheel" ref="scrollBar"
+                 :pullUpLoad="{threshold: 10}" :pullDownRefresh="{threshold: 50}"
+                 @onPullingUp="onPullingUp" @onPullingDown="onPullingDown"
+                 :scroll-y="!isPC" v-loading="Loading">
         <div>
             <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
                  :class="`${isPC?'':'object-fit-cover'}`"
@@ -74,7 +77,7 @@ export default class Partner extends Vue {
         this.isPC =  ObjectDetection.isPCBroswer();
         this.partner = [];
         this.navActive = 0;
-        this.paging = {type: 0,limit: 6,page: 1,count: 0};
+        this.paging = {type: 0,limit: 6,page: 1,count: 0,countPage: 0};
         this.Loading = false;
     }
     @Getter('partnerNav') Nav: any
@@ -90,14 +93,38 @@ export default class Partner extends Vue {
         service.getPartnerList(params).then(response => {
             const {limit,page,count,list} = response.data;
             this.Loading = false;
-            this.paging = {limit,page,count,type: this.navActive}
-            this.partner = list.map((item: object) => item);
+            this.paging = {limit,page,count,type: this.navActive,countPage: Math.ceil((Number(count) / Number(limit)))}
+            if (this.isPC) {
+                this.partner = list.map((item: object) => item);
+            }else{
+                this.partner = [...this.partner,...list.map((item: object) => item)];
+            }
         }).catch(error => {this.Loading = false;})
     }
     switchPartner (id: number) {
         if (id === this.navActive) return ;
         this.paging = {...this.paging,page: 1,type: id};
+        this.partner = [];
         this.getPartnerList(this.paging);
+    }
+
+    async onPullingUp () {
+        const {page,countPage} = this.paging;
+        if (Number(page) >= Number(countPage)) return false;
+        await this.getPartnerList({
+            ...this.paging,
+            type: this.navActive,
+            page:(Number(page) + 1)
+        });
+    }
+
+    async onPullingDown () {
+        this.partner = [];
+        await this.getPartnerList({
+            ...this.paging,
+            type: this.navActive,
+            page: 1
+        });
     }
 
     handlePageChange (pages: ServicePagination) {

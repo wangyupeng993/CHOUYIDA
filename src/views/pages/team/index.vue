@@ -63,7 +63,7 @@
                             @current-change="handlePageChange" />
             </div>
         </div>
-        <Footer />
+        <Footer v-if="isPC||(!isPC&&paging.page >= paging.countPage)" />
     </scroll-view>
 </template>
 <script lang="ts">
@@ -88,7 +88,7 @@ export default class Team extends Vue {
         this.team = [];
         this.navActive = 0;
         this.Loading = false;
-        this.paging = {type: 0,limit: 8,page: 1,count: 0}
+        this.paging = {type: 0,limit: 8,page: 1,count: 0,countPage: 0}
     }
     @Getter('teamNav') Nav: any
     @Watch('Nav')
@@ -103,7 +103,7 @@ export default class Team extends Vue {
         service.getTeamList(params).then(response => {
             const {limit,page,count,list} = response.data;
             this.Loading = false;
-            this.paging = {limit,page,count,type: this.navActive};
+            this.paging = {limit,page,count,type: this.navActive,countPage: Math.ceil((Number(count) / Number(limit)))};
             if (this.isPC) {
                 this.team = list.map(item => {
                     return {
