@@ -169,7 +169,7 @@ export default class Recruitment extends Vue {
     }
 
     handlePageChange (pages: ServicePagination) {
-        this.getRecruitmentList({type:this.navActive,limit: pages.limit,page: pages.page});
+        this.getRecruitmentList({...pages,type: this.navActive,keyword: this.paging.keyword});
     }
     mounted(): void {
         if (this.Nav[0]) {

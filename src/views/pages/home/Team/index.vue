@@ -34,14 +34,14 @@
                 </div>
             </div>
 
-            <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'padding-lr-sm'}`">
+            <div :class="`margin-top-sm flex ${isPC?'padding-top-xl':'flex-wrap-wrap'}`">
                 <div :class="[
-                `${isPC?'basis-xs':'basis-sm'} team-info`,
-                'bg-white padding-sm radius-lg pointer',
+                `${isPC?'basis-xs bg-white padding-sm':'basis-df margin-bottom-df'} team-info`,
+                'radius-lg pointer',
                 'flex items-center justify-center relative hidden',
-                `${(index%2) === 1?'margin-lr':''}`
+                `${(index%2) === 1&&isPC?'margin-lr':''}`
                 ]" v-for="(item,index) in team" :key="index">
-                    <div class="text-center">
+                    <div :class="`${isPC?'':'bg-white padding-lr-sm margin-lr-sm radius-lg '} text-center`">
                         <div class="padding-xs round inline-block"
                              :style="`width:${item.imgWidth};height:${item.imgWidth};`">
                             <img class="app-main round" :src="item.headimage" alt="" />

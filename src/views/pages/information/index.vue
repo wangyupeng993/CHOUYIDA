@@ -1,5 +1,7 @@
 <template>
-    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC">
+    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC"
+                 :pullUpLoad="{threshold: 10}" :pullDownRefresh="{threshold: 50}"
+                 @onPullingDown="onPullingDown" @onPullingUp="onPullingUp" v-loading="Loading">
         <div>
             <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
                  :class="`${isPC?'':'object-fit-cover'}`"
@@ -12,11 +14,11 @@
 
             <div :class="`flex hidden margin-lr-sm ${isPC?'radius-round-sm':'radius-round-df'}`"
                  style="border:1px solid #00BA33;">
-                <input :class="[
+                <input @input="enterInputChange" :class="[
                 'line-height-xl text-indent-sm',
                 `${isPC?'text-sm basis-max':'text-df basis-xl'}`
-                ]" type="text" name="" placeholder="输入资讯标题" />
-                <button :class="[
+                ]" v-model="paging.keyword" type="text" name="keyword" placeholder="输入资讯标题" />
+                <button @click="recruitmentSearch" :class="[
                 'text-white bg-green pointer',
                 `${isPC?'basis-min text-sm':'basis-xs text-df'}`
                 ]">搜索</button>
@@ -80,7 +82,7 @@
                             @current-change="handlePageChange"/>
             </div>
         </div>
-        <Footer />
+        <Footer v-if="isPC||(!isPC&&paging.page >= paging.countPage)"  />
     </scroll-view>
 </template>
 <script lang="ts">
@@ -99,12 +101,14 @@ export default class Information extends Vue {
     private navActive: number;
     private paging: ServicePagination;
     private information: object[];
+    private Loading: boolean;
     constructor () {
         super();
         this.isPC = ObjectDetection.isPCBroswer();
         this.navActive = 0;
-        this.paging = {type: 0,limit: 6,page: 1,count: 0};
+        this.paging = {type: 0,limit: 6,page: 1,count: 0,countPage: 0,keyword: ''};
         this.information = [];
+        this.Loading = false;
     }
     @Getter('newsNav') Nav: any
     @Watch('Nav')
@@ -115,17 +119,58 @@ export default class Information extends Vue {
 
     getNewsList (params: ServicePagination) {
         this.navActive = params.type;
+        this.Loading = true;
         service.getNewsList(params).then(response => {
             const {limit,page,count,list} = response.data;
-            this.paging = {limit,page,count,type: this.navActive}
-            this.information = list.map(item => item);
-        }).catch(error => {
-            console.log(error,'===========');
-        })
+            this.paging = {
+                limit,page,count,
+                type: params.type,
+                countPage: Math.ceil((Number(count) / Number(limit))),
+                keyword: this.paging.keyword
+            };
+            this.Loading = false;
+            if (this.isPC) {
+                this.information = list.map(item => item);
+            }else{
+                this.information = [...this.information,...list.map(item => item)];
+            }
+        }).catch(error => {this.Loading = false;});
     }
 
+    async onPullingUp () {
+        const {page,countPage} = this.paging;
+        if (Number(page) >= Number(countPage)) return false;
+        await this.getNewsList({
+            ...this.paging,
+            type: this.navActive,
+            page: (Number(page) + 1)
+        });
+    }
+
+    async onPullingDown () {
+        this.information = [];
+        await this.getNewsList({
+            ...this.paging,
+            type: this.navActive,
+            page: 1
+        });
+    }
+
+    recruitmentSearch () {
+        this.information = [];
+        this.getNewsList({type: this.navActive,limit: 8,page: 1,keyword: this.paging.keyword});
+    }
+
+    enterInputChange () {
+        if (ObjectDetection.isNull(this.paging.keyword)) {
+            this.information = [];
+            this.getNewsList({type: this.navActive,limit: 8,page: 1,keyword: this.paging.keyword});
+        }
+    }
+
+
     handlePageChange (pages: ServicePagination) {
-        this.getNewsList({type:this.navActive,limit: pages.limit,page: pages.page});
+        this.getNewsList({...pages,type: this.navActive,keyword: this.paging.keyword});
     }
 
     mousewheel = (ev: Element) => {

@@ -93,12 +93,14 @@ export default {
                 this.$emit('onScrollEnd', pos);
             });
 
-            scroll.on('pullingUp', () => {
-                this.$emit('onPullingUp', scroll);
+            scroll.on('pullingUp', async () => {
+                await this.$emit('onPullingUp', scroll);
+                await scroll.finishPullUp();
             });
 
-            scroll.on('pullingDown', () => {
-                this.$emit('onPullingDown', scroll);
+            scroll.on('pullingDown', async () => {
+                await this.$emit('onPullingDown', scroll);
+                await scroll.finishPullDown();
             });
         }
     },

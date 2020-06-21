@@ -50,7 +50,7 @@
                     <swiper v-if="!isPC" class="swiper margin-lr-sm" :options="swiperOption">
                         <swiper-slide v-for="item in partner" :key="item.id">
                             <router-link tag="div" :to="{path: '/partner/details', query: {id: item.id}}"
-                                         class="block flex margin-lr-xl bg-white radius-df"
+                                         class="block flex margin-lr-xl bg-white radius-df hidden"
                                          style="height:100%;">
                                 <div class="basis-sm flex items-center hidden">
                                     <img width="100%" :src="item.headimage" alt="" />
