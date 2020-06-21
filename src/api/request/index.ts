@@ -20,7 +20,7 @@ const service = {
         method: 'GET',
         params
     }),
-    getRecruitmentList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
+    getRecruitmentList: (params?: ServicePagination): Promise<ServiceResult<ServiceNewDetails[]>> => request({
         url: '/addons/cydweb/api.index/recruitmentList',
         method: 'GET',
         params

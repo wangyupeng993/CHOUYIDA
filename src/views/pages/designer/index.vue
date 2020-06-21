@@ -154,7 +154,6 @@ export default class Designer extends Vue {
     async onPullingUp () {
         const {page,countPage} = this.paging;
         if (Number(page) >= Number(countPage)) return false;
-        this.designer = [];
         await this.getDesignerList({
             ...this.paging,
             type: this.navActive,
