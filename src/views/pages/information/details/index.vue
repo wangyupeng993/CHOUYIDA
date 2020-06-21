@@ -12,11 +12,11 @@
             </div>
 
             <div class="padding-tb-df padding-lr-lg">
-                <h2 :class="`${isPC?'':'text-df'} text-inkblue`">{{newsDetails.title}}</h2>
-                <p class="text-sm text-gray padding-tb-xs">{{newsDetails.createtime}}</p>
+                <h2 :class="`${isPC?'':'text-xl'} text-inkblue`">{{newsDetails.title}}</h2>
+                <p :class="`${isPC?'':'text-df'} text-gray padding-tb-xs`">{{newsDetails.createtime}}</p>
             </div>
 
-            <div class="padding-bottom-xl padding-lr-lg text-justify text-sm text-inkblue line-height-sm">
+            <div :class="`${isPC?'text-sm':' text-df'} padding-bottom-xl padding-lr-lg text-justify text-inkblue line-height-sm`">
                 {{newsDetails.detail}}
             </div>
 

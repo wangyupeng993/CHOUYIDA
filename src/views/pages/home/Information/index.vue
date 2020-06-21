@@ -47,7 +47,8 @@
                                     <p class="text-sm text-white text-justify margin-bottom-lg">
                                         {{item.detail}}
                                     </p>
-                                    <router-link to="" class="padding-tb-xs padding-lr-sm text-white text-sm radius-round-sm solid">
+                                    <router-link :to="{path: '/information/details',query: {id: item.id}}"
+                                                 class="padding-tb-xs padding-lr-sm text-white text-sm radius-round-sm solid">
                                         查看更多
                                     </router-link>
                                 </div>
@@ -66,22 +67,22 @@
                                     {{item.title}}
                                 </p>
                             </div>
-                            <div class="text-center">
+                            <div class="text-center radius-xl hidden">
                                 <img :style="`width:${490/46.875};height:${350/46.875}rem;`"
                                      class="radius-xl" :src="item.headimage" alt="" />
                             </div>
-                        </swiper-slide>
-                        <div class="swiper-button-prev margin-top-xl" slot="button-prev"></div>
-                        <div class="swiper-button-next margin-top-xl" slot="button-next"></div>
-                    </swiper>
-                    <div v-if="!isPC" class="margin-tb-df text-center">
-                        <router-link to="/information" :class="[
+                            <div class="margin-tb-df text-center">
+                                <router-link :to="{path: '/information/details',query: {id: item.id}}" :class="[
                         'padding-tb-sm padding-lr-df',
                         'text-white text-df radius-round-lg'
                         ]" style="border:1px solid rgba(255,255,255,1);">
-                            查看更多
-                        </router-link>
-                    </div>
+                                    查看更多
+                                </router-link>
+                            </div>
+                        </swiper-slide>
+                        <div class="swiper-button-prev" slot="button-prev"></div>
+                        <div class="swiper-button-next" slot="button-next"></div>
+                    </swiper>
                 </div>
             </div>
         </div>

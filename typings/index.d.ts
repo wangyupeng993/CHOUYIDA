@@ -59,3 +59,18 @@ interface ServiceNewDetails {
     deletetime?: number,
     type_name?: string
 }
+
+interface ServicePartnerDetail {
+    id?: number,
+    name: string,
+    introduction: string,
+    type_ids?: string,
+    headimage: string,
+    status?: number,
+    detail: string,
+    industry: string,
+    createtime?: number,
+    updatetime?: number,
+    deletetime?: number,
+    type_name?: string
+}

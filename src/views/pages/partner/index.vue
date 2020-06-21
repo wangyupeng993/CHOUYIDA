@@ -34,7 +34,8 @@
                     `${isPC?'text-xs':'text-sm'} text-black text-justify`
                     ]">{{item.introduction}}</div>
                         <div class="text-sm text-center partner-btn">
-                            <router-link to="/partner/details" class="padding-tb-xs block">
+                            <router-link :to="{path: '/partner/details', query: {id: item.id}}"
+                                         class="padding-tb-xs block">
                                 查看详情
                             </router-link>
                         </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 const queryString = require('querystring');
-const URL = process.env.NODE_ENV === 'development' ? '/' : 'http://www.chouyida.eshchat.com';
+const URL = process.env.NODE_ENV === 'development' ? '/' : 'https://chouyida.eshchat.com';
 
 const service = axios.create({
     baseURL: URL,

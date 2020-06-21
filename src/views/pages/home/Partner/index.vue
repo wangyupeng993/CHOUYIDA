@@ -36,7 +36,8 @@
                 <div :class="`${isPC?'padding-top-xl margin-top-xl':'padding-top-df'}`">
                     <el-carousel v-if="isPC" :interval="4000" type="card" height="260px">
                         <el-carousel-item v-for="item in partner" :key="item.id" class="bg-white radius-sm">
-                            <router-link tag="div" to="/partner/details" class="block app-main flex">
+                            <router-link tag="div" :to="{path: '/partner/details', query: {id: item.id}}"
+                                         class="block app-main flex">
                                 <div class="basis-xs flex items-center">
                                     <img width="100%" :src="item.headimage" class="object-fit-contain" alt="" />
                                 </div>
@@ -48,7 +49,7 @@
                     </el-carousel>
                     <swiper v-if="!isPC" class="swiper margin-lr-sm" :options="swiperOption">
                         <swiper-slide v-for="item in partner" :key="item.id">
-                            <router-link tag="div" to="/partner/details"
+                            <router-link tag="div" :to="{path: '/partner/details', query: {id: item.id}}"
                                          class="block flex margin-lr-xl bg-white radius-df"
                                          style="height:100%;">
                                 <div class="basis-sm flex items-center hidden">
