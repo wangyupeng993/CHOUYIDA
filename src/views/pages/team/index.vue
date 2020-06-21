@@ -1,5 +1,8 @@
 <template>
-    <scroll-view @handle-scroll="mousewheel" ref="scrollBar" :scroll-y="!isPC" v-loading="Loading">
+    <scroll-view @handle-scroll="mousewheel" ref="scrollBar"
+                 :pullUpLoad="{threshold: 10}" :pullDownRefresh="{threshold: 50}"
+                 @onPullingUp="onPullingUp" @onPullingDown="onPullingDown"
+                 :scroll-y="!isPC" v-loading="Loading">
         <div>
             <img width="100%" :style="`min-height:${isPC?'':(590/46.875)}rem;`"
                  :class="`${isPC?'':'object-fit-cover'}`"
@@ -98,16 +101,27 @@ export default class Team extends Vue {
         this.navActive = params.type;
         this.Loading = true;
         service.getTeamList(params).then(response => {
-            const {limit,page,count} = response.data;
+            const {limit,page,count,list} = response.data;
             this.Loading = false;
             this.paging = {limit,page,count,type: this.navActive};
-            this.team = response.data.list.map(item => {
-                return {
-                    ...item,
-                    imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
-                    isPC: this.isPC
-                }
-            });
+            if (this.isPC) {
+                this.team = list.map(item => {
+                    return {
+                        ...item,
+                        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
+                        isPC: this.isPC
+                    }
+                });
+            }else{
+                this.team = [...this.team,...list.map(item => {
+                    return {
+                        ...item,
+                        imgWidth: `${this.isPC?'130px':(130/46.875)+'rem'}`,
+                        isPC: this.isPC
+                    }
+                })];
+            }
+
         }).catch(() => {this.Loading = false;});
     }
 
@@ -118,11 +132,29 @@ export default class Team extends Vue {
     switchTeam (id: number) {
         if (id === this.navActive) return ;
         this.paging = {limit: 6,page: 1,type: id};
+        this.team = [];
         this.getTeamList(this.paging);
     }
 
+    async onPullingUp () {
+        const {page,countPage} = this.paging;
+        if (Number(page) >= Number(countPage)) return false;
+        await this.getTeamList({
+            ...this.paging,
+            type: this.navActive,
+            page:(Number(page) + 1)
+        });
+    }
+    async onPullingDown () {
+        this.team = [];
+        await this.getTeamList({
+            ...this.paging,
+            type: this.navActive,
+            page: 1
+        });
+    }
 
-    private handlePageChange (pages: ServicePagination) {
+    handlePageChange (pages: ServicePagination) {
         this.getTeamList({type:this.navActive,limit: pages.limit,page: pages.page});
     }
 
