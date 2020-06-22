@@ -44,6 +44,11 @@ const service = {
         method: 'GET',
         params
     }),
+    searchHelp: (params: {keyword: string}): Promise<ServiceResultObject<object[]>> => request({
+        url: '/addons/cydweb/api.index/helpSearch',
+        method: 'GET',
+        params
+    }),
     getRecruitmentDetails:(params: {id: number}): Promise<{data: ServiceRecDetails}> => request({
         url: '/addons/cydweb/api.index/recruitmentDetail',
         method: 'GET',

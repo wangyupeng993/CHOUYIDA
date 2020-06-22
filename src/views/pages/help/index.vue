@@ -12,14 +12,14 @@
 
             <div :class="`flex hidden margin-lr-xl ${isPC?'radius-round-sm':'radius-round-df'}`"
                  style="border:1px solid #00BA33;">
-                <input :class="[
+                <input @change="enterInputChange" :class="[
                 'line-height-xl text-indent-sm',
                 `${isPC?'text-sm basis-max':'text-df basis-xl'}`
-                ]" type="text" name="" placeholder="输入名称" />
+                ]" v-model="keyword" type="text" name="keyword" placeholder="输入名称" />
                 <button :class="[
                 'text-white bg-green pointer',
                 `${isPC?'basis-min text-sm':'basis-xs text-df'}`
-                ]">搜索</button>
+                ]" @click="searchHelp">搜索</button>
             </div>
 
             <div :class="`${isPC?'flex':''} margin-top-xl`">
@@ -34,7 +34,7 @@
                                  @click="getHelpDetails(child.id)"
                                  :class="[
                                  'padding-left-sm  padding-tb-xs pointer',
-                                 `${helpDetails.category_id == child.id?'text-green':''}`,
+                                 `${helpDetails.id == child.id?'text-green':''}`,
                                  `${isPC?'text-xs':'text-df'}`
                                  ]">{{child.name}}</div>
                         </el-collapse-item>
@@ -67,12 +67,14 @@ export default class Help extends Vue {
     private question: object[];
     private helpDetails: ServiceHelpDetails;
     private visible: boolean;
+    private keyword: string;
     constructor () {
         super();
         this.isPC = ObjectDetection.isPCBroswer();
         this.question = [];
         this.helpDetails = {};
         this.visible = false;
+        this.keyword = ''
     }
 
     getHelpNav () {
@@ -85,7 +87,7 @@ export default class Help extends Vue {
     }
 
     getHelpDetails (id: number) {
-        if (this.helpDetails.category_id&& this.helpDetails.category_id == id) return ;
+        if (this.helpDetails.id&& this.helpDetails.id == id) return ;
         service.getHelpDetails({id: id}).then(response => {
             const {data} = response;
             this.helpDetails = data;
@@ -94,9 +96,39 @@ export default class Help extends Vue {
             console.log(error,'=================');
         })
     }
+
     handleConfirm (raw: {visible: boolean}) {
         this.visible = raw.visible;
         this.helpDetails = {};
+    }
+
+    enterInputChange () {
+        if (ObjectDetection.isNull(this.keyword)) {
+            this.getHelpNav();
+        }
+    }
+
+    searchHelp () {
+        // if (ObjectDetection.isNull(this.keyword)) return false;
+        service.searchHelp({keyword: this.keyword}).then(response => {
+            const {data} = response;
+            if (Array.isArray(data)) {
+                this.question = [{
+                    id: 1,
+                    name: '搜索结果',
+                    pid: 0,
+                    _child: data.map((item: ServiceHelpDetails) => {
+                        return {
+                            ...item,
+                            name: item.title
+                        }
+                    })
+                }]
+            }
+           console.log(Array.isArray(data),'===================');
+        }).catch(error => {
+            console.log(error,'===============')
+        });
     }
 
     mousewheel = (ev: Element) => {
