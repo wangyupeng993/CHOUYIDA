@@ -52,7 +52,7 @@
                             @current-change="handlePageChange" />
             </div>
         </div>
-        <Footer />
+        <Footer v-if="isPC||(!isPC&&paging.page >= paging.countPage)"  />
     </scroll-view>
 </template>
 <script lang="ts">

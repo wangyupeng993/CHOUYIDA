@@ -15,7 +15,7 @@
 
             <div :class="`flex hidden margin-lr-sm ${isPC?'radius-round-sm':'radius-round-df'}`"
                  style="border:1px solid #00BA33;">
-                <input @input="enterInputChange" :class="[
+                <input @change="enterInputChange" :class="[
                 'line-height-xl text-indent-sm',
                 `${isPC?'text-sm basis-max':'text-df basis-xl'}`
                 ]" type="text" v-model="paging.keyword" name="keyword" placeholder="输入设计师名称" />
