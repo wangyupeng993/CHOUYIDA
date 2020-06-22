@@ -26,7 +26,7 @@ export default class Layout extends Vue {
 
     created(): void {
         service.geHomeData().then(response => {
-            const {designer,teamList,newsList,partnerList,recruitmentList} = response.data;
+            const {designer,teamList,newsList,partnerList,recruitmentList,product} = response.data;
             this.$store.commit('getDesignerNav',designer.nav.map((item: object, index: number) => {
                 return {...item,
                     className: `${this.isPC?'text-sm':'text-df'}`,
@@ -49,6 +49,10 @@ export default class Layout extends Vue {
                 return {...item,
                     className: `${this.isPC?'text-xs margin-lr-xs':'text-df'}`,
                     isSlash: index < newsList.nav.length-1}
+            }));
+            this.$store.commit('getProductNav',product.nav.map((item: ServiceProductDetail) => {
+                return {...item,
+                    className: `${this.isPC?'text-xs  margin-lr-sm':'text-df'}`}
             }));
         });
     }

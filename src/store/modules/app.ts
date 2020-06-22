@@ -5,7 +5,8 @@ const app = {
         teamNav: [],
         partnerNav: [],
         recruitmentNav: [],
-        newsNav: []
+        newsNav: [],
+        productNav: []
     },
     mutations: {
         getScrollTop (state: {scrollTop: number},payload: number) {
@@ -25,6 +26,9 @@ const app = {
         },
         getNewsNav (state: {newsNav: object[]},payload: object[]) {
             state.newsNav = payload;
+        },
+        getProductNav (state: {productNav: object[]},payload: object[]) {
+            state.productNav = payload;
         }
     },
     actions: {}

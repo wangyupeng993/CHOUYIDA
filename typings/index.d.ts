@@ -82,3 +82,20 @@ interface ServicePartnerDetail {
     deletetime?: number,
     type_name?: string
 }
+
+interface ServiceProductDetail {
+    id: number
+    title: string
+    subtitle: string
+    status: string
+    image: string
+    price: string
+    days: number
+    start_time: number
+    user_num: number
+    current_money: number
+    type_text: string
+    status_text: string
+    dispatch_type_text: string
+    progress: number
+}

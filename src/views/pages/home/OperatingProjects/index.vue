@@ -18,64 +18,69 @@
                 </div>
 
                 <div :class="`basis-xl ${isPC?'flex items-center justify-end':'padding-top-df'}`">
-                    <ul :class="`flex justify-center ${isPC?'':'text-center'}`">
-                        <li v-for="item in switchType" :key="item.name" :class="[
-                    'bg-darkGreen radius-round-sm text-white',
-                    'padding-tb-xs padding-lr-sm pointer',
-                    `${item.className}`
-                    ]">{{item.name}}</li>
+                    <ul :class="`flex justify-center ${isPC?'':'text-center'} white-nowrap`">
+                        <li v-for="item in Nav" :key="item.id" :class="[
+                        `${navActive == item.id?'bg-darkGreen text-white':'text-grey'}`,
+                        'radius-round-sm padding-tb-xs padding-lr-sm pointer',
+                        `${item.className}`
+                        ]" @click="switchProduct(item.id)">{{item.name}}</li>
                     </ul>
                 </div>
             </div>
 
             <div class="inline-block" style="width:100%;">
-                <scroll-view scroll-x :width="`${3*(558/46.875)}rem`">
+                <scroll-view scroll-x :width="`${product.length*(558/46.875)}rem`">
                     <div :class="`${isPC?'padding-top-xl flex padding-bottom-sm hidden':'padding-top-sm margin-left-df'}`"
-                         :style="`width:${isPC?'100%':3*(558/46.875)+'rem'};`">
+                         :style="`width:${isPC?'100%':product.length*(558/46.875)+'rem'};`">
                         <div :class="[
                     'basis-sm radius-xl bg-white hidden pointer inline-block',
-                    `${(item%2) === 0?'margin-lr-sm':''} Operating-case`
-                    ]" :style="`width:${isPC?'':(518/46.875)+'rem'};`" v-for="item in 3" :key="item">
+                    `margin-lr-xs Operating-case`
+                    ]" :style="`width:${isPC?'':(518/46.875)+'rem'};`" v-for="item in product" :key="item.id">
                             <div class="bg-blueLight">
-                                <img width="100%" src="@/assets/images/home/2306.png" alt="" />
+                                <img width="100%" class="object-fit-cover"
+                                     :style="`height:${isPC?'232px':(232/46.875)+'rem'};`"
+                                     :src="item.image" alt="" />
                             </div>
                             <div class="margin-lr-sm">
-                                <div class="text-df text-hidden padding-top-xs">
-                                    宋朝青玉观音瓶【限量复刻】
+                                <div :class="`${isPC?'text-df':'text-xl'} text-hidden padding-top-xs`">
+                                    {{item.title}}
                                 </div>
-                                <p class="text-xs text-gray solid-bottom padding-bottom-xs">
-                                    胎质光滑剔透，皇家精品，限量复刻
+                                <p :class="`${isPC?'text-xs':'text-df'} text-gray solid-bottom padding-bottom-xs`">
+                                    {{item.subtitle}}
                                 </p>
-                                <p class="text-xs text-black padding-tb-xs">
+                                <p :class="`text-black ${isPC?'text-xs padding-tb-xs':'text-df padding-tb-sm'}`">
                                     <span>已筹</span>
-                                    <span class="text-red text-sm">￥77768</span>
+                                    <span class="text-red text-sm">￥{{item.current_money}}</span>
                                 </p>
-                                <div class="relative bg-grayLight radius-sm" style="height:5px;">
+                                <div class="relative bg-grayLight radius-sm" :style="`height:${isPC?'5px':(8/46.875) + 'rem'};`">
                                     <div class="absolute absolute-t absolute-l bg-gradualYellow radius-sm transition-sm"
-                                         style="width:50%;height:100%;">
-                                    <span :class="[
+                                         :style="`width:${item.progress}%;height:100%;`">
+                                    <span v-if="item.progress > 0" :class="[
                                     'absolute absolute-r bg-gradualYellow',
-                                    ' text-xs text-white text-center radius-round-xs'
-                                    ]" style="padding:5px;top:-10px;">50%</span>
+                                    'text-white text-center radius-round-xs',
+                                    `${isPC?'text-xs':'text-df'}`
+                                    ]" :style="`padding:5px;transform:translate(${item.progress>=95?'0':'100%'},-40%);`">
+                                        {{item.progress}}%
+                                    </span>
                                     </div>
                                 </div>
                                 <div class="flex padding-tb-sm">
                                     <div class="basis-df radius-sm solid padding-tb-xs">
-                                        <div class="text-center text-black text-sm">¥100000</div>
-                                        <div class="text-xs text-darkGray flex items-center justify-center">
-                                            <i class="cuIcon-recharge text-sm"></i>目标金额
+                                        <div :class="`text-center text-black ${isPC?'text-sm':'text-df'}`">¥{{item.price}}</div>
+                                        <div :class="`${isPC?'text-xs':'text-df'} text-darkGray flex items-center justify-center`">
+                                            <i :class="`cuIcon-recharge ${isPC?'text-sm':'text-df'}`"></i>目标金额
                                         </div>
                                     </div>
                                     <div class="basis-df margin-lr-xs radius-sm solid padding-tb-xs">
-                                        <div class="text-center text-black text-sm">23</div>
-                                        <div class="text-xs text-darkGray flex items-center justify-center">
-                                            <i class="cuIcon-friend text-sm"></i>支持人数
+                                        <div :class="`text-center text-black ${isPC?'text-sm':'text-df'}`">{{item.user_num}}</div>
+                                        <div :class="`${isPC?'text-xs':'text-df'} text-darkGray flex items-center justify-center`">
+                                            <i :class="`cuIcon-friend ${isPC?'text-sm':'text-df'}`"></i>支持人数
                                         </div>
                                     </div>
                                     <div class="basis-df radius-sm solid padding-tb-xs">
-                                        <div class="text-center text-black text-sm">0天</div>
-                                        <div class="text-xs text-darkGray flex items-center justify-center">
-                                            <i class="cuIcon-time text-sm"></i>剩余时间
+                                        <div :class="`text-center text-black ${isPC?'text-sm':'text-df'}`">{{item.days}}天</div>
+                                        <div :class="`${isPC?'text-xs':'text-df'} text-darkGray flex items-center justify-center`">
+                                            <i :class="`cuIcon-time ${isPC?'text-sm':'text-df'}`"></i>剩余时间
                                         </div>
                                     </div>
                                 </div>
@@ -113,28 +118,52 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
+import {Getter} from "vuex-class";
+import service from "@/api/request";
+
 @Component({})
 export default class OperatingProjects extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
+    private isPC: boolean;
+    private navActive: number;
+    private product: ServiceProductDetail[];
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.navActive = 0;
+        this.product = [];
+    }
     @Prop({
         type: Boolean,
         required: false,
         default: false
     }) visible !: boolean
-    switchType = [{
-        name:'全部',
-        className: `${this.isPC?'text-xs margin-lr-df':'text-df margin-lr-sm'}`
-    },{
-        name:'人气新品',
-        className: `${this.isPC?'text-xs margin-lr-df':'text-df margin-lr-sm'}`
-    },{
-        name:'消费众筹',
-        className: `${this.isPC?'text-xs margin-lr-df':'text-df margin-lr-sm'}`
-    },{
-        name:'权益众筹',
-        className: `${this.isPC?'text-xs margin-lr-df':'text-df margin-lr-sm'}`
-    }];
+
+    @Getter('productNav') Nav: any
+    @Watch('Nav')
+    NavChange (nav: [{id: number}]) {
+        this.getProductList({type: nav[0].id,page: 1,limit: 3});
+    }
+
+    getProductList (params: ServicePagination) {
+        this.navActive = params.type;
+        service.getProductList(params).then(response => {
+            const {list} = response.data;
+            this.product = list.map((item: ServiceProductDetail) => item);
+        }).catch(error => {
+            console.log(error,'===================');
+        });
+    }
+
+    switchProduct (id: number) {
+        this.getProductList({type: id,page: 1,limit: 3});
+    }
+
+    mounted(): void {
+        if (this.Nav[0]) {
+            this.getProductList({type: this.Nav[0].id,page: 1,limit: 3});
+        }
+    }
 }
 </script>

@@ -5,6 +5,11 @@ const service = {
         url: '/addons/cydweb/api.index/index',
         method: 'GET'
     }),
+    getProductList: (params: ServicePagination): Promise<ServiceResult<ServiceProductDetail[]>> => request({
+        url: '/addons/cydweb/api.index/productList',
+        method: 'GET',
+        params
+    }),
     getDesignerList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
         url: '/addons/cydweb/api.index/designerList',
         method: 'GET',
