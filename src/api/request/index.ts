@@ -10,6 +10,11 @@ const service = {
         method: 'GET',
         params
     }),
+    getProductDetails: (params: {id: number}): Promise<{data: ServiceProductDetail}> => request({
+        url: '/addons/cydweb/api.index/productDetail',
+        method: 'GET',
+        params
+    }),
     getDesignerList: (params?: ServicePagination): Promise<ServiceResult<object[]>> => request({
         url: '/addons/cydweb/api.index/designerList',
         method: 'GET',

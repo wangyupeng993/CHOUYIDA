@@ -120,7 +120,8 @@
                             </div>
                         </div>
                         <div :class="`${isPC?'text-sm':'text-df'} text-center case-btn`">
-                            <router-link to="/operation/details" class="padding-tb-xs block">
+                            <router-link :to="{path: '/operation/details',query: {id: item.id}}"
+                                         class="padding-tb-xs block">
                                 查看案例
                             </router-link>
                         </div>
