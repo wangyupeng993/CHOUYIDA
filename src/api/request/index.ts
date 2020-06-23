@@ -68,6 +68,10 @@ const service = {
         url: '/addons/cydweb/api.index/partnerDetail',
         method: 'GET',
         params
+    }),
+    getAbout: (): Promise<{data: object}> => request({
+        url: '/addons/cydweb/api.index/about',
+        method: 'GET'
     })
 }
 

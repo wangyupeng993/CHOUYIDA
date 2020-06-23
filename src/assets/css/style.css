@@ -169,6 +169,10 @@
     background-size:200px 13px;
 }
 
+.about-details img{
+    width: 100% !important;
+}
+
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{
     width:6px;
