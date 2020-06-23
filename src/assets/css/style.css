@@ -164,6 +164,11 @@
     color:#52B16E !important;
 }
 
+.xuxian_bg{
+    background:url('../../assets/images/xuxian.png') repeat-x center center;
+    background-size:200px 13px;
+}
+
 /*!* 滚动条整体部分 *!
 .scrollbar::-webkit-scrollbar{
     width:6px;

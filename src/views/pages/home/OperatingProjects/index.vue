@@ -84,17 +84,37 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="padding-tb-xs flex hidden" style="color:#EEEEEE;">
-                                    <div class="basis-df">
-                                        <i class="cuIcon-dashed text-xs"></i>
+                                <div class="padding-tb-xs flex xuxian_bg">
+                                    <div class="basis-sm flex items-center">
+                                        <img width="40px" height="40px"
+                                             :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                             :src="require(`@/assets/images/operation/${item.draftImg}.png`)" alt="" />
                                     </div>
-                                    <div class=""></div>
-                                    <div class="basis-df">
-                                        <i class="cuIcon-dashed text-xs"></i>
+                                    <div class="basis-df flex items-center justify-center">
+                                        <img width="40px" height="40px"
+                                             :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                             :src="require(`@/assets/images/operation/${item.doingImg}.png`)" alt="" />
+                                    </div>
+                                    <div class="basis-df flex items-center justify-center">
+                                        <img width="40px" height="40px"
+                                             :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                             :src="require(`@/assets/images/operation/${item.successImg}.png`)" alt="" />
+                                    </div>
+                                    <div class="basis-sm flex items-center justify-end">
+                                        <img width="40px" height="40px"
+                                             :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                             :src="require(`@/assets/images/operation/${item.finishImg}.png`)" alt="" />
                                     </div>
                                 </div>
+
+                                <div :class="`padding-bottom-xs flex ${isPC?'text-sm':'text-df'} text-black`">
+                                    <div class="basis-sm">即将开始</div>
+                                    <div class="basis-df text-center">{{item.status === 'failed'?'未成功':'进行中'}}</div>
+                                    <div class="basis-df text-center">发货</div>
+                                    <div class="basis-sm text-right">完成</div>
+                                </div>
                             </div>
-                            <div class="text-sm text-center case-btn">
+                            <div :class="`${isPC?'text-sm':'text-df'} text-center case-btn`">
                                 <router-link to="/operation/details" class="padding-tb-xs block">
                                     查看案例
                                 </router-link>
@@ -150,7 +170,32 @@ export default class OperatingProjects extends Vue {
         this.navActive = params.type;
         service.getProductList(params).then(response => {
             const {list} = response.data;
-            this.product = list.map((item: ServiceProductDetail) => item);
+            this.product = list.map((item: ServiceProductDetail) => {
+                if (item.status === 'draft') {
+                    item.draftImg = 'draft_1';
+                }else{
+                    item.draftImg = 'waiting';
+                }
+
+                if (item.status !== 'draft'&&item.status !== 'failed') {
+                    item.doingImg = 'doing';
+                }else{
+                    item.doingImg = 'draft_2';
+                }
+
+                if (item.status === 'success'||item.status === 'finish') {
+                    item.successImg = 'success';
+                }else{
+                    item.successImg = 'draft_3';
+                }
+
+                if (item.status === 'finish') {
+                    item.finishImg = 'finish';
+                }else{
+                    item.finishImg = 'draft_4';
+                }
+                return item;
+            });
         }).catch(error => {
             console.log(error,'===================');
         });

@@ -37,7 +37,7 @@
 
             <div class="flex padding-bottom-df flex-wrap-wrap">
                 <div :class="[
-                    'bg-white hidden pointer inline-block margin-bottom-df',
+                    'bg-white hidden pointer inline-block margin-bottom-df radius-xl',
                     `${isPC?'basis-30 margin-lr-xs':'basis-df'} Operating-case`
                     ]" :style="`width:${isPC?'':(518/46.875)+'rem'};`" v-for="item in product" :key="item.id">
                     <div :class="`${isPC?'':'margin-lr-xs'} radius-xl hidden`">
@@ -69,7 +69,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div :class="`${isPC?'flex':''}padding-tb-sm`">
+                            <div :class="`${isPC?'flex':''} padding-tb-sm`">
                                 <div class="basis-df radius-sm solid padding-tb-xs">
                                     <div :class="`text-center text-black ${isPC?'text-sm':'text-df'}`">¥{{item.price}}</div>
                                     <div :class="`${isPC?'text-xs':'text-df'} text-darkGray flex items-center justify-center`">
@@ -89,17 +89,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="padding-tb-xs flex hidden" style="color:#EEEEEE;">
-                                <div class="basis-df">
-                                    <i class="cuIcon-dashed text-xs"></i>
+                            <div class="padding-tb-xs flex xuxian_bg">
+                                <div class="basis-sm flex items-center">
+                                    <img width="40px" height="40px"
+                                         :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                         :src="require(`@/assets/images/operation/${item.draftImg}.png`)" alt="" />
                                 </div>
-                                <div class=""></div>
-                                <div class="basis-df">
-                                    <i class="cuIcon-dashed text-xs"></i>
+                                <div class="basis-df flex items-center justify-center">
+                                    <img width="40px" height="40px"
+                                         :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                         :src="require(`@/assets/images/operation/${item.doingImg}.png`)" alt="" />
+                                </div>
+                                <div class="basis-df flex items-center justify-center">
+                                    <img width="40px" height="40px"
+                                         :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                         :src="require(`@/assets/images/operation/${item.successImg}.png`)" alt="" />
+                                </div>
+                                <div class="basis-sm flex items-center justify-end">
+                                    <img width="40px" height="40px"
+                                         :style="`width:${isPC?'':(40/46.875)+'rem'};height:${isPC?'':(40/46.875)+'rem'};`"
+                                         :src="require(`@/assets/images/operation/${item.finishImg}.png`)" alt="" />
                                 </div>
                             </div>
+
+                            <div :class="`padding-bottom-xs flex ${isPC?'text-xs':'text-sm'} text-black`">
+                                <div class="basis-sm">即将开始</div>
+                                <div class="basis-df text-center">{{item.status === 'failed'?'未成功':'进行中'}}</div>
+                                <div class="basis-df text-center">发货</div>
+                                <div class="basis-sm text-right">完成</div>
+                            </div>
                         </div>
-                        <div class="text-sm text-center case-btn">
+                        <div :class="`${isPC?'text-sm':'text-df'} text-center case-btn`">
                             <router-link to="/operation/details" class="padding-tb-xs block">
                                 查看案例
                             </router-link>
@@ -163,9 +183,59 @@ export default class Operstion extends Vue {
             };
             this.Loading = false;
             if (this.isPC) {
-                this.product = list.map((item: ServiceProductDetail) => item);
+                this.product = list.map((item: ServiceProductDetail) => {
+                    if (item.status === 'draft') {
+                        item.draftImg = 'draft_1';
+                    }else{
+                        item.draftImg = 'waiting';
+                    }
+
+                    if (item.status !== 'draft'&&item.status !== 'failed') {
+                        item.doingImg = 'doing';
+                    }else{
+                        item.doingImg = 'draft_2';
+                    }
+
+                    if (item.status === 'success'||item.status === 'finish') {
+                        item.successImg = 'success';
+                    }else{
+                        item.successImg = 'draft_3';
+                    }
+
+                    if (item.status === 'finish') {
+                        item.finishImg = 'finish';
+                    }else{
+                        item.finishImg = 'draft_4';
+                    }
+                    return item;
+                });
             }else{
-                this.product = [...this.product,...list.map((item: ServiceProductDetail) => item)];
+                this.product = [...this.product,...list.map((item: ServiceProductDetail) => {
+                    if (item.status === 'draft') {
+                        item.draftImg = 'draft_1';
+                    }else{
+                        item.draftImg = 'waiting';
+                    }
+
+                    if (item.status !== 'draft'&&item.status !== 'failed') {
+                        item.doingImg = 'doing';
+                    }else{
+                        item.doingImg = 'draft_2';
+                    }
+
+                    if (item.status === 'success'||item.status === 'finish') {
+                        item.successImg = 'success';
+                    }else{
+                        item.successImg = 'draft_3';
+                    }
+
+                    if (item.status === 'finish') {
+                        item.finishImg = 'finish';
+                    }else{
+                        item.finishImg = 'draft_4';
+                    }
+                    return item;
+                })];
             }
         }).catch(error => {this.Loading = false;});
     }

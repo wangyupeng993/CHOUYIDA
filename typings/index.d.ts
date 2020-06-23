@@ -98,4 +98,8 @@ interface ServiceProductDetail {
     status_text: string
     dispatch_type_text: string
     progress: number
+    draftImg: string
+    doingImg: string
+    successImg: string
+    finishImg: string
 }
