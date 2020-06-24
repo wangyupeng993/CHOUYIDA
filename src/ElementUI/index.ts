@@ -13,7 +13,8 @@ import {
     Upload,
     Collapse,
     CollapseItem,
-    Dialog
+    Dialog,
+    Input
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // fade/zoom 等
@@ -33,3 +34,4 @@ Vue.use(Upload)
 Vue.use(Collapse)
 Vue.use(CollapseItem)
 Vue.use(Dialog)
+Vue.use(Input)

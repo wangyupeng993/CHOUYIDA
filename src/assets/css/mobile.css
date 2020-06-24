@@ -406,4 +406,27 @@
 .isMobile .el-dialog__header {
   display: none;
 }
+.isMobile .el-upload-list--picture-card .el-upload-list__item,
+.isMobile .el-upload--picture-card {
+  width: 3.15733333rem !important;
+  height: 3.15733333rem !important;
+}
+.isMobile .el-upload--picture-card {
+  line-height: 3.11466667rem !important;
+}
+.isMobile .el-upload-list--picture-card .el-upload-list__item-actions {
+  opacity: 1 !important;
+}
+.isMobile .el-upload-list--picture-card .el-upload-list__item-actions span,
+.isMobile .el-upload-list__item-delete {
+  display: inline-block !important;
+}
+.isMobile .el-upload-list--picture-card .el-upload-list__item-actions span .el-icon-delete,
+.isMobile .el-upload-list__item-delete .el-icon-delete {
+  font-size: 0.85333333rem !important;
+}
+.isMobile .el-textarea textarea,
+.isMobile .el-textarea .el-input__count {
+  font-size: 0.59733333rem !important;
+}
 /*# sourceMappingURL=mobile.css.map */

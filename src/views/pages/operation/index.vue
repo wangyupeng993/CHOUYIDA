@@ -44,7 +44,7 @@
                         <div class="bg-blueLight">
                             <img width="100%" class="object-fit-cover"
                                  :style="`height:${isPC?'232px':(232/46.875)+'rem'};`"
-                                 :src="item.image" alt="" />
+                                 :src="`https://image.chouyida.eshchat.com${item.image}`" alt="" />
                         </div>
                         <div class="margin-lr-sm">
                             <div :class="`${isPC?'text-df':'text-xl'} text-hidden padding-top-xs`">

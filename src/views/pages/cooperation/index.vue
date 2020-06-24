@@ -38,45 +38,52 @@
                          style="border-bottom:1px solid rgba(238,238,238,1);">
                         <span class="basis-xs line-height-lg">项目类型</span>
                         <input :class="`basis-max text-right line-height-lg text-black ${isPC?' text-sm':' text-df'}`"
-                               type="text" name="" placeholder="请填写" />
+                               v-model="cooperation.type"
+                               type="text" name="type" placeholder="请填写" />
                     </div>
                     <div :class="`flex padding-tb-xs text-black ${isPC?' text-sm':' text-df'}`"
                          style="border-bottom:1px solid rgba(238,238,238,1);">
                         <span class="basis-xs line-height-lg">联系人</span>
                         <input :class="`basis-max text-right line-height-lg text-black ${isPC?' text-sm':' text-df'}`"
-                               type="text" name="" placeholder="请输入姓名" />
+                               v-model="cooperation.username"
+                               type="text" name="username" placeholder="请输入姓名" />
                     </div>
                     <div :class="`flex padding-tb-xs text-black ${isPC?' text-sm':' text-df'}`"
                          style="border-bottom:1px solid rgba(238,238,238,1);">
                         <span class="basis-xs line-height-lg">联系电话</span>
                         <input :class="`basis-max text-right line-height-lg text-black ${isPC?' text-sm':' text-df'}`"
-                               type="text" name="" placeholder="请输入11位手机号码" />
+                               v-model="cooperation.mobile"
+                               type="numbr" name="mobile" placeholder="请输入11位手机号码" />
                     </div>
                     <div :class="`flex padding-tb-xs text-black ${isPC?' text-sm':' text-df'}`"
                          style="border-bottom:1px solid rgba(238,238,238,1);">
                         <span class="basis-xs line-height-lg">微信</span>
                         <input :class="`basis-max text-right line-height-lg text-black ${isPC?' text-sm':' text-df'}`"
-                               type="text" name="" placeholder="请填写微信号" />
+                               v-model="cooperation.wechat_num"
+                               type="text" name="wechat_num" placeholder="请填写微信号" />
                     </div>
                     <div :class="`flex padding-tb-xs text-black ${isPC?' text-sm':' text-df'}`"
                          style="border-bottom:1px solid rgba(238,238,238,1);">
                         <span class="basis-xs line-height-lg">简单聊号</span>
                         <input :class="`basis-max text-right line-height-lg text-black ${isPC?' text-sm':' text-df'}`"
-                               type="text" name="" placeholder="请填写简单聊号" />
+                               v-model="cooperation.easy_num"
+                               type="text" name="easy_num" placeholder="请填写简单聊号" />
                     </div>
                     <div :class="`flex padding-tb-xs text-black ${isPC?' text-sm':' text-df'}`">
                         <span class="basis-xs line-height-lg">项目简介</span>
                     </div>
                     <div class="flex direction-column" style="border:1px solid rgba(229,229,229,1);">
-                        <textarea :class="`basis-df padding-xs text-black ${isPC?'text-sm':'text-df'}`"
-                                  name="" id="" cols="30" rows="10" maxlength="1000"
-                                  placeholder="请输入1000字以内字符"></textarea>
+                        <el-input type="textarea" placeholder="请输入1000字以内字符"
+                                  resize="none" rows="10" v-model="cooperation.detail"
+                                  maxlength="1000" show-word-limit
+                        >
+                        </el-input>
                         <div>
                             <el-upload
-                                    action=""
-                                    class="margin-xs"
+                                    action="" :auto-upload="false"
+                                    class="margin-xs" :multiple="true"
                                     list-type="picture-card">
-                                <i class="el-icon-plus"></i>
+                                <i :class="`${isPC?'':'text-xl'} el-icon-plus`"></i>
                             </el-upload>
                         </div>
                     </div>
@@ -99,10 +106,29 @@ import Footer from "@/components/Footer/index.vue";
     components:{Footer}
 })
 export default class Cooperation extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
+    private isPC: boolean;
+    private cooperation: cooperationAttr;
+    constructor () {
+        super();
+        this.isPC = ObjectDetection.isPCBroswer();
+        this.cooperation = {
+            type: '',
+            username: '',
+            mobile: '',
+            wechat_num: '',
+            easy_num: '',
+            detail: '',
+            image_url: ''
+        }
+    }
 
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
     }
 }
 </script>
+<style>
+    .el-textarea__inner{
+        border:none !important;
+    }
+</style>

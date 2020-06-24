@@ -9,18 +9,15 @@
                     <div :class="`text-white ${isPC?'text-sm':'text-lg'}`">首页 > {{$route.meta.title}}</div>
                 </div>
 
-                <div class="text-white">
+                <div class="text-white padding-bottom-lg">
                     <h1 :class="`padding-bottom-sm ${isPC?'':'text-lg text-bold'}`">{{product.title}}</h1>
-                    <p class="text-justify line-height-sm text-df padding-bottom-xl">
-                        案例介绍案例介绍案例介绍案例介绍案例介绍案例介绍案例介绍案例介绍案例介绍案例介绍案例介绍
-                        案例介绍案例介绍案例介绍案例介绍案例介绍
-                    </p>
+                    <p class="text-justify line-height-sm text-df padding-bottom-xl"></p>
                 </div>
 
-                <div class="bg-white shadow padding-df margin-top-df">
+                <div class="bg-white shadow padding-df margin-top-xl">
                     <div class="text-center padding-tb-df">
                         <img :style="`width:${isPC?'679px':'100%'};height:${isPC?'456px':''};`"
-                             :src="product.image" alt="" />
+                             :src="`https://image.chouyida.eshchat.com${product.image}`" alt="" />
                     </div>
 
                     <div :style="`width:${isPC?'679px':''};margin:0 auto;`">
@@ -41,19 +38,16 @@
                                  :style="`width:${product.progress}%;height:100%;`"></div>
                         </div>
 
-                        <div class="text-center padding-top-df">
+                        <!--<div class="text-center padding-top-df">
                             <img :style="`width:${isPC?'152px':(152/46.875)+'rem'};`"
                                  src="@/assets/images/footer/code.png" alt="" />
                             <p :class="`text-black ${isPC?'text-sm':'text-df'} padding-tb-sm`">扫描二维码下载</p>
-                        </div>
+                        </div>-->
                     </div>
 
                     <div class="text-black">
                         <h2 :class="`${isPC?'':'text-lg'} padding-tb-sm`">{{product.title}}</h2>
-                        <p :class="`${isPC?'text-sm':'text-df'} text-justify line-height-sm`">
-                            内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内
-                            内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内
-                        </p>
+                        <p :class="`${isPC?'text-sm':'text-df'} text-justify line-height-sm`">{{product.content}}</p>
                     </div>
                 </div>
             </div>
@@ -83,7 +77,6 @@ export default class OperationDetails extends Vue {
         service.getProductDetails({id: Number(id)}).then(response => {
             const {data} = response;
             this.product = data;
-            console.log(response,'========================');
         }).catch(error => {
             console.log(error,'====================');
         });

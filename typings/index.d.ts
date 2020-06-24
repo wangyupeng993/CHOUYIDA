@@ -103,3 +103,13 @@ interface ServiceProductDetail {
     successImg: string
     finishImg: string
 }
+
+interface cooperationAttr {
+    type: string
+    username: string
+    mobile: string
+    wechat_num: string
+    easy_num: string
+    detail: string
+    image_url: string
+}
