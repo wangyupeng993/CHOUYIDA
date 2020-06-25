@@ -130,7 +130,7 @@
             </div>
             <div v-if="isPC" class="flex justify-center padding-bottom-df">
                 <Pagination background :page-size="Number(paging.limit)"
-                            :current-page="paging.page" :total="paging.count"
+                            :current-page.sync="paging.page" :total.sync="paging.count"
                             @current-change="handlePageChange"/>
             </div>
         </div>
@@ -145,6 +145,7 @@ import Footer from "@/components/Footer/index.vue";
 import Pagination from "@/components/pagination/index.vue";
 import {Getter} from "vuex-class";
 import service from "@/api/request";
+import BScroll from "better-scroll";
 
 @Component({
     components:{Footer,Pagination}
@@ -261,14 +262,15 @@ export default class Operstion extends Vue {
         this.getProductList({type: this.navActive,limit: 8,page: 1,keyword: this.paging.keyword});
     }
 
-    async onPullingUp () {
+    async onPullingUp (scroll: BScroll) {
         const {page,countPage} = this.paging;
-        if (Number(page) >= Number(countPage)) return false;
+        if (Number(page) >= Number(countPage)||this.Loading) return false;
         await this.getProductList({
             ...this.paging,
             type: this.navActive,
             page:(Number(page) + 1)
         });
+        await scroll.refresh();
     }
 
     async onPullingDown () {

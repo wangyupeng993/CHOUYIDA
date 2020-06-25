@@ -73,6 +73,7 @@ import Pagination from "@/components/pagination/index.vue";
 import {Getter} from "vuex-class";
 import {formatTime} from "@/api/methods/common";
 import service from "@/api/request";
+import BScroll from "better-scroll";
 @Component({
     components:{Footer,Pagination}
 })
@@ -137,14 +138,15 @@ export default class Recruitment extends Vue {
         this.getRecruitmentList(this.paging );
     }
 
-    async onPullingUp () {
+    async onPullingUp (scroll: BScroll) {
         const {page,countPage} = this.paging;
-        if (Number(page) >= Number(countPage)) return false;
+        if (Number(page) >= Number(countPage)||this.Loading) return false;
         await this.getRecruitmentList({
             ...this.paging,
             type: this.navActive,
             page: (Number(page) + 1)
         });
+        await scroll.refresh();
     }
 
     async onPullingDown () {

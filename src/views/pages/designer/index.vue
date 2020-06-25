@@ -86,6 +86,7 @@ import Footer from "@/components/Footer/index.vue";
 import Pagination from "@/components/pagination/index.vue";
 import {Getter} from "vuex-class";
 import service from "@/api/request";
+import BScroll from "better-scroll";
 @Component({
     components:{Footer,Pagination}
 })
@@ -151,14 +152,15 @@ export default class Designer extends Vue {
         this.getDesignerList(this.paging);
     }
 
-    async onPullingUp () {
+    async onPullingUp (scroll: BScroll) {
         const {page,countPage} = this.paging;
-        if (Number(page) >= Number(countPage)) return false;
+        if (Number(page) >= Number(countPage)||this.Loading) return false;
         await this.getDesignerList({
             ...this.paging,
             type: this.navActive,
             page:(Number(page) + 1)
         });
+        await scroll.refresh();
     }
 
     async onPullingDown () {

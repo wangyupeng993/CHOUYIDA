@@ -42,8 +42,12 @@ export default class Pagination extends Vue {
     }) background !: boolean;
 
     @Emit('current-change')
-    private handleChange () {
-        return {limit: this.pageSize,page: this.currentPage}
+    private handleChange (pages: number) {
+        return {limit: this.pageSize,page: pages}
+    }
+
+    mounted(): void {
+        console.log(this.currentPage,'==================');
     }
 }
 </script>
