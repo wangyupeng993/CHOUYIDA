@@ -72,7 +72,17 @@ const service = {
     getAbout: (): Promise<{data: object}> => request({
         url: '/addons/cydweb/api.index/about',
         method: 'GET'
+    }),
+    saveCooperation: (data: cooperationAttr): Promise<ServiceResultObject<any[]>> => request({
+        url: '/addons/cydweb/api.index/saveCooperation',
+        method: 'POST',
+        data
+    }),
+    getQiniuToken: (): Promise<{data: {upload_token: string}}> => request({
+        url: '/addons/shopro/qiniu/getToken',
+        method: 'GET'
     })
 }
+
 
 export default service;

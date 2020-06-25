@@ -18,7 +18,16 @@ module.exports = {
                 pathRequiresRewrite: {
                     '^/addons': '/addons'
                 }
-            }
+            },
+            '/api': {
+                target: baseURL,
+                ws: true,
+                https: true,
+                changeOrigin: true,
+                pathRequiresRewrite: {
+                    '^/api': '/api'
+                }
+            },
         }
     },
     // 开发配置

@@ -82,19 +82,21 @@
                             <el-upload
                                     action="" :auto-upload="false"
                                     class="margin-xs" :multiple="true"
-                                    list-type="picture-card">
+                                    list-type="picture-card" :on-change="uploadImage">
                                 <i :class="`${isPC?'':'text-xl'} el-icon-plus`"></i>
                             </el-upload>
                         </div>
                     </div>
                     <div class="flex padding-tb-sm">
-                        <button class="basis-max padding-tb-xs radius-round-sm text-df text-white bg-darkGreen pointer">
+                        <button @click="saveCooperation"
+                                class="basis-max padding-tb-xs radius-round-sm text-df text-white bg-darkGreen pointer">
                             提 交
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+        <WarningReminder v-if="visible" :message.sync="Message" @handle-confirm="handleConfirm"></WarningReminder>
         <Footer />
     </scroll-view>
 </template>
@@ -102,15 +104,26 @@
 import { Component, Vue } from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
 import Footer from "@/components/Footer/index.vue";
+import {upload} from 'qiniu-js';
+import service from "@/api/request";
+import WarningReminder from "@/views/pages/cooperation/WarningReminder/index.vue";
 @Component({
-    components:{Footer}
+    components:{Footer,WarningReminder}
 })
 export default class Cooperation extends Vue {
     private isPC: boolean;
     private cooperation: cooperationAttr;
+    private qnToken: string;
+    private visible: boolean;
+    private Message: string;
+    private ImageUrl: string[];
     constructor () {
         super();
         this.isPC = ObjectDetection.isPCBroswer();
+        this.qnToken = '';
+        this.visible = false;
+        this.Message = '';
+        this.ImageUrl = [];
         this.cooperation = {
             type: '',
             username: '',
@@ -124,6 +137,72 @@ export default class Cooperation extends Vue {
 
     mousewheel = (ev: Element) => {
         this.$store.commit('getScrollTop',ev.scrollTop);
+    }
+
+    getQiniuToken () {
+        service.getQiniuToken().then(response => {
+            this.qnToken = response.data.upload_token;
+        });
+    }
+
+    async uploadImage (files: {raw: File}) {
+        const qnObservable = await upload(files.raw,files.raw.name,this.qnToken,{},{
+            useCdnDomain: true,
+            region: 'z0'
+        });
+        qnObservable.subscribe({
+            next: (next: any) => {
+                console.log(next,'===============');
+            },
+            error: (error: any) => {
+                console.log(error,'=====================');
+            },
+            complete: (result: any) => {
+                const {key} = result;
+                this.ImageUrl.push(`https://image.chouyida.com/${key}`);
+            }
+        })
+        console.log(files,'======================');
+    }
+
+    saveCooperation () {
+        if (!ObjectDetection.isPhone(this.cooperation.mobile)) {
+            this.visible = true;
+            this.Message = '手机号码不正确!!!';
+            return false;
+        }
+
+        if (ObjectDetection.isNull(this.cooperation.easy_num)||
+            ObjectDetection.isNull(this.cooperation.wechat_num)||
+            ObjectDetection.isNull(this.cooperation.username)||
+            ObjectDetection.isNull(this.cooperation.type)||
+            ObjectDetection.isNull(this.cooperation.detail)) {
+            this.visible = true;
+            this.Message = '信息不完善，请完善信息！';
+            return false;
+        } else {
+            service.saveCooperation({
+                ...this.cooperation,
+                image_url: this.ImageUrl.join(',')
+            }).then(response => {
+                const {code} = response;
+                if (Number(code) === 1) {
+                    this.visible = true;
+                    this.Message = '登记成功！请耐心等待，将在在1~5个工作日内将与您联系！';
+                }
+            }).catch(error => {
+                console.log(error,'===================');
+            });
+        }
+    }
+
+    handleConfirm (raw: {visible: boolean}) {
+        this.visible = raw.visible;
+        this.Message = ''
+    }
+
+    mounted(): void {
+        this.getQiniuToken();
     }
 }
 </script>
