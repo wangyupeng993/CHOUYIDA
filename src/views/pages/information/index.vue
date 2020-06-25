@@ -149,13 +149,14 @@ export default class Information extends Vue {
         await scroll.refresh();
     }
 
-    async onPullingDown () {
+    async onPullingDown (scroll: BScroll) {
         this.information = [];
         await this.getNewsList({
             ...this.paging,
             type: this.navActive,
             page: 1
         });
+        await scroll.refresh();
     }
 
     recruitmentSearch () {

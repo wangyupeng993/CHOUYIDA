@@ -12,7 +12,8 @@
                         <p :class="`${isPC?'text-sm':'text-df'}`">{{item.meta.title}}</p>
                     </router-link>
                 </div>
-                <div class="basis-sm margin-lr-xs pointer relative attention-us" @click="showAttrntionCode">
+                <div :class="`basis-sm margin-lr-xs pointer relative ${isPC?'attention-us':''}`"
+                     @click="showAttrntionCode">
                     <i :class="`cuIcon-attention ${isPC?'text-lg':'text-xl'}`"></i>
                     <p :class="`${isPC?'text-sm':'text-df'}`">关注我们</p>
                     <div class="absolute absolute-l absolute-r margin-top-xl attention-us-code" style="top:-25px;">

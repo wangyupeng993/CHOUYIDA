@@ -163,13 +163,14 @@ export default class Designer extends Vue {
         await scroll.refresh();
     }
 
-    async onPullingDown () {
+    async onPullingDown (scroll: BScroll) {
         this.designer = [];
         await this.getDesignerList({
             ...this.paging,
             type: this.navActive,
             page: 1
         });
+        await scroll.refresh();
     }
 
     designerSearch () {

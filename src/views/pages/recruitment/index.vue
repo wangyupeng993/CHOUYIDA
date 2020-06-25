@@ -149,13 +149,14 @@ export default class Recruitment extends Vue {
         await scroll.refresh();
     }
 
-    async onPullingDown () {
+    async onPullingDown (scroll: BScroll) {
         this.recruitment= [];
         await this.getRecruitmentList({
             ...this.paging,
             type: this.navActive,
             page: 1
         });
+        await scroll.refresh();
     }
 
     recruitmentSearch () {
