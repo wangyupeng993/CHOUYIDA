@@ -12,7 +12,7 @@
                         <p :class="`${isPC?'text-sm':'text-df'}`">{{item.meta.title}}</p>
                     </router-link>
                 </div>
-                <div class="basis-sm margin-lr-xs pointer relative attention-us">
+                <div class="basis-sm margin-lr-xs pointer relative attention-us" @click="showAttrntionCode">
                     <i :class="`cuIcon-attention ${isPC?'text-lg':'text-xl'}`"></i>
                     <p :class="`${isPC?'text-sm':'text-df'}`">关注我们</p>
                     <div class="absolute absolute-l absolute-r margin-top-xl attention-us-code" style="top:-25px;">
@@ -28,22 +28,39 @@
                 </div>
             </div>
         </div>
+        <AttrntionCode v-if="visible" @handle-confirm="handleConfirm"></AttrntionCode>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import ObjectDetection from "@/api/methods/validator";
-import {RouterOptions} from "vue-router";
+import AttrntionCode from "@/views/pages/home/Banner/AttentionCode/index.vue";
 
-@Component({})
+@Component({
+    components: {AttrntionCode}
+})
 export default class Banner extends Vue {
-    isPC = ObjectDetection.isPCBroswer();
+    private isPC: boolean;
+    private visible: boolean;
+    constructor () {
+        super();
+        this.isPC =  ObjectDetection.isPCBroswer();
+        this.visible = false;
+    }
     get routes () {
         const RouterOptions: any = this.$router;
         const Routes = RouterOptions.options.routes;
         const whiteList: string[] = ['/login','/404','/NotFound','*','/','/attention']; // 不显示的白名单
         return Routes.filter((item: any) => item.hidden&&whiteList.indexOf(item.path) === -1);
+    }
+
+    showAttrntionCode () {
+        if (!this.isPC) this.visible = true;
+    }
+
+    handleConfirm (raw: {visible: boolean}) {
+        this.visible = raw.visible;
     }
 }
 </script>
