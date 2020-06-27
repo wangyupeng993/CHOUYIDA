@@ -389,6 +389,20 @@
   border-radius: 50%;
   color: #ffffff;
 }
+.isMobile .Operating-case .case-btn,
+.isMobile .Operating-case .case-btn a {
+  background: #e9efed;
+  color: #488E74;
+}
+.isMobile .Operating-case:hover {
+  transform: scale(1);
+  box-shadow: 0px 0px 0px rgba(82, 177, 110, 0);
+}
+.isMobile .Operating-case:hover .case-btn,
+.isMobile .Operating-case:hover .case-btn a {
+  background: #e9efed;
+  color: #488E74;
+}
 .isMobile .el-drawer__wrapper {
   top: 1.89866667rem !important;
 }
@@ -410,6 +424,8 @@
 .isMobile .el-upload--picture-card {
   width: 3.15733333rem !important;
   height: 3.15733333rem !important;
+  display: block !important;
+  float: left !important;
 }
 .isMobile .el-upload--picture-card {
   line-height: 3.11466667rem !important;

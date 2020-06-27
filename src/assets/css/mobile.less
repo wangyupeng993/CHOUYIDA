@@ -410,6 +410,19 @@
     color:#ffffff;
   }
 
+  .Operating-case .case-btn,.Operating-case .case-btn a{
+    background:rgba(233,239,237,1);
+    color:#488E74;
+  }
+  .Operating-case:hover{
+    transform: scale(1);
+    box-shadow:0px 0px 0px rgba(82,177,110,0);
+  }
+  .Operating-case:hover .case-btn,.Operating-case:hover .case-btn a{
+    background:rgba(233,239,237,1);
+    color:#488E74;
+  }
+
   .el-drawer__wrapper{
     top:89/@rem !important;
   }
@@ -431,9 +444,12 @@
   .el-dialog__header{
     display: none;
   }
+
   .el-upload-list--picture-card .el-upload-list__item,.el-upload--picture-card{
     width:148/@rem !important;
     height:148/@rem !important;
+    display: block !important;
+    float: left !important;
   }
   .el-upload--picture-card{
     line-height:146/@rem !important;

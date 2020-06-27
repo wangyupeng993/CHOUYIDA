@@ -78,7 +78,7 @@
                                   maxlength="1000" show-word-limit
                         >
                         </el-input>
-                        <div>
+                        <div class="margin-bottom-xs">
                             <el-upload
                                     action="" :auto-upload="false"
                                     class="margin-xs" :multiple="true"
