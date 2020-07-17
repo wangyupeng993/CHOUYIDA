@@ -1,4 +1,4 @@
-const baseURL = process.env.NODE_ENV === 'development'?'https://api.chouyida.com':'/';
+const baseURL = process.env.NODE_ENV === 'development'?'https://www.eswochi.com':'/';
 
 module.exports = {
     publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
