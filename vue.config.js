@@ -37,7 +37,7 @@ module.exports = {
     // 生产配置
     chainWebpack: config => {
         config.plugin('html').tap(args => {
-            args[0].title = '筹易达';
+            args[0].title = '我痴酒廊';
             return args;
         })
         // 压缩代码

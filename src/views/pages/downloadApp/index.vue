@@ -18,7 +18,7 @@
                     'text-black text-xxl padding-left-sm',
                     `${isPC?'margin-top-df margin-left-xl padding-top-xl':'padding-top-df'}`
                     ]">
-                        筹易达
+                        我痴酒廊
                     </div>
                     <p :class="[
                     ' text-black text-df padding-left-sm',

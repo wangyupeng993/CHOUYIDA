@@ -121,13 +121,13 @@ const routes = [
   {
     path: '/about',
     component: Layout,
-    meta: {title: '关于筹易达', icon: 'cuIcon-form',onelevel: true},
+    meta: {title: '关于我痴酒廊', icon: 'cuIcon-form',onelevel: true},
     hidden: true,
     children: [{
       path: '',
       name: 'About',
       component: () => import('@/views/pages/about/index.vue'),
-      meta: {title: '关于筹易达', icon: 'cuIcon-form'}
+      meta: {title: '关于我痴酒廊', icon: 'cuIcon-form'}
     }]
   },
   {
