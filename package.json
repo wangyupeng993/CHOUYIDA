@@ -21,7 +21,7 @@
     "element-ui": "^2.13.0",
     "qiniu-js": "^3.0.2",
     "resize-detector": "^0.2.2",
-    "swiper": "^5.4.1",
+    "swiper": "^6.5.1",
     "tslib": "latest",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
